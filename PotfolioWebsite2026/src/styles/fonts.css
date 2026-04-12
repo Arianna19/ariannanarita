@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Ojuju:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-heading: 'Ojuju', cursive;
+  --font-body: 'Poppins', sans-serif;
+}
+
+body,
+button,
+input,
+textarea,
+select,
+a {
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+[class*="font-['Ojuju"] {
+  font-family: var(--font-heading) !important;
+  font-style: normal !important;
+}
+
+[class*="font-['Ojuju:Bold"] {
+  font-weight: 700 !important;
+}
+
+[class*="font-['Ojuju:SemiBold"] {
+  font-weight: 600 !important;
+}
+
+[class*="font-['Ojuju:Regular"] {
+  font-weight: 400 !important;
+}
+
+[class*="font-['Poppins"] {
+  font-family: var(--font-body) !important;
+  font-style: normal !important;
+}
+
+[class*="font-['Poppins:Bold"] {
+  font-weight: 700 !important;
+}
+
+[class*="font-['Poppins:SemiBold"] {
+  font-weight: 600 !important;
+}
+
+[class*="font-['Poppins:Medium"] {
+  font-weight: 500 !important;
+}
+
+[class*="font-['Poppins:Regular"] {
+  font-weight: 400 !important;
+}

@@ -1,0 +1,344 @@
+import { motion } from 'motion/react';
+import { useEffect } from 'react';
+import { Link } from 'react-router';
+import WaveTransition from '../components/WaveTransition';
+import { UserIcon, DesignIcon, BrandingIcon, CodeIcon } from '../components/Icons';
+import portraitImage from '../../imports/arianna-portrait.jpg';
+
+const biographyParagraphs = [
+  'Arianna Sanchez Narita’s introduction to design began informally, experimenting with Microsoft PowerPoint in elementary school. While others focused on content, she became absorbed in layout, composition, and how far she could push the software visually. This curiosity developed further in high school, where she spent much of her time in the computer lab teaching herself Adobe Photoshop. What began as a way to fill empty lunch hours evolved into a genuine connection to visual design, driven by instinct, experimentation, and a fascination with digital creation.',
+  'Despite this early passion, Arianna stepped away from the art world in CEGEP to pursue computer science, following a more conventional path. This marked a period where she felt increasingly disconnected from herself. The structure of the field contrasted sharply with the creativity she had relied on, leading to frustration and loss. After shifting into psychology in search of direction, she realized through a game development course that the design aspects still mattered most to her.',
+  'Recognizing she had abandoned something essential, she redirected her path and entered Concordia University’s Computation Arts program, reestablishing her place within design. During her studies, Arianna developed a strong focus on UX and UI design, working with tools such as Figma and the Adobe Creative Suite to create user-centered digital experiences. Although she briefly explored 3D modeling, she recognized it did not align with her interests.',
+  'In contrast, she discovered a passion for sound design, creating audio for characters and environments and collaborating with an emerging film director on creature-based elements. Alongside this, she continued advancing her UX and graphic design practice, including contributing visual work for IA Financial Group.',
+  'Across her work, Arianna has become critical of the seriousness that dominates both design culture and everyday life. She challenges the idea that professionalism must come at the cost of personality, questioning why design often feels rigid and controlled. Through her work, she resists this by incorporating humor, relatability, and informality. She embraces the idea that being playful, imperfect, or even absurd is not only acceptable, but necessary to create meaningful human connection.',
+  'Her current practice combines UX, UI, graphic design, and sound to create immersive digital experiences. Moving forward, her work is shaped by the reality of the world around her, from global conflict and economic instability to rising costs, distrust in leadership, and AI reshaping industries. In the midst of this, design has become her way of staying grounded, a space to think clearly and create freely. Through her work, she aims to offer moments of relief, humor, and connection, something that cuts through the noise and reminds people that not everything has to feel so heavy. Ultimately, her goal is to create work that not only functions well, but helps people breathe a little easier in an overwhelming world.',
+];
+
+const journey = [
+  {
+    icon: DesignIcon,
+    border: 'border-[#ABCEE2]',
+    title: 'Early Visual Curiosity',
+    company: 'Elementary school to high school',
+    description:
+      'Started by pushing Microsoft PowerPoint far beyond its intended purpose, then taught herself Photoshop in the high school computer lab. Layout, experimentation, and visual instinct came first.',
+  },
+  {
+    icon: CodeIcon,
+    border: 'border-[#BF8351]',
+    title: 'Finding the Way Back',
+    company: 'CEGEP to Concordia',
+    description:
+      'Stepped into computer science, moved through psychology, then realized through game development that design was still the real pull. That realization led her back into Computation Arts.',
+  },
+  {
+    icon: BrandingIcon,
+    border: 'border-[#ABCEE2]',
+    title: 'Current Practice',
+    company: 'UX, UI, graphic design, and sound',
+    description:
+      'Builds user-centered digital experiences with humor, personality, and clarity, while also exploring sound design, immersive storytelling, and collaborative creative work.',
+  },
+];
+
+const education = [
+  {
+    title: 'Computation Arts Specialization',
+    detail: 'Concordia University',
+    meta: '2023 - Present',
+    note: 'Currently studying in the Computation Arts specialization, with a practice shaped by digital design, interaction, and creative technology.',
+  },
+  {
+    title: 'International Baccalaureate',
+    detail: 'Pensionnat Saint-Nom-de-Marie',
+    meta: 'Graduated 2020',
+    note: 'Completed high school through the International Baccalaureate program.',
+  },
+];
+
+const practiceNotes = [
+  'UX and UI design centered on people, not just polished screens',
+  'Graphic design that stays human, relatable, and a little less rigid',
+  'Sound design for characters, environments, and creature-based storytelling',
+  'Visual work contributed for IA Financial Group',
+];
+
+const philosophy = [
+  'Humor belongs in design when it helps people feel more human.',
+  'Professional does not need to mean stiff, distant, or joyless.',
+  'Good digital experiences should create clarity and a little breathing room.',
+];
+
+const skills = {
+  design: ['Figma', 'Adobe Photoshop', 'Adobe Creative Suite', 'Graphic Design', 'Visual Storytelling'],
+  digital: ['UX Design', 'UI Design', 'User-Centered Design', 'Prototyping', 'Game Development Context'],
+  expanded: ['Sound Design', 'Creature Audio', 'Environmental Audio', 'Creative Collaboration', 'Immersive Experiences'],
+};
+
+export default function BiographyPage() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="relative min-h-screen pb-20 pt-28 md:pt-32"
+    >
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 text-center md:mb-16"
+        >
+          <div className="mb-5 inline-block md:mb-6">
+            <UserIcon className="h-16 w-16 md:h-20 md:w-20" />
+          </div>
+          <h1 className="font-['Ojuju:Bold',sans-serif] text-5xl text-[#5B8FA3] drop-shadow-[0_1px_0_rgba(255,255,255,0.35)] sm:text-6xl">
+            Biography
+          </h1>
+          <div className="mx-auto mt-5 h-1 w-24 rounded-full bg-gradient-to-r from-[#ABCEE2] to-[#BF8351] md:mt-6 md:w-32" />
+        </motion.div>
+
+        <div className="mb-16 grid grid-cols-1 gap-8 lg:mb-20 lg:grid-cols-3 lg:gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-1"
+          >
+            <div className="rounded-[2rem] bg-white/95 p-6 shadow-xl backdrop-blur-sm sm:p-8 lg:sticky lg:top-32">
+              <div className="mb-6 overflow-hidden rounded-[1.75rem] border border-[#D5E7F2] bg-gradient-to-br from-[#D5E7F2] via-[#ABCEE2] to-[#E6C4A8]">
+                <img
+                  src={portraitImage}
+                  alt="Portrait illustration for Arianna Sanchez Narita"
+                  className="aspect-square w-full object-cover"
+                />
+              </div>
+              <h2 className="font-['Ojuju:Bold',sans-serif] text-2xl text-[#1E2939]">Arianna Sanchez Narita</h2>
+              <p className="mb-6 mt-2 font-['Poppins:Regular',sans-serif] text-[#BF8351]">
+                UX/UI Designer, Graphic Designer, and Sound Explorer
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 text-[#4A5565]">
+                  <div className="h-2.5 w-2.5 rounded-full bg-[#ABCEE2]" />
+                  <span className="font-['Poppins:Regular',sans-serif]">Based in Montreal</span>
+                </div>
+                <div className="flex items-center gap-3 text-[#4A5565]">
+                  <div className="h-2.5 w-2.5 rounded-full bg-[#BF8351]" />
+                  <span className="font-['Poppins:Regular',sans-serif]">Interested in digital experiences with personality</span>
+                </div>
+                <div className="flex items-center gap-3 text-[#4A5565]">
+                  <div className="h-2.5 w-2.5 rounded-full bg-[#ABCEE2]" />
+                  <span className="font-['Poppins:Regular',sans-serif]">Open to conversation, collaboration, and thoughtful projects</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="space-y-6 lg:col-span-2 lg:space-y-8"
+          >
+            <div className="rounded-[2rem] bg-white/95 p-7 shadow-xl backdrop-blur-sm sm:p-10 lg:p-12">
+              <h2 className="mb-6 font-['Ojuju:Bold',sans-serif] text-3xl text-[#BF8351] sm:text-4xl lg:mb-8">
+                My Story
+              </h2>
+
+              <div className="space-y-5 md:space-y-6">
+                {biographyParagraphs.map((paragraph) => (
+                  <p
+                    key={paragraph.slice(0, 48)}
+                    className="text-justify font-['Poppins:Regular',sans-serif] text-base leading-relaxed text-[#364153] sm:text-lg"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] bg-white/95 p-7 shadow-xl backdrop-blur-sm sm:p-10 lg:p-12">
+              <h2 className="mb-6 font-['Ojuju:Bold',sans-serif] text-3xl text-[#5B8FA3] sm:text-4xl lg:mb-8">
+                Journey Through Design
+              </h2>
+
+              <div className="space-y-8">
+                {journey.map((item) => (
+                  <div key={item.title} className={`border-l-4 ${item.border} pl-5 sm:pl-8`}>
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
+                      <item.icon className="h-11 w-11 flex-shrink-0 sm:h-12 sm:w-12" />
+                      <div>
+                        <h3 className="font-['Ojuju:Bold',sans-serif] text-2xl text-[#1E2939]">{item.title}</h3>
+                        <p className="mb-3 mt-2 font-['Poppins:SemiBold',sans-serif] text-[#BF8351]">{item.company}</p>
+                        <p className="font-['Poppins:Regular',sans-serif] leading-relaxed text-[#364153]">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="rounded-[1.75rem] bg-white/95 p-7 shadow-lg backdrop-blur-sm sm:p-8">
+                <h3 className="mb-6 font-['Ojuju:Bold',sans-serif] text-2xl text-[#5B8FA3]">Education</h3>
+                <div className="space-y-5">
+                  {education.map((item) => (
+                    <div key={item.title} className="rounded-[1.25rem] border border-[#D5E7F2] bg-[#F9FAFB]/95 p-5">
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                        <div>
+                          <h4 className="mb-1 font-['Poppins:SemiBold',sans-serif] text-[#1E2939]">{item.title}</h4>
+                          <p className="font-['Poppins:Medium',sans-serif] text-sm text-[#5B8FA3]">{item.detail}</p>
+                        </div>
+                        <span className="inline-flex w-fit rounded-full bg-[#E6C4A8] px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-xs text-[#A66D42]">
+                          {item.meta}
+                        </span>
+                      </div>
+                      <p className="mt-3 font-['Poppins:Regular',sans-serif] text-sm leading-6 text-[#4A5565]">
+                        {item.note}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[1.75rem] bg-white/95 p-7 shadow-lg backdrop-blur-sm sm:p-8">
+                <h3 className="mb-6 font-['Ojuju:Bold',sans-serif] text-2xl text-[#BF8351]">Current Practice</h3>
+                <ul className="space-y-3">
+                  {practiceNotes.map((item, index) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <div
+                        className={`mt-2 h-2 w-2 flex-shrink-0 rounded-full ${
+                          index % 2 === 0 ? 'bg-[#BF8351]' : 'bg-[#ABCEE2]'
+                        }`}
+                      />
+                      <span className="font-['Poppins:Regular',sans-serif] text-[#364153]">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      <WaveTransition variant="blue" />
+
+      <div className="py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-12 text-center md:mb-16"
+          >
+            <h2 className="font-['Ojuju:Bold',sans-serif] text-4xl text-[#5B8FA3] sm:text-5xl">Skills & Tools</h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8"
+          >
+            <div className="rounded-[1.75rem] border-l-4 border-[#ABCEE2] bg-[#F9FAFB]/95 p-7 shadow-lg backdrop-blur-sm sm:p-8">
+              <h3 className="mb-6 font-['Ojuju:Bold',sans-serif] text-xl text-[#1E2939]">Design Tools</h3>
+              <div className="flex flex-wrap gap-3">
+                {skills.design.map((tool) => (
+                  <span
+                    key={tool}
+                    className="rounded-full bg-[#D5E7F2] px-4 py-2 font-['Poppins:Medium',sans-serif] text-sm text-[#5B8FA3]"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[1.75rem] border-l-4 border-[#BF8351] bg-[#F9FAFB]/95 p-7 shadow-lg backdrop-blur-sm sm:p-8">
+              <h3 className="mb-6 font-['Ojuju:Bold',sans-serif] text-xl text-[#1E2939]">Digital Practice</h3>
+              <div className="flex flex-wrap gap-3">
+                {skills.digital.map((skill) => (
+                  <span
+                    key={skill}
+                    className="rounded-full bg-[#E6C4A8] px-4 py-2 font-['Poppins:Medium',sans-serif] text-sm text-[#A66D42]"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[1.75rem] border-l-4 border-[#ABCEE2] bg-[#F9FAFB]/95 p-7 shadow-lg backdrop-blur-sm sm:p-8">
+              <h3 className="mb-6 font-['Ojuju:Bold',sans-serif] text-xl text-[#1E2939]">Expanded Creative Work</h3>
+              <div className="flex flex-wrap gap-3">
+                {skills.expanded.map((spec) => (
+                  <span
+                    key={spec}
+                    className="rounded-full bg-[#D5E7F2] px-4 py-2 font-['Poppins:Medium',sans-serif] text-sm text-[#5B8FA3]"
+                  >
+                    {spec}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      <WaveTransition variant="orange" flip />
+
+      <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 md:px-8 md:py-20">
+        <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="rounded-[2rem] bg-white/95 p-8 shadow-xl backdrop-blur-sm sm:p-10"
+          >
+            <h3 className="mb-4 font-['Ojuju:Bold',sans-serif] text-3xl text-[#5B8FA3] sm:text-4xl">
+              Design Beliefs
+            </h3>
+            <ul className="space-y-4">
+              {philosophy.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <div className="mt-2 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-[#BF8351]" />
+                  <span className="font-['Poppins:Regular',sans-serif] leading-7 text-[#364153]">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="rounded-[2rem] bg-gradient-to-br from-[#BF8351] to-[#D6A882] p-8 text-white shadow-xl sm:p-10"
+          >
+            <h3 className="mb-4 font-['Ojuju:Bold',sans-serif] text-3xl sm:text-4xl">What the work is for</h3>
+            <p className="font-['Poppins:Regular',sans-serif] text-lg leading-8 text-white/95">
+              Arianna wants her work to do more than function well. She wants it to create clarity, humor, and moments of
+              relief in a world that already feels too heavy.
+            </p>
+            <Link
+              to="/contact"
+              className="mt-8 inline-block rounded-full bg-white px-8 py-4 font-['Ojuju:Bold',sans-serif] text-lg text-[#BF8351] shadow-lg transition-colors hover:bg-white/90"
+            >
+              Start a Conversation
+            </Link>
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}

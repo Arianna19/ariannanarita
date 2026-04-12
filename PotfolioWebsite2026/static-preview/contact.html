@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Ojuju:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="preview-styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="site-nav">
+        <div class="site-nav__inner">
+          <a class="brand" href="index.html">Arianna</a>
+          <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#work">Selected Work</a>
+            <a href="artist-statement.html">Artist Statement</a>
+            <a href="biography.html">Biography</a>
+          </div>
+          <div class="nav-actions">
+            <a class="button button--outline" href="#">Download CV</a>
+            <a class="button button--fill is-active" href="contact.html">Contact</a>
+          </div>
+        </div>
+      </nav>
+      <main>
+        <section class="page-hero">
+          <div class="eyebrow">Contact</div>
+          <h1>Easy to reach, easy to brief</h1>
+          <p class="page-hero__summary">Whether you are hiring, commissioning, or just curious about the work, this page gives people a quick way to contact you without digging through the site.</p>
+        </section>
+        <section class="page-section">
+          <div class="contact-grid">
+            <article class="contact-card reveal">
+              <h3 style="font-size: 2.2rem;">Send a message</h3>
+              <form class="form-grid" style="margin-top: 22px;">
+                <div><label>Name</label><input class="field" type="text" placeholder="Jane Doe" /></div>
+                <div><label>Email</label><input class="field" type="email" placeholder="jane@example.com" /></div>
+                <div><label>Subject</label><input class="field" type="text" placeholder="Project inquiry" /></div>
+                <div><label>Message</label><textarea class="field" rows="7" placeholder="Tell me what you are working on, what you need help with, and any timelines."></textarea></div>
+                <button class="button button--fill" type="button">Send Message</button>
+              </form>
+            </article>
+            <div style="display: grid; gap: 20px;">
+              <article class="contact-card contact-card--gradient reveal">
+                <h3 style="font-size: 2rem;">Direct contact</h3>
+                <ul class="detail-list">
+                  <li><a class="contact-link" href="mailto:hello@arianna.design">hello@arianna.design</a></li>
+                  <li><a class="contact-link" href="tel:+1234567890">+1 (234) 567-890</a></li>
+                  <li>Toronto, Ontario</li>
+                </ul>
+              </article>
+              <article class="contact-card reveal">
+                <h3 style="font-size: 2rem; color: var(--sand-400);">What to include</h3>
+                <ul class="detail-list">
+                  <li>Project type and goals</li>
+                  <li>Timeline or deadline</li>
+                  <li>Whether it is solo or collaborative work</li>
+                  <li>Any links or reference material</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <div>Contact placeholder page.</div>
+        <div><a href="index.html">Back home</a></div>
+      </footer>
+    </div>
+    <script src="preview-script.js"></script>
+  </body>
+</html>
