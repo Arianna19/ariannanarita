@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router';
 import { useEffect, useRef } from 'react';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
-import { DesignIcon, BrandingIcon, CodeIcon, PrototypeIcon, UserIcon } from '../components/Icons';
+import { DesignIcon, BrandingIcon, CodeIcon, PrototypeIcon } from '../components/Icons';
 import { FlowingWater, JapaneseWave, OceanBubbles } from '../components/OceanWave';
 import portraitImage from '../../imports/arianna-portrait.jpg';
 
@@ -29,9 +29,11 @@ const projects = [
 ];
 
 const quotes = [
-  'Design won’t save the world. But it damn sure makes it look good.',
-  '“How’s life?” So much panic, very little disco.',
-  'I’m silently judging your font choice.',
+  "Design won't save the world. But it damn sure makes it look good.",
+  "\"How's life?\" So much panic, very little disco.",
+  "I'm silently judging your font choice.",
+  'One mental breakdown later.',
+  '"Are you and adult?" Me: Yeah, but like not on purpose or anything.',
 ];
 
 function SelectedWorkSection() {
@@ -80,9 +82,7 @@ function SelectedWorkSection() {
 
               <div className="space-y-4 p-7">
                 <div className="flex items-center justify-between gap-4">
-                  <p className="font-['Poppins:SemiBold',sans-serif] text-sm text-[#BF8351]">
-                    {project.category}
-                  </p>
+                  <p className="font-['Poppins:SemiBold',sans-serif] text-sm text-[#BF8351]">{project.category}</p>
                   <span className="text-[#7DB1D4] transition-transform group-hover:translate-x-1">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -94,9 +94,7 @@ function SelectedWorkSection() {
                   {project.title}
                 </h3>
 
-                <p className="font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4A5565]">
-                  {project.blurb}
-                </p>
+                <p className="font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4A5565]">{project.blurb}</p>
 
                 <div className="flex flex-wrap gap-2 pt-2">
                   <span className="bg-[#D5E7F2] px-3 py-1 font-['Poppins:Medium',sans-serif] text-xs text-[#5B8FA3]">
@@ -120,28 +118,59 @@ function SelectedWorkSection() {
 
 function WisdomSection() {
   return (
-    <div className="relative min-h-[20rem] overflow-hidden rounded-[2rem] px-4 py-6 md:px-8">
+    <div className="relative min-h-[38rem] overflow-hidden rounded-[2rem] px-4 py-6 md:min-h-[50rem] md:px-8">
       <div className="pointer-events-none absolute inset-0 opacity-15">
         <FlowingWater className="absolute left-0 top-6 h-24 w-full" />
         <FlowingWater className="absolute bottom-8 left-0 h-24 w-full opacity-70" />
       </div>
+
       {quotes.map((quote, index) => (
-        <motion.p
+        <motion.div
           key={quote}
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: index * 0.12 }}
           viewport={{ once: true }}
-          className={`relative max-w-md font-['Ojuju:Bold',sans-serif] leading-[1.02] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] ${
+          className={`relative ${
             index === 0
-              ? 'ml-[4%] mt-2 rotate-[-3deg] text-5xl italic text-[#5B8FA3] md:text-6xl'
+              ? 'ml-[2%] mt-1 max-w-lg rotate-[-3deg] text-left'
               : index === 1
-                ? 'ml-auto mr-[10%] mt-12 rotate-[2deg] text-4xl text-[#BF8351] md:text-5xl'
-                : 'ml-[18%] mt-14 rotate-[-1deg] text-6xl font-black text-[#7DB1D4] md:text-7xl'
+                ? 'mx-auto mt-10 max-w-xl text-center'
+                : index === 2
+                  ? 'ml-auto mr-[4%] mt-10 max-w-md rotate-[2deg] text-right'
+                  : index === 3
+                    ? 'ml-[10%] mt-14 max-w-sm rotate-[-1deg] text-left'
+                    : 'mr-[6%] ml-auto mt-12 max-w-2xl text-justify'
           }`}
         >
-          {quote}
-        </motion.p>
+          {index === 0 ? (
+            <p className="font-['Ojuju:Bold',sans-serif] text-5xl leading-[0.98] italic text-[#5B8FA3] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-6xl">
+              {quote}
+            </p>
+          ) : index === 1 ? (
+            <p className="font-['Ojuju:Bold',sans-serif] text-4xl leading-[1.02] font-semibold text-[#BF8351] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
+              "How's life?"
+              <br />
+              So much panic, very little disco.
+            </p>
+          ) : index === 2 ? (
+            <p className="font-['Ojuju:Bold',sans-serif] text-6xl leading-[0.94] font-black text-[#7DB1D4] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-7xl">
+              {quote}
+            </p>
+          ) : index === 3 ? (
+            <p className="font-['Ojuju:Bold',sans-serif] text-3xl leading-[0.98] italic text-[#1E2939] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-4xl">
+              One mental
+              <br />
+              breakdown later.
+            </p>
+          ) : (
+            <p className="font-['Ojuju:Bold',sans-serif] text-4xl leading-[1.02] italic text-[#5B8FA3] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
+              "Are you and adult?" Me: Yeah,
+              <br />
+              but like not on purpose or anything.
+            </p>
+          )}
+        </motion.div>
       ))}
     </div>
   );

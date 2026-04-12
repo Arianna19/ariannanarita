@@ -97,13 +97,15 @@ const skillTracks = [
   },
 ];
 
+const loopingSkillTracks = [...skillTracks, ...skillTracks];
+
 export default function BiographyPage() {
   const skillsRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: skillsProgress } = useScroll({
     target: skillsRef,
     offset: ['start start', 'end start'],
   });
-  const trackX = useTransform(skillsProgress, [0, 1], ['0%', '-40%']);
+  const trackX = useTransform(skillsProgress, [0, 1], ['0%', '-50%']);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -259,60 +261,81 @@ export default function BiographyPage() {
 
       <WaveTransition variant="blue" />
 
-      <div ref={skillsRef} className="overflow-hidden py-16 md:py-20">
-        <div className="px-4 sm:px-6 md:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="mb-12 text-center md:mb-16"
-          >
-            <h2 className="font-['Ojuju:Bold',sans-serif] text-4xl text-[#5B8FA3] sm:text-5xl">Skills & Tools</h2>
-            <p className="mx-auto mt-4 max-w-2xl font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4A5565]">
-              This row drifts sideways while you scroll down, which feels dramatically more fun than trapping every skill in another polite little box.
-            </p>
-          </motion.div>
+      <section ref={skillsRef} className="relative h-[320vh] md:h-[340vh]">
+        <div className="sticky top-24 overflow-hidden py-10 md:top-28 md:py-12">
+          <div className="px-4 sm:px-6 md:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="mb-10 text-center md:mb-14"
+            >
+              <h2 className="font-['Ojuju:Bold',sans-serif] text-4xl text-[#5B8FA3] sm:text-5xl md:text-6xl">
+                Skills & Tools
+              </h2>
+              <p className="mx-auto mt-4 max-w-3xl font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4A5565] md:text-lg">
+                This section locks in place on purpose: your vertical scroll drives the menu sideways, like a little design conveyor belt of skills, tools, and creative tendencies.
+              </p>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            style={{ x: trackX }}
-            className="flex w-max gap-6 pb-4 pr-8"
-          >
-            {skillTracks.map((track) => (
-              <div
-                key={track.title}
-                className={`w-[22rem] shrink-0 rounded-[2rem] border p-7 shadow-lg backdrop-blur-sm sm:w-[26rem] sm:p-8 ${
-                  track.tone === 'warm'
-                    ? 'border-[#E6C4A8] bg-[#FFF8F3]/95'
-                    : 'border-[#D5E7F2] bg-[#F9FAFB]/95'
-                }`}
-              >
-                <div className="mb-6 flex items-center gap-3">
-                  <track.icon className={`h-6 w-6 ${track.tone === 'warm' ? 'text-[#BF8351]' : 'text-[#5B8FA3]'}`} />
-                  <h3 className="font-['Ojuju:Bold',sans-serif] text-2xl text-[#1E2939]">{track.title}</h3>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  {track.items.map((item) => (
-                    <span
-                      key={item}
-                      className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-['Poppins:Medium',sans-serif] text-sm ${
-                        track.tone === 'warm' ? 'bg-[#E6C4A8] text-[#A66D42]' : 'bg-[#D5E7F2] text-[#5B8FA3]'
-                      }`}
-                    >
-                      {track.tone === 'warm' ? <Sparkles className="h-3.5 w-3.5" /> : <Layers3 className="h-3.5 w-3.5" />}
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </motion.div>
+            <div className="overflow-hidden">
+              <motion.div style={{ x: trackX }} className="flex w-max gap-8 pr-8 md:gap-10">
+                {loopingSkillTracks.map((track, index) => (
+                  <div
+                    key={`${track.title}-${index}`}
+                    className={`flex min-h-[26rem] w-[26rem] shrink-0 flex-col justify-between rounded-[2.25rem] border p-8 shadow-xl backdrop-blur-sm sm:min-h-[28rem] sm:w-[30rem] sm:p-10 lg:min-h-[30rem] lg:w-[34rem] ${
+                      track.tone === 'warm'
+                        ? 'border-[#E6C4A8] bg-[#FFF8F3]/95'
+                        : 'border-[#D5E7F2] bg-[#F9FAFB]/95'
+                    }`}
+                  >
+                    <div>
+                      <div className="mb-6 flex items-center gap-4">
+                        <div
+                          className={`rounded-2xl p-4 ${
+                            track.tone === 'warm' ? 'bg-[#E6C4A8]/80 text-[#BF8351]' : 'bg-[#D5E7F2]/85 text-[#5B8FA3]'
+                          }`}
+                        >
+                          <track.icon className="h-8 w-8" />
+                        </div>
+                        <div>
+                          <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#BF8351]">
+                            Scroll-powered menu
+                          </p>
+                          <h3 className="mt-1 font-['Ojuju:Bold',sans-serif] text-3xl text-[#1E2939] sm:text-4xl">
+                            {track.title}
+                          </h3>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-3">
+                        {track.items.map((item) => (
+                          <span
+                            key={`${track.title}-${item}-${index}`}
+                            className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 font-['Poppins:Medium',sans-serif] text-sm sm:text-base ${
+                              track.tone === 'warm' ? 'bg-[#E6C4A8] text-[#A66D42]' : 'bg-[#D5E7F2] text-[#5B8FA3]'
+                            }`}
+                          >
+                            {track.tone === 'warm' ? <Sparkles className="h-4 w-4" /> : <Layers3 className="h-4 w-4" />}
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <p className="mt-8 max-w-xl font-['Poppins:Regular',sans-serif] text-base leading-8 text-[#4A5565] sm:text-lg">
+                      {track.tone === 'warm'
+                        ? 'This side of the menu covers the things that make digital work usable, structured, and slightly less likely to cause an emotional spiral.'
+                        : 'This side leans into the visual and expressive layer: the tools, systems, and choices that make the work feel considered instead of randomly assembled at 1 a.m.'}
+                    </p>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       <WaveTransition variant="orange" flip />
 
