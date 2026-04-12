@@ -152,7 +152,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (window.location.hash) {
-      const normalizedHash = window.location.hash.replace(/^#\/?/, '#');
+      const normalizedHash = window.location.hash.replace(/^#+/, '#');
       if (normalizedHash && normalizedHash !== '#') {
         const element = document.querySelector(normalizedHash);
         if (element) {
