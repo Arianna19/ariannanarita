@@ -80,3 +80,17 @@ export function CircleIcon({ className = "w-4 h-4" }: { className?: string }) {
     </svg>
   );
 }
+
+export function SeigaihaIcon({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 74C8 56.327 22.327 42 40 42C57.673 42 72 56.327 72 74" stroke="#7DB1D4" strokeWidth="5" strokeLinecap="round"/>
+      <path d="M24 74C24 65.163 31.163 58 40 58C48.837 58 56 65.163 56 74" stroke="#ABCEE2" strokeWidth="5" strokeLinecap="round"/>
+      <path d="M40 74C40 69.582 43.582 66 48 66C52.418 66 56 69.582 56 74" stroke="#BF8351" strokeWidth="5" strokeLinecap="round"/>
+      <path d="M40 42C40 24.327 54.327 10 72 10C89.673 10 104 24.327 104 42" stroke="#7DB1D4" strokeWidth="5" strokeLinecap="round" transform="translate(-32 0)"/>
+      <path d="M56 42C56 33.163 63.163 26 72 26C80.837 26 88 33.163 88 42" stroke="#ABCEE2" strokeWidth="5" strokeLinecap="round" transform="translate(-32 0)"/>
+      <circle cx="24" cy="26" r="5" fill="#BF8351"/>
+      <circle cx="60" cy="26" r="5" fill="#ABCEE2"/>
+    </svg>
+  );
+}

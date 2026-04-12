@@ -7,9 +7,9 @@ import portraitImage from '../../imports/arianna-portrait.jpg';
 import { AudioLines, Figma, Layers3, MonitorSmartphone, PenTool, Sparkles } from 'lucide-react';
 
 const biographyParagraphs = [
-  'Arianna Sanchez Narita’s introduction to design began informally, experimenting with Microsoft PowerPoint in elementary school. While others focused on content, she became absorbed in layout, composition, and how far she could push the software visually. This curiosity developed further in high school, where she spent much of her time in the computer lab teaching herself Adobe Photoshop. What began as a way to fill empty lunch hours evolved into a genuine connection to visual design, driven by instinct, experimentation, and a fascination with digital creation.',
+  "Arianna Sanchez Narita's introduction to design began informally, experimenting with Microsoft PowerPoint in elementary school. While others focused on content, she became absorbed in layout, composition, and how far she could push the software visually. This curiosity developed further in high school, where she spent much of her time in the computer lab teaching herself Adobe Photoshop. What began as a way to fill empty lunch hours evolved into a genuine connection to visual design, driven by instinct, experimentation, and a fascination with digital creation.",
   'Despite this early passion, Arianna stepped away from the art world in CEGEP to pursue computer science, following a more conventional path. This marked a period where she felt increasingly disconnected from herself. The structure of the field contrasted sharply with the creativity she had relied on, leading to frustration and loss. After shifting into psychology in search of direction, she realized through a game development course that the design aspects still mattered most to her.',
-  'Recognizing she had abandoned something essential, she redirected her path and entered Concordia University’s Computation Arts program, reestablishing her place within design. During her studies, Arianna developed a strong focus on UX and UI design, working with tools such as Figma and the Adobe Creative Suite to create user-centered digital experiences. Although she briefly explored 3D modeling, she recognized it did not align with her interests.',
+  "Recognizing she had abandoned something essential, she redirected her path and entered Concordia University's Computation Arts program, reestablishing her place within design. During her studies, Arianna developed a strong focus on UX and UI design, working with tools such as Figma and the Adobe Creative Suite to create user-centered digital experiences. Although she briefly explored 3D modeling, she recognized it did not align with her interests.",
   'In contrast, she discovered a passion for sound design, creating audio for characters and environments and collaborating with an emerging film director on creature-based elements. Alongside this, she continued advancing her UX and graphic design practice, including contributing visual work for IA Financial Group.',
   'Across her work, Arianna has become critical of the seriousness that dominates both design culture and everyday life. She challenges the idea that professionalism must come at the cost of personality, questioning why design often feels rigid and controlled. Through her work, she resists this by incorporating humor, relatability, and informality. She embraces the idea that being playful, imperfect, or even absurd is not only acceptable, but necessary to create meaningful human connection.',
   'Her current practice combines UX, UI, graphic design, and sound to create immersive digital experiences. Moving forward, her work is shaped by the reality of the world around her, from global conflict and economic instability to rising costs, distrust in leadership, and AI reshaping industries. In the midst of this, design has become her way of staying grounded, a space to think clearly and create freely. Through her work, she aims to offer moments of relief, humor, and connection, something that cuts through the noise and reminds people that not everything has to feel so heavy. Ultimately, her goal is to create work that not only functions well, but helps people breathe a little easier in an overwhelming world.',
@@ -82,18 +82,24 @@ const skillTracks = [
     icon: Figma,
     tone: 'blue',
     items: skills.design,
+    footer:
+      'This is the craft layer: the software, systems, and visual instincts I use to turn a loose idea into something polished enough to stand on its own.',
   },
   {
     title: 'Digital Practice',
     icon: MonitorSmartphone,
     tone: 'warm',
     items: skills.digital,
+    footer:
+      'This track is where usability takes the wheel, from interaction choices to structure, flow, and the small decisions that keep a product from fighting back.',
   },
   {
     title: 'Expanded Creative Work',
     icon: AudioLines,
     tone: 'blue',
     items: skills.expanded,
+    footer:
+      'This one opens the edges of the practice a bit more, showing the collaborations, sound work, and world-building instincts that keep the portfolio from feeling one-note.',
   },
 ];
 
@@ -261,7 +267,7 @@ export default function BiographyPage() {
 
       <WaveTransition variant="blue" />
 
-      <section ref={skillsRef} className="relative h-[320vh] md:h-[340vh]">
+      <section ref={skillsRef} className="relative h-[420vh] md:h-[460vh]">
         <div className="sticky top-24 overflow-hidden py-10 md:top-28 md:py-12">
           <div className="px-4 sm:px-6 md:px-8">
             <motion.div
@@ -275,7 +281,7 @@ export default function BiographyPage() {
                 Skills & Tools
               </h2>
               <p className="mx-auto mt-4 max-w-3xl font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4A5565] md:text-lg">
-                This section locks in place on purpose: your vertical scroll drives the menu sideways, like a little design conveyor belt of skills, tools, and creative tendencies.
+                These are the skills, tools, and creative strengths I bring into the work.
               </p>
             </motion.div>
 
@@ -284,7 +290,7 @@ export default function BiographyPage() {
                 {loopingSkillTracks.map((track, index) => (
                   <div
                     key={`${track.title}-${index}`}
-                    className={`flex min-h-[26rem] w-[26rem] shrink-0 flex-col justify-between rounded-[2.25rem] border p-8 shadow-xl backdrop-blur-sm sm:min-h-[28rem] sm:w-[30rem] sm:p-10 lg:min-h-[30rem] lg:w-[34rem] ${
+                    className={`flex min-h-[30rem] w-[30rem] shrink-0 flex-col justify-between rounded-[2.25rem] border p-8 shadow-xl backdrop-blur-sm sm:min-h-[34rem] sm:w-[35rem] sm:p-10 lg:min-h-[37rem] lg:w-[40rem] ${
                       track.tone === 'warm'
                         ? 'border-[#E6C4A8] bg-[#FFF8F3]/95'
                         : 'border-[#D5E7F2] bg-[#F9FAFB]/95'
@@ -325,9 +331,7 @@ export default function BiographyPage() {
                     </div>
 
                     <p className="mt-8 max-w-xl font-['Poppins:Regular',sans-serif] text-base leading-8 text-[#4A5565] sm:text-lg">
-                      {track.tone === 'warm'
-                        ? 'This side of the menu covers the things that make digital work usable, structured, and slightly less likely to cause an emotional spiral.'
-                        : 'This side leans into the visual and expressive layer: the tools, systems, and choices that make the work feel considered instead of randomly assembled at 1 a.m.'}
+                      {track.footer}
                     </p>
                   </div>
                 ))}
@@ -398,3 +402,4 @@ export default function BiographyPage() {
     </motion.div>
   );
 }
+

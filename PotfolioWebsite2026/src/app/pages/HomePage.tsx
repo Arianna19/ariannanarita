@@ -26,6 +26,12 @@ const projects = [
     category: 'Editorial + Digital',
     blurb: 'A placeholder publishing concept that balances expressive visuals with practical reading experiences and just a hint of overthinking.',
   },
+  {
+    id: '4',
+    title: 'Flavor Bridge',
+    category: 'UX Research + App Design',
+    blurb: 'A research-driven mobile concept for mixed-culture couples, built to make recipe discovery, shared cooking, and navigating different food habits feel easier and more playful.',
+  },
 ];
 
 const quotes = [
@@ -50,7 +56,7 @@ function SelectedWorkSection() {
         <OceanBubbles className="absolute right-[10%] top-80 h-28 w-28 opacity-30" />
       </div>
 
-      <div className="relative grid gap-8 lg:grid-cols-3">
+      <div className="relative grid gap-8 lg:grid-cols-2 2xl:grid-cols-4">
         {projects.map((project, index) => (
           <motion.div
             key={project.id}
@@ -58,7 +64,15 @@ function SelectedWorkSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.12 }}
             viewport={{ once: true }}
-            className={index === 1 ? 'lg:translate-y-14' : index === 2 ? 'lg:-translate-y-6' : ''}
+            className={
+              index === 1
+                ? 'lg:translate-y-14'
+                : index === 2
+                  ? 'lg:-translate-y-6'
+                  : index === 3
+                    ? 'lg:translate-y-8'
+                    : ''
+            }
           >
             <Link
               to={`/project/${project.id}`}
@@ -71,10 +85,10 @@ function SelectedWorkSection() {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="rounded-[1.5rem] border-2 border-dashed border-[#BF8351]/50 bg-white/70 px-8 py-10 text-center backdrop-blur-sm">
                     <p className="font-['Poppins:SemiBold',sans-serif] text-sm uppercase tracking-[0.2em] text-[#BF8351]">
-                      Placeholder Visual
+                      {project.id === '4' ? 'Linked Project' : 'Placeholder Visual'}
                     </p>
                     <p className="mt-3 font-['Ojuju:Bold',sans-serif] text-2xl text-[#7DB1D4]">
-                      Drop project image here later
+                      {project.id === '4' ? 'Document, references, and context in one place' : 'Drop project image here later'}
                     </p>
                   </div>
                 </div>
@@ -148,23 +162,23 @@ function WisdomSection() {
               {quote}
             </p>
           ) : index === 1 ? (
-            <p className="font-['Ojuju:Bold',sans-serif] text-4xl leading-[1.02] font-semibold text-[#BF8351] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
+            <p className="font-['DM Serif Display',serif] text-4xl leading-[1.02] text-[#BF8351] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
               "How's life?"
               <br />
               So much panic, very little disco.
             </p>
           ) : index === 2 ? (
-            <p className="font-['Ojuju:Bold',sans-serif] text-6xl leading-[0.94] font-black text-[#7DB1D4] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-7xl">
+            <p className="font-['Poppins:SemiBold',sans-serif] text-5xl leading-[0.98] uppercase tracking-[0.03em] text-[#7DB1D4] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-6xl">
               {quote}
             </p>
           ) : index === 3 ? (
-            <p className="font-['Ojuju:Bold',sans-serif] text-3xl leading-[0.98] italic text-[#1E2939] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-4xl">
+            <p className="font-['Caveat',cursive] text-4xl leading-[1.02] text-[#1E2939] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
               One mental
               <br />
               breakdown later.
             </p>
           ) : (
-            <p className="font-['Ojuju:Bold',sans-serif] text-4xl leading-[1.02] italic text-[#5B8FA3] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
+            <p className="font-['Playfair Display',serif] text-4xl leading-[1.08] italic text-[#5B8FA3] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
               "Are you and adult?" Me: Yeah,
               <br />
               but like not on purpose or anything.

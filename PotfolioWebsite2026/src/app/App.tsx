@@ -8,7 +8,8 @@ import ProjectDetailPage from './pages/ProjectDetailPage';
 import ScrollingOceanBackground from './components/ScrollingOceanBackground';
 import RouteLoadingOverlay from './components/RouteLoadingOverlay';
 import { AnimatePresence } from 'motion/react';
-import { Menu, Moon, SunMedium, X } from 'lucide-react';
+import { ArrowUp, Menu, Moon, SunMedium, X } from 'lucide-react';
+import { SeigaihaIcon } from './components/Icons';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -57,8 +58,11 @@ function Navigation({
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 md:px-8">
         <Link
           to="/"
-          className="font-['Ojuju:Bold',sans-serif] text-2xl text-[#7DB1D4] transition-colors hover:text-[#5B8FA3]"
+          className="inline-flex items-center gap-3 font-['Ojuju:Bold',sans-serif] text-2xl text-[#7DB1D4] transition-colors hover:text-[#5B8FA3]"
         >
+          <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#D5E7F2] bg-[#F7FBFD] text-[#7DB1D4] transition-transform hover:-translate-y-0.5">
+            <SeigaihaIcon className="h-7 w-7" />
+          </span>
           Arianna
         </Link>
 
@@ -143,6 +147,36 @@ function Navigation({
   );
 }
 
+function ScrollToTopButton() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsVisible(window.scrollY > 320);
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
+
+  return (
+    <button
+      type="button"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      aria-label="Back to top"
+      className={`fixed bottom-5 right-5 z-[65] inline-flex h-[3.25rem] w-[3.25rem] items-center justify-center rounded-full border border-[#D5E7F2] bg-white/92 text-[#5B8FA3] shadow-lg backdrop-blur-md transition-all hover:-translate-y-1 hover:text-[#BF8351] md:bottom-8 md:right-8 ${
+        isVisible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
+      }`}
+    >
+      <ArrowUp className="h-5 w-5" />
+    </button>
+  );
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -188,7 +222,7 @@ function AppShell() {
 
   return (
     <>
-      <RouteLoadingOverlay active={isRouteLoading} />
+      <RouteLoadingOverlay active={isRouteLoading} pathname={location.pathname} />
       <div className="min-h-screen">
         <ScrollingOceanBackground />
         <Navigation
@@ -196,6 +230,7 @@ function AppShell() {
           onToggleTheme={() => setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))}
         />
         <AnimatedRoutes />
+        <ScrollToTopButton />
       </div>
     </>
   );
