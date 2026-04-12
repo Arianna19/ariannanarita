@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from 'motion/react';
-import { useEffect, useRef } from 'react';
+import { motion, useMotionValueEvent, useScroll, useTransform } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import WaveTransition from '../components/WaveTransition';
 import { LightbulbIcon } from '../components/Icons';
@@ -8,7 +8,15 @@ import { FlowingWater } from '../components/OceanWave';
 const statementText =
   'My work combines UX and UI design with graphic design to create digital experiences that feel intuitive, personal, and a little less serious. I am interested in how design shapes not just what people do, but how they feel while doing it. In a time where everything feels increasingly serious and overwhelming, I use my work to bring lightness back into everyday interactions. My goal is to design interfaces that feel easy, familiar, and quietly uplifting. I primarily work with Figma and the Adobe Creative Suite to build clean, structured interfaces that balance usability with personality. While I value minimal, sleek design, I am equally drawn to subtle details that add character like the hidden arrow in the FedEx logo, which reminds me that the smallest, almost invisible decisions can completely transform how something is experienced. That idea drives my work: thoughtful design should reward attention without demanding it. In my UI/UX projects, I explore how humor and relatability can coexist with clarity. A simple interaction, a playful line of text, or an unexpected visual can turn a routine task into something memorable without sacrificing function. Whether it is through tone, layout, or interaction, I design things that feel like they actually want you to succeed, not fight you the whole time. At its core, my work is about making design feel lighter and more approachable. I am motivated by the idea that if my creations can make someone smile, even briefly, it has already done more than just function. I want my designs to feel like they were made by someone real, not something distant or overly serious. If my work is simple enough for my grandma to understand but still engaging enough that younger generations enjoy using it, then I have done my job.';
 
+const readingMoodQuotes = [
+  'Life. A party, but I’m the pinata.',
+  'At the end of the day, it’s night.',
+  'One day, I’m gonna make the onions cry.',
+  'When life shuts a door...open it again. It’s a door. That’s how they work.',
+];
+
 export default function ArtistStatementPage() {
+  const [quoteIndex, setQuoteIndex] = useState(0);
   const statementRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: statementRef,
@@ -21,6 +29,11 @@ export default function ArtistStatementPage() {
   const accentScale = useTransform(scrollYProgress, [0, 1], [0.92, 1.08]);
   const railScale = useTransform(scrollYProgress, [0, 1], [0.08, 1]);
   const warmGlowY = useTransform(scrollYProgress, [0, 1], [0, 22]);
+
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    const nextIndex = Math.min(readingMoodQuotes.length - 1, Math.floor(latest * readingMoodQuotes.length));
+    setQuoteIndex(nextIndex);
+  });
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -50,7 +63,7 @@ export default function ArtistStatementPage() {
             Design should feel like it knows you are human.
           </h1>
           <p className="mt-6 max-w-3xl font-['Poppins:Regular',sans-serif] text-lg leading-8 text-[#364153]">
-            A more polished, more immersive reading moment built around one continuous statement.
+            This statement is the clearest explanation of how I think, what I value, and why I want digital work to feel lighter to live with.
           </p>
         </motion.div>
 
@@ -65,15 +78,17 @@ export default function ArtistStatementPage() {
               <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.18em] text-[#BF8351]">
                 Reading Mood
               </p>
-              <h2 className="mt-3 font-['Ojuju:Bold',sans-serif] text-3xl text-[#5B8FA3]">
-                Intuitive.
-                <br />
-                Personal.
-                <br />
-                Quietly uplifting.
-              </h2>
+              <motion.h2
+                key={quoteIndex}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+                className="mt-3 font-['Ojuju:Bold',sans-serif] text-3xl leading-tight text-[#5B8FA3]"
+              >
+                {readingMoodQuotes[quoteIndex]}
+              </motion.h2>
               <p className="mt-5 font-['Poppins:Regular',sans-serif] text-sm leading-7 text-[#4A5565]">
-                The text stays as one flowing statement, but the page now has a stronger editorial rhythm while you scroll.
+                Scroll a little further and the side commentary changes with you.
               </p>
             </div>
           </motion.aside>

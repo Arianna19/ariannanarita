@@ -119,23 +119,28 @@ function SelectedWorkSection() {
 
 function WisdomSection() {
   return (
-    <div className="relative grid gap-8 lg:grid-cols-3">
+    <div className="relative min-h-[20rem] overflow-hidden rounded-[2rem] px-4 py-6 md:px-8">
+      <div className="pointer-events-none absolute inset-0 opacity-15">
+        <FlowingWater className="absolute left-0 top-6 h-24 w-full" />
+        <FlowingWater className="absolute bottom-8 left-0 h-24 w-full opacity-70" />
+      </div>
       {quotes.map((quote, index) => (
-        <motion.article
+        <motion.p
           key={quote}
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: index * 0.12 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[1.75rem] border border-[#D5E7F2] bg-white/95 p-8 shadow-lg"
+          className={`relative max-w-md font-['Ojuju:Bold',sans-serif] text-4xl leading-[1.02] text-[#5B8FA3] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl ${
+            index === 0
+              ? 'ml-[4%] mt-2 rotate-[-3deg]'
+              : index === 1
+                ? 'ml-auto mr-[10%] mt-12 rotate-[2deg]'
+                : 'ml-[18%] mt-14 rotate-[-1deg]'
+          }`}
         >
-          <div className="absolute inset-x-0 top-0 h-16 opacity-20">
-            <FlowingWater className="h-full w-full" />
-          </div>
-          <p className="relative font-['Poppins:Regular',sans-serif] text-lg leading-8 text-[#364153]">
-            {quote}
-          </p>
-        </motion.article>
+          {quote}
+        </motion.p>
       ))}
     </div>
   );
@@ -351,7 +356,7 @@ export default function HomePage() {
               Words of Wisdom
             </p>
             <h2 className="mt-3 font-['Ojuju:Bold',sans-serif] text-5xl text-[#ABCEE2]">
-              A few designer truths from the tide pool
+              Thoughts I have had while moving one thing by 2 pixels
             </h2>
           </motion.div>
 
@@ -389,10 +394,10 @@ export default function HomePage() {
                 Open Contact Page
               </Link>
               <a
-                href="mailto:hello@arianna.design"
+                href="mailto:ariannanarita@gmail.com"
                 className="inline-flex items-center justify-center rounded-full border-2 border-[#ABCEE2] px-8 py-4 font-['Poppins:SemiBold',sans-serif] text-[#7DB1D4] transition-all hover:-translate-y-0.5 hover:bg-[#D5E7F2] hover:shadow-lg"
               >
-                hello@arianna.design
+                ariannanarita@gmail.com
               </a>
             </div>
           </motion.div>

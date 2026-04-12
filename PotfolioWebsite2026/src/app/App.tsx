@@ -7,7 +7,7 @@ import ContactPage from './pages/ContactPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import ScrollingOceanBackground from './components/ScrollingOceanBackground';
 import { AnimatePresence } from 'motion/react';
-import { Moon, SunMedium } from 'lucide-react';
+import { Menu, Moon, SunMedium, X } from 'lucide-react';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -38,6 +38,7 @@ function Navigation({
   onToggleTheme: () => void;
 }) {
   const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const navItems = [
     { label: 'Home', to: '/', match: location.pathname === '/' },
@@ -45,6 +46,10 @@ function Navigation({
     { label: 'Artist Statement', to: '/artist-statement', match: location.pathname === '/artist-statement' },
     { label: 'Biography', to: '/biography', match: location.pathname === '/biography' },
   ];
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname, location.hash]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#D5E7F2] bg-white/92 shadow-sm backdrop-blur-md">
@@ -56,12 +61,22 @@ function Navigation({
           Arianna
         </Link>
 
-        <div className="order-3 flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-[#D5E7F2]/70 pt-3 sm:order-2 sm:w-auto sm:border-t-0 sm:pt-0 lg:justify-start">
+        <button
+          type="button"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#ABCEE2] bg-white/80 text-[#7DB1D4] transition-all hover:bg-[#D5E7F2] md:hidden"
+        >
+          {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+
+        <div className={`${menuOpen ? 'flex' : 'hidden'} order-4 w-full flex-col gap-3 border-t border-[#D5E7F2]/70 pt-4 md:order-2 md:flex md:w-auto md:flex-row md:flex-wrap md:items-center md:justify-center md:gap-x-4 md:gap-y-2 md:border-t-0 md:pt-0 lg:justify-start`}>
           {navItems.map((item) => (
             <Link
               key={item.label}
               to={item.to}
-              className={`rounded-full border px-3 py-2 font-['Poppins:Medium',sans-serif] text-xs tracking-[0.02em] transition-all sm:text-sm ${
+              className={`rounded-full border px-4 py-3 text-center font-['Poppins:Medium',sans-serif] text-sm tracking-[0.02em] transition-all md:px-3 md:py-2 md:text-xs md:sm:text-sm ${
                 item.match
                   ? 'border-[#BF8351] bg-[#FFF8F3] text-[#BF8351]'
                   : 'border-transparent text-[#4A5565] hover:border-[#ABCEE2] hover:bg-[#F7FBFD] hover:text-[#7DB1D4]'
@@ -72,7 +87,7 @@ function Navigation({
           ))}
         </div>
 
-        <div className="order-2 flex items-center gap-2 sm:order-3 sm:gap-3">
+        <div className="order-2 hidden items-center gap-2 md:order-3 md:flex md:gap-3">
           <button
             type="button"
             onClick={onToggleTheme}
@@ -92,6 +107,32 @@ function Navigation({
           <Link
             to="/contact"
             className="inline-flex items-center justify-center rounded-full bg-[#BF8351] px-3 py-2 text-center font-['Poppins:SemiBold',sans-serif] text-xs text-white transition-all hover:-translate-y-0.5 hover:bg-[#A66D42] hover:shadow-md sm:px-4 sm:text-sm md:px-6"
+          >
+            Contact
+          </Link>
+        </div>
+
+        <div className={`${menuOpen ? 'flex' : 'hidden'} order-5 w-full flex-col gap-3 border-t border-[#D5E7F2]/70 pt-4 md:hidden`}>
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-pressed={theme === 'dark'}
+            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#ABCEE2] bg-white/80 px-4 py-3 font-['Poppins:SemiBold',sans-serif] text-sm text-[#7DB1D4] transition-all hover:bg-[#D5E7F2]"
+          >
+            {theme === 'dark' ? <SunMedium className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+          </button>
+          <a
+            href={`${import.meta.env.BASE_URL}cv.pdf`}
+            download
+            className="inline-flex items-center justify-center rounded-full border-2 border-[#ABCEE2] px-4 py-3 text-center font-['Poppins:SemiBold',sans-serif] text-sm text-[#7DB1D4] transition-all hover:bg-[#D5E7F2]"
+          >
+            Download CV
+          </a>
+          <Link
+            to="/contact"
+            className="inline-flex items-center justify-center rounded-full bg-[#BF8351] px-4 py-3 text-center font-['Poppins:SemiBold',sans-serif] text-sm text-white transition-all hover:bg-[#A66D42]"
           >
             Contact
           </Link>
