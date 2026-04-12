@@ -152,11 +152,14 @@ export default function HomePage() {
 
   useEffect(() => {
     if (window.location.hash) {
-      const element = document.querySelector(window.location.hash);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+      const normalizedHash = window.location.hash.replace(/^#\/?/, '#');
+      if (normalizedHash && normalizedHash !== '#') {
+        const element = document.querySelector(normalizedHash);
+        if (element) {
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
       }
     }
   }, []);
