@@ -1,24 +1,22 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Link, useLocation } from 'react-router';
 import { useEffect, useRef } from 'react';
+import { ChevronRight } from 'lucide-react';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, BrandingIcon, CodeIcon, PrototypeIcon } from '../components/Icons';
 import { FlowingWater, JapaneseWave, OceanBubbles } from '../components/OceanWave';
 import portraitImage from '../../imports/arianna-portrait.jpg';
 
+const flavorBridgeLogo = encodeURI(`${import.meta.env.BASE_URL}flavor-bridge-exports/Vector.png`);
+const iaFinancialImage = encodeURI(`${import.meta.env.BASE_URL}ia-financial/GuilaumeNoText.png`);
+
 const projects = [
   {
     id: '1',
-    title: 'Tidal Brand System',
-    category: 'Graphic Design + Branding',
-    blurb: 'A placeholder identity case study for a brand that needed clarity, cohesion, and fewer decisions made in a sleep-deprived spiral.',
-  },
-  {
-    id: '2',
-    title: 'Current Mobile Experience',
-    category: 'UI/UX Design',
-    blurb: 'A placeholder app redesign focused on stronger flows, cleaner decisions, and fewer moments where a user mutters "why is this like this?"',
+    title: 'IA Financial Group',
+    category: 'Logo + Identity',
+    blurb: 'A simple, professional advisor logo created with the client through a close, collaborative process focused on clarity, confidence, and legibility.',
   },
   {
     id: '3',
@@ -27,10 +25,25 @@ const projects = [
     blurb: 'A placeholder publishing concept that balances expressive visuals with practical reading experiences and just a hint of overthinking.',
   },
   {
-    id: '4',
+    id: '2',
     title: 'Flavor Bridge',
     category: 'UX Research + App Design',
     blurb: 'A research-driven mobile concept for mixed-culture couples, built to make recipe discovery, shared cooking, and navigating different food habits feel easier and more playful.',
+  },
+];
+
+const skillsPreviewTracks = [
+  {
+    tone: 'blue',
+    items: ['Figma', 'Adobe Suite', 'Graphic systems', 'Visual storytelling'],
+  },
+  {
+    tone: 'warm',
+    items: ['UX flows', 'UI polish', 'Prototyping', 'User-centered thinking'],
+  },
+  {
+    tone: 'blue',
+    items: ['Sound design', 'Creative collaboration', 'Immersive direction'],
   },
 ];
 
@@ -56,7 +69,7 @@ function SelectedWorkSection() {
         <OceanBubbles className="absolute right-[10%] top-80 h-28 w-28 opacity-30" />
       </div>
 
-      <div className="relative grid gap-8 lg:grid-cols-2 2xl:grid-cols-4">
+      <div className="relative grid gap-8 lg:grid-cols-3">
         {projects.map((project, index) => (
           <motion.div
             key={project.id}
@@ -69,30 +82,51 @@ function SelectedWorkSection() {
                 ? 'lg:translate-y-14'
                 : index === 2
                   ? 'lg:-translate-y-6'
-                  : index === 3
-                    ? 'lg:translate-y-8'
-                    : ''
+                  : ''
             }
           >
             <Link
               to={`/project/${project.id}`}
               className="group block overflow-hidden rounded-[2rem] border border-[#D5E7F2] bg-white/95 shadow-xl transition-all hover:-translate-y-2 hover:border-[#BF8351] hover:shadow-2xl"
             >
-              <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#D5E7F2] via-white to-[#E6C4A8]">
-                <div className="absolute inset-0 opacity-20">
-                  <JapaneseWave className="h-full w-full" />
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="rounded-[1.5rem] border-2 border-dashed border-[#BF8351]/50 bg-white/70 px-8 py-10 text-center backdrop-blur-sm">
-                    <p className="font-['Poppins:SemiBold',sans-serif] text-sm uppercase tracking-[0.2em] text-[#BF8351]">
-                      {project.id === '4' ? 'Linked Project' : 'Placeholder Visual'}
-                    </p>
-                    <p className="mt-3 font-['Ojuju:Bold',sans-serif] text-2xl text-[#7DB1D4]">
-                      {project.id === '4' ? 'Document, references, and context in one place' : 'Drop project image here later'}
-                    </p>
+              {project.id === '2' ? (
+                <div className="relative aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_top,#ffd561_0%,#ddb717_28%,#a8a70c_100%)]">
+                  <div className="absolute inset-0 opacity-20">
+                    <FlowingWater className="absolute bottom-0 left-0 h-36 w-full text-white" />
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="relative flex h-full w-full items-center justify-center">
+                      <div className="absolute h-52 w-52 rounded-full bg-[#C8DDBD]/80 blur-2xl md:h-64 md:w-64" />
+                      <img src={flavorBridgeLogo} alt="Flavor Bridge logo" className="relative h-48 w-48 object-contain drop-shadow-[0_18px_28px_rgba(129,32,28,0.22)] md:h-60 md:w-60" />
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : project.id === '1' ? (
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#EAF3FF]">
+                  <img
+                    src={iaFinancialImage}
+                    alt="IA Financial Group brand preview"
+                    className="h-full w-full object-contain"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/10 via-transparent to-transparent" />
+                </div>
+              ) : (
+                <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#D5E7F2] via-white to-[#E6C4A8]">
+                  <div className="absolute inset-0 opacity-20">
+                    <JapaneseWave className="h-full w-full" />
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="rounded-[1.5rem] border-2 border-dashed border-[#BF8351]/50 bg-white/70 px-8 py-10 text-center backdrop-blur-sm">
+                      <p className="font-['Poppins:SemiBold',sans-serif] text-sm uppercase tracking-[0.2em] text-[#BF8351]">
+                        Placeholder Visual
+                      </p>
+                      <p className="mt-3 font-['Ojuju:Bold',sans-serif] text-2xl text-[#7DB1D4]">
+                        Drop project image here later
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               <div className="space-y-4 p-7">
                 <div className="flex items-center justify-between gap-4">
@@ -109,17 +143,25 @@ function SelectedWorkSection() {
                 </h3>
 
                 <p className="font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4A5565]">{project.blurb}</p>
-
                 <div className="flex flex-wrap gap-2 pt-2">
-                  <span className="bg-[#D5E7F2] px-3 py-1 font-['Poppins:Medium',sans-serif] text-xs text-[#5B8FA3]">
-                    Thesis
-                  </span>
-                  <span className="bg-[#E6C4A8] px-3 py-1 font-['Poppins:Medium',sans-serif] text-xs text-[#A66D42]">
-                    Process
-                  </span>
-                  <span className="bg-[#D5E7F2] px-3 py-1 font-['Poppins:Medium',sans-serif] text-xs text-[#5B8FA3]">
-                    Outcome
-                  </span>
+                  {(
+                    project.id === '2'
+                      ? ['Taste profiles', 'Recipe matching', 'Shared cooking']
+                      : project.id === '1'
+                        ? ['Client-led', 'Logo', 'Identity']
+                        : ['Thesis', 'Process', 'Outcome']
+                  ).map((tag, tagIndex) => (
+                    <span
+                      key={tag}
+                      className={`px-3 py-1 font-['Poppins:Medium',sans-serif] text-xs ${
+                        tagIndex % 2 === 0
+                          ? 'bg-[#D5E7F2] text-[#5B8FA3]'
+                          : 'bg-[#E6C4A8] text-[#A66D42]'
+                      }`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
             </Link>
@@ -130,9 +172,57 @@ function SelectedWorkSection() {
   );
 }
 
+function SkillsPreviewSection() {
+  return (
+    <div className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-y border-[#D5E7F2] bg-white/80 px-5 py-8 shadow-[0_18px_48px_rgba(125,177,212,0.08)] md:px-8">
+      <div className="mx-auto mb-6 flex max-w-7xl flex-col items-center gap-4 text-center">
+        <div className="max-w-2xl">
+          <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#BF8351]">
+            Skills Preview
+          </p>
+          <h3 className="mt-3 font-['Ojuju:Bold',sans-serif] text-3xl text-[#5B8FA3] md:text-4xl">
+            A quick look before the full scroll on the biography page
+          </h3>
+        </div>
+        <Link
+          to="/biography"
+          className="inline-flex items-center gap-2 rounded-full border border-[#D5E7F2] bg-white/80 px-5 py-3 font-['Poppins:SemiBold',sans-serif] text-sm text-[#7DB1D4] transition-colors hover:bg-[#F1F8FC]"
+        >
+          See full set
+          <ChevronRight className="h-4 w-4" />
+        </Link>
+      </div>
+
+      <div className="mx-auto flex max-w-7xl snap-x snap-mandatory justify-center gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {skillsPreviewTracks.map((track, index) => (
+          <article
+            key={`${track.items[0]}-${index}`}
+            className={`min-w-[16rem] snap-start rounded-[1.5rem] border p-4 shadow-lg md:min-w-[19rem] ${
+              track.tone === 'warm' ? 'border-[#E6C4A8] bg-[#FFF8F3]/95' : 'border-[#D5E7F2] bg-white/95'
+            }`}
+          >
+            <div className="flex flex-wrap justify-center gap-2">
+              {track.items.map((item) => (
+                <span
+                  key={item}
+                  className={`rounded-full px-3 py-2 font-['Poppins:Medium',sans-serif] text-xs ${
+                    track.tone === 'warm' ? 'bg-[#E6C4A8] text-[#A66D42]' : 'bg-[#D5E7F2] text-[#5B8FA3]'
+                  }`}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function WisdomSection() {
   return (
-    <div className="relative min-h-[38rem] overflow-hidden rounded-[2rem] px-4 py-6 md:min-h-[50rem] md:px-8">
+    <div className="relative min-h-[28rem] overflow-hidden rounded-[2rem] px-4 py-4 md:min-h-[38rem] md:px-8">
       <div className="pointer-events-none absolute inset-0 opacity-15">
         <FlowingWater className="absolute left-0 top-6 h-24 w-full" />
         <FlowingWater className="absolute bottom-8 left-0 h-24 w-full opacity-70" />
@@ -158,27 +248,27 @@ function WisdomSection() {
           }`}
         >
           {index === 0 ? (
-            <p className="font-['Ojuju:Bold',sans-serif] text-5xl leading-[0.98] italic text-[#5B8FA3] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-6xl">
+            <p className="font-['Ojuju:Bold',sans-serif] text-4xl leading-[0.98] italic text-[#5B8FA3] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
               {quote}
             </p>
           ) : index === 1 ? (
-            <p className="font-['DM Serif Display',serif] text-4xl leading-[1.02] text-[#BF8351] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
+            <p className="font-['Ojuju:Regular',sans-serif] text-3xl leading-[1.02] text-[#BF8351] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-4xl">
               "How's life?"
               <br />
               So much panic, very little disco.
             </p>
           ) : index === 2 ? (
-            <p className="font-['Poppins:SemiBold',sans-serif] text-5xl leading-[0.98] uppercase tracking-[0.03em] text-[#7DB1D4] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-6xl">
+            <p className="font-['Poppins:SemiBold',sans-serif] text-4xl leading-[0.98] uppercase tracking-[0.03em] text-[#7DB1D4] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
               {quote}
             </p>
           ) : index === 3 ? (
-            <p className="font-['Caveat',cursive] text-4xl leading-[1.02] text-[#1E2939] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
+            <p className="font-['Ojuju:Bold',sans-serif] text-2xl leading-[0.98] italic text-[#1E2939] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-3xl">
               One mental
               <br />
               breakdown later.
             </p>
           ) : (
-            <p className="font-['Playfair Display',serif] text-4xl leading-[1.08] italic text-[#5B8FA3] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl">
+            <p className="font-['Poppins:Medium',sans-serif] text-3xl leading-[1.08] italic text-[#5B8FA3] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-4xl">
               "Are you and adult?" Me: Yeah,
               <br />
               but like not on purpose or anything.
@@ -211,6 +301,8 @@ export default function HomePage() {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
       }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [location.hash]);
 
@@ -230,9 +322,14 @@ export default function HomePage() {
           <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="space-y-8">
               <div className="space-y-4">
-                <h1 className="font-['Ojuju:Bold',sans-serif] text-5xl leading-[0.92] text-[#1E2939] drop-shadow-[0_1px_0_rgba(255,255,255,0.28)] md:text-7xl">
-                  Arianna Sanchez Narita
-                </h1>
+                <div className="max-w-4xl">
+                  <h1 className="font-['Ojuju:Bold',sans-serif] text-5xl leading-[0.88] text-[#1E2939] drop-shadow-[0_1px_0_rgba(255,255,255,0.28)] md:text-7xl">
+                    Arianna
+                  </h1>
+                  <h1 className="mt-2 ml-8 font-['Ojuju:Bold',sans-serif] text-4xl leading-[0.88] text-[#BF8351] drop-shadow-[0_1px_0_rgba(255,255,255,0.28)] md:ml-20 md:text-6xl">
+                    Sanchez Narita
+                  </h1>
+                </div>
                 <p className="font-['Poppins:SemiBold',sans-serif] text-base uppercase tracking-[0.16em] text-[#BF8351]">
                   Graphic Designer, UI Designer, UX Thinker
                 </p>
@@ -352,6 +449,10 @@ export default function HomePage() {
                 <p className="mt-4 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4A5565]">{item.text}</p>
               </motion.article>
             ))}
+          </div>
+
+          <div className="mt-16">
+            <SkillsPreviewSection />
           </div>
         </div>
       </section>

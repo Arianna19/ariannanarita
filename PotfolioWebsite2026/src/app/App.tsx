@@ -42,6 +42,10 @@ function Navigation({
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleHomeNavigation = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const navItems = [
     { label: 'Home', to: '/', match: location.pathname === '/' },
     { label: 'Selected Work', to: '/#work', match: location.pathname === '/' || location.pathname.startsWith('/project/') },
@@ -58,6 +62,7 @@ function Navigation({
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 md:px-8">
         <Link
           to="/"
+          onClick={handleHomeNavigation}
           className="inline-flex items-center gap-3 font-['Ojuju:Bold',sans-serif] text-2xl text-[#7DB1D4] transition-colors hover:text-[#5B8FA3]"
         >
           <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#D5E7F2] bg-[#F7FBFD] text-[#7DB1D4] transition-transform hover:-translate-y-0.5">
@@ -81,6 +86,7 @@ function Navigation({
             <Link
               key={item.label}
               to={item.to}
+              onClick={item.to === '/' ? handleHomeNavigation : undefined}
               className={`rounded-full border px-4 py-3 text-center font-['Poppins:Medium',sans-serif] text-sm tracking-[0.02em] transition-all md:px-3 md:py-2 md:text-xs md:sm:text-sm ${
                 item.match
                   ? 'border-[#BF8351] bg-[#FFF8F3] text-[#BF8351]'

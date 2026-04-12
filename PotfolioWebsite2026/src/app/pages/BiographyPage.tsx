@@ -82,24 +82,18 @@ const skillTracks = [
     icon: Figma,
     tone: 'blue',
     items: skills.design,
-    footer:
-      'This is the craft layer: the software, systems, and visual instincts I use to turn a loose idea into something polished enough to stand on its own.',
   },
   {
     title: 'Digital Practice',
     icon: MonitorSmartphone,
     tone: 'warm',
     items: skills.digital,
-    footer:
-      'This track is where usability takes the wheel, from interaction choices to structure, flow, and the small decisions that keep a product from fighting back.',
   },
   {
     title: 'Expanded Creative Work',
     icon: AudioLines,
     tone: 'blue',
     items: skills.expanded,
-    footer:
-      'This one opens the edges of the practice a bit more, showing the collaborations, sound work, and world-building instincts that keep the portfolio from feeling one-note.',
   },
 ];
 
@@ -267,7 +261,7 @@ export default function BiographyPage() {
 
       <WaveTransition variant="blue" />
 
-      <section ref={skillsRef} className="relative h-[420vh] md:h-[460vh]">
+      <section ref={skillsRef} className="relative h-[280vh] md:h-[320vh]">
         <div className="sticky top-24 overflow-hidden py-10 md:top-28 md:py-12">
           <div className="px-4 sm:px-6 md:px-8">
             <motion.div
@@ -290,7 +284,7 @@ export default function BiographyPage() {
                 {loopingSkillTracks.map((track, index) => (
                   <div
                     key={`${track.title}-${index}`}
-                    className={`flex min-h-[30rem] w-[30rem] shrink-0 flex-col justify-between rounded-[2.25rem] border p-8 shadow-xl backdrop-blur-sm sm:min-h-[34rem] sm:w-[35rem] sm:p-10 lg:min-h-[37rem] lg:w-[40rem] ${
+                    className={`w-fit max-w-[26rem] shrink-0 rounded-[2.25rem] border p-7 shadow-xl backdrop-blur-sm sm:max-w-[29rem] sm:p-8 lg:max-w-[31rem] ${
                       track.tone === 'warm'
                         ? 'border-[#E6C4A8] bg-[#FFF8F3]/95'
                         : 'border-[#D5E7F2] bg-[#F9FAFB]/95'
@@ -329,10 +323,6 @@ export default function BiographyPage() {
                         ))}
                       </div>
                     </div>
-
-                    <p className="mt-8 max-w-xl font-['Poppins:Regular',sans-serif] text-base leading-8 text-[#4A5565] sm:text-lg">
-                      {track.footer}
-                    </p>
                   </div>
                 ))}
               </motion.div>

@@ -1,5 +1,5 @@
-import { motion, useMotionValueEvent, useScroll, useTransform } from 'motion/react';
-import { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { useEffect, useRef } from 'react';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { LightbulbIcon } from '../components/Icons';
@@ -15,8 +15,80 @@ const readingMoodQuotes = [
   "When life shuts a door...open it again. It's a door. That's how they work.",
 ];
 
+function MoodScrollerSection() {
+  const moodRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: moodRef,
+    offset: ['start start', 'end start'],
+  });
+  const trackX = useTransform(scrollYProgress, [0, 1], ['0%', '-75%']);
+
+  return (
+    <section ref={moodRef} className="relative h-[280vh] md:h-[300vh]">
+      <div className="sticky top-24 overflow-hidden py-6 md:top-28 md:py-8">
+        <div className="px-5 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-6 flex flex-col gap-2">
+              <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.18em] text-[#BF8351]">
+                Relatable Mood
+              </p>
+              <h2 className="font-['Ojuju:Bold',sans-serif] text-3xl text-[#5B8FA3] md:text-4xl">
+                The side commentary kicks in after the statement.
+              </h2>
+            </div>
+
+            <motion.div style={{ x: trackX }} className="flex w-max gap-5 pr-5 md:gap-6">
+              {readingMoodQuotes.map((quote, index) => (
+                <div
+                  key={quote}
+                  className={`flex min-h-[24vh] w-[52vw] max-w-[34rem] shrink-0 flex-col justify-between overflow-hidden rounded-[1.6rem] border p-4 shadow-2xl md:min-h-[28vh] md:p-5 ${
+                    index % 2 === 0
+                      ? 'border-[#D5E7F2] bg-white/95'
+                      : 'border-[#E6C4A8] bg-[#FFF8F3]/95'
+                  }`}
+                >
+                  <div className="pointer-events-none absolute opacity-0" />
+                  <div className="space-y-4">
+                    <span className="inline-flex rounded-full bg-[#F1F8FC] px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.16em] text-[#5B8FA3]">
+                      Scroll-held mood board
+                    </span>
+                    <p
+                      className={`max-w-4xl ${
+                        index === 0
+                      ? "font-['Ojuju:Bold',sans-serif] text-3xl italic leading-[0.98] text-[#5B8FA3] md:text-5xl"
+                      : index === 1
+                            ? "font-['Poppins:ExtraBold',sans-serif] text-2xl uppercase leading-[1] tracking-[0.04em] text-[#BF8351] md:text-4xl"
+                            : index === 2
+                              ? "font-['Ojuju:Regular',sans-serif] text-3xl leading-[1] text-[#1E2939] md:text-5xl"
+                              : "font-['Poppins:Medium',sans-serif] text-xl italic leading-[1.18] text-[#5B8FA3] md:text-3xl"
+                      }`}
+                    >
+                      {quote}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="h-2 flex-1 rounded-full bg-[#D5E7F2]/70">
+                      <div
+                        className="h-full rounded-full bg-gradient-to-r from-[#BF8351] via-[#ABCEE2] to-[#5B8FA3]"
+                        style={{ width: `${((index + 1) / readingMoodQuotes.length) * 100}%` }}
+                      />
+                    </div>
+                    <p className="font-['Poppins:SemiBold',sans-serif] text-sm uppercase tracking-[0.16em] text-[#BF8351]">
+                      {index + 1} / {readingMoodQuotes.length}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function ArtistStatementPage() {
-  const [quoteIndex, setQuoteIndex] = useState(0);
   const statementRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: statementRef,
@@ -29,11 +101,6 @@ export default function ArtistStatementPage() {
   const accentScale = useTransform(scrollYProgress, [0, 1], [0.92, 1.08]);
   const railScale = useTransform(scrollYProgress, [0, 1], [0.08, 1]);
   const warmGlowY = useTransform(scrollYProgress, [0, 1], [0, 22]);
-
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const nextIndex = Math.min(readingMoodQuotes.length - 1, Math.floor(latest * readingMoodQuotes.length));
-    setQuoteIndex(nextIndex);
-  });
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -68,85 +135,62 @@ export default function ArtistStatementPage() {
         </motion.div>
 
         <div ref={statementRef} className="relative">
-          <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.72fr_0.28fr] lg:items-center">
-            <motion.div
-              style={{ y: accentY, scale: accentScale }}
-              className="pointer-events-none absolute right-[10%] top-10 hidden h-36 w-36 rounded-full bg-[#D5E7F2]/65 blur-3xl lg:block"
-            />
-            <motion.div
-              style={{ y: warmGlowY }}
-              className="pointer-events-none absolute left-[12%] bottom-16 hidden h-28 w-28 rounded-full bg-[#E6C4A8]/60 blur-3xl lg:block"
-            />
+          <motion.div
+            style={{ y: accentY, scale: accentScale }}
+            className="pointer-events-none absolute right-[10%] top-10 hidden h-36 w-36 rounded-full bg-[#D5E7F2]/65 blur-3xl lg:block"
+          />
+          <motion.div
+            style={{ y: warmGlowY }}
+            className="pointer-events-none absolute left-[12%] bottom-16 hidden h-28 w-28 rounded-full bg-[#E6C4A8]/60 blur-3xl lg:block"
+          />
 
-            <motion.article
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              style={{ y: statementY, opacity: statementOpacity }}
-              className="relative order-2 overflow-hidden rounded-[2.5rem] border border-[#D5E7F2] bg-white/95 shadow-2xl backdrop-blur-sm lg:order-1"
-            >
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-24 opacity-15">
-                <FlowingWater className="h-full w-full" />
+          <motion.article
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            style={{ y: statementY, opacity: statementOpacity }}
+            className="relative overflow-hidden rounded-[2.5rem] border border-[#D5E7F2] bg-white/95 shadow-2xl backdrop-blur-sm"
+          >
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-24 opacity-15">
+              <FlowingWater className="h-full w-full" />
+            </div>
+
+            <div className="grid gap-0 lg:grid-cols-[22px_1fr]">
+              <div className="relative hidden lg:block">
+                <div className="absolute bottom-10 left-1/2 top-10 w-px -translate-x-1/2 bg-[#D5E7F2]" />
+                <motion.div
+                  style={{ scaleY: railScale }}
+                  className="absolute bottom-10 left-1/2 top-10 w-1 origin-top -translate-x-1/2 rounded-full bg-gradient-to-b from-[#BF8351] via-[#ABCEE2] to-[#5B8FA3]"
+                />
               </div>
 
-              <div className="grid gap-0 lg:grid-cols-[22px_1fr]">
-                <div className="relative hidden lg:block">
-                  <div className="absolute bottom-10 left-1/2 top-10 w-px -translate-x-1/2 bg-[#D5E7F2]" />
-                  <motion.div
-                    style={{ scaleY: railScale }}
-                    className="absolute bottom-10 left-1/2 top-10 w-1 origin-top -translate-x-1/2 rounded-full bg-gradient-to-b from-[#BF8351] via-[#ABCEE2] to-[#5B8FA3]"
-                  />
+              <div className="relative px-8 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-[4.5rem]">
+                <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
+                  <span className="rounded-full bg-[#FFF8F3] px-4 py-2 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#BF8351]">
+                    Human-centered clarity
+                  </span>
+                  <span className="rounded-full bg-[#F1F8FC] px-4 py-2 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#5B8FA3]">
+                    Quiet humor
+                  </span>
+                  <span className="rounded-full bg-[#F1F8FC] px-4 py-2 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#5B8FA3]">
+                    Details that reward attention
+                  </span>
                 </div>
 
-                <div className="relative px-8 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-[4.5rem]">
-                  <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
-                    <span className="rounded-full bg-[#FFF8F3] px-4 py-2 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#BF8351]">
-                      Human-centered clarity
-                    </span>
-                    <span className="rounded-full bg-[#F1F8FC] px-4 py-2 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#5B8FA3]">
-                      Quiet humor
-                    </span>
-                    <span className="rounded-full bg-[#F1F8FC] px-4 py-2 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#5B8FA3]">
-                      Details that reward attention
-                    </span>
-                  </div>
-
-                  <p className="mx-auto max-w-3xl first-letter:float-left first-letter:mr-3 first-letter:font-['Ojuju:Bold',sans-serif] first-letter:text-6xl first-letter:leading-[0.82] first-letter:text-[#BF8351] text-left font-['Poppins:Regular',sans-serif] text-lg leading-9 text-[#364153] sm:text-[1.15rem] sm:leading-10">
-                    {statementText}
-                  </p>
-                </div>
-              </div>
-            </motion.article>
-
-            <motion.aside
-              initial={{ opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="order-1 lg:sticky lg:top-32 lg:order-2"
-            >
-              <div className="rounded-[2rem] border border-[#D5E7F2] bg-white/92 p-6 shadow-lg backdrop-blur-sm">
-                <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.18em] text-[#BF8351]">
-                  Relatable Mood Right Now
-                </p>
-                <motion.h2
-                  key={quoteIndex}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35 }}
-                  className="mt-3 font-['Ojuju:Bold',sans-serif] text-3xl leading-tight text-[#5B8FA3]"
-                >
-                  {readingMoodQuotes[quoteIndex]}
-                </motion.h2>
-                <p className="mt-5 font-['Poppins:Regular',sans-serif] text-sm leading-7 text-[#4A5565]">
-                  A small side note while the main statement stays front and center.
+                <p className="mx-auto max-w-3xl first-letter:float-left first-letter:mr-3 first-letter:font-['Ojuju:Bold',sans-serif] first-letter:text-6xl first-letter:leading-[0.82] first-letter:text-[#BF8351] text-left font-['Poppins:Regular',sans-serif] text-lg leading-9 text-[#364153] sm:text-[1.15rem] sm:leading-10">
+                  {statementText}
                 </p>
               </div>
-            </motion.aside>
-          </div>
+            </div>
+          </motion.article>
         </div>
       </div>
 
-      <div className="mt-24">
+      <div className="mt-12">
+        <MoodScrollerSection />
+      </div>
+
+      <div className="mt-8">
         <WaveTransition variant="gradient" />
       </div>
 
@@ -169,4 +213,3 @@ export default function ArtistStatementPage() {
     </motion.div>
   );
 }
-

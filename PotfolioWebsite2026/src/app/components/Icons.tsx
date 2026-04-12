@@ -94,3 +94,32 @@ export function SeigaihaIcon({ className = "w-8 h-8" }: { className?: string }) 
     </svg>
   );
 }
+
+export function FlavorBridgeLogo({ className = "w-12 h-12" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="120" cy="120" r="78" fill="#C8DDBD" />
+      <rect x="54" y="110" width="132" height="18" rx="9" fill="#A8A70C" />
+      <circle cx="38" cy="112" r="24" fill="#FFC126" />
+      <path d="M20 138L74 92" stroke="#B90D37" strokeWidth="12" strokeLinecap="round" />
+      <path d="M28 144L82 98" stroke="#B90D37" strokeWidth="12" strokeLinecap="round" />
+      <path d="M38 142L44 136" stroke="#FFC126" strokeWidth="6" strokeLinecap="round" />
+      <path d="M70 114L76 108" stroke="#FFC126" strokeWidth="6" strokeLinecap="round" />
+      <path d="M92 45C92 36.163 99.163 29 108 29H132C140.837 29 148 36.163 148 45V78C148 86.837 140.837 94 132 94H108C99.163 94 92 86.837 92 78V45Z" fill="#FFFFFF" />
+      <rect x="92" y="34" width="56" height="10" rx="5" fill="#B90D37" />
+      <rect x="87" y="22" width="66" height="8" rx="4" transform="rotate(-10 87 22)" fill="#B90D37" />
+      <rect x="109" y="12" width="22" height="10" rx="5" fill="#FFC126" />
+      <rect x="87" y="57" width="14" height="8" rx="4" transform="rotate(-38 87 57)" fill="#FFC126" />
+      <rect x="139" y="57" width="14" height="8" rx="4" transform="rotate(38 139 57)" fill="#FFC126" />
+      <path d="M178 92C178 74.327 192.327 60 210 60C227.673 60 242 74.327 242 92V105C242 109.418 238.418 113 234 113H186C181.582 113 178 109.418 178 105V92Z" transform="translate(-24 18)" fill="#B90D37" />
+      <path d="M186 96C189 84 195 76 204 72" stroke="#FFC126" strokeWidth="4" strokeLinecap="round" transform="translate(-24 18)" />
+      <rect x="170" y="118" width="72" height="4" rx="2" transform="translate(-6 22)" fill="#FFC126" />
+      <path d="M78 177C78 159.327 92.327 145 110 145C118.397 145 126.05 148.235 131.8 153.525C137.55 148.235 145.203 145 153.6 145C171.273 145 185.6 159.327 185.6 177V184H78V177Z" fill="#B90D37" />
+      <rect x="98" y="184" width="68" height="32" rx="6" fill="#B90D37" />
+      <rect x="98" y="216" width="68" height="6" fill="#FFC126" />
+      <rect x="118" y="162" width="8" height="24" rx="4" fill="#FFC126" />
+      <rect x="130" y="162" width="8" height="24" rx="4" fill="#FFC126" />
+      <rect x="142" y="162" width="8" height="24" rx="4" fill="#FFC126" />
+    </svg>
+  );
+}
