@@ -6,6 +6,7 @@ import BiographyPage from './pages/BiographyPage';
 import ContactPage from './pages/ContactPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import ScrollingOceanBackground from './components/ScrollingOceanBackground';
+import RouteLoadingOverlay from './components/RouteLoadingOverlay';
 import { AnimatePresence } from 'motion/react';
 import { Menu, Moon, SunMedium, X } from 'lucide-react';
 
@@ -158,8 +159,10 @@ function AnimatedRoutes() {
   );
 }
 
-export default function App() {
+function AppShell() {
+  const location = useLocation();
   const [theme, setTheme] = useState<ThemeMode>('light');
+  const [isRouteLoading, setIsRouteLoading] = useState(false);
 
   useEffect(() => {
     const initialTheme = getInitialTheme();
@@ -172,8 +175,20 @@ export default function App() {
     window.localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
+  useEffect(() => {
+    setIsRouteLoading(true);
+    const timeoutId = window.setTimeout(() => {
+      setIsRouteLoading(false);
+    }, 420);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [location.pathname, location.hash]);
+
   return (
-    <HashRouter>
+    <>
+      <RouteLoadingOverlay active={isRouteLoading} />
       <div className="min-h-screen">
         <ScrollingOceanBackground />
         <Navigation
@@ -182,6 +197,14 @@ export default function App() {
         />
         <AnimatedRoutes />
       </div>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <HashRouter>
+      <AppShell />
     </HashRouter>
   );
 }

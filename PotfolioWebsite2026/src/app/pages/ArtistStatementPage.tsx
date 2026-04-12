@@ -2,6 +2,7 @@ import { motion, useMotionValueEvent, useScroll, useTransform } from 'motion/rea
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import WaveTransition from '../components/WaveTransition';
+import PageContactCta from '../components/PageContactCta';
 import { LightbulbIcon } from '../components/Icons';
 import { FlowingWater } from '../components/OceanWave';
 
@@ -76,7 +77,7 @@ export default function ArtistStatementPage() {
           >
             <div className="rounded-[2rem] border border-[#D5E7F2] bg-white/92 p-6 shadow-lg backdrop-blur-sm">
               <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.18em] text-[#BF8351]">
-                Reading Mood
+                Relatable Mood Right Now
               </p>
               <motion.h2
                 key={quoteIndex}
@@ -147,26 +148,15 @@ export default function ArtistStatementPage() {
         <WaveTransition variant="gradient" />
       </div>
 
-      <div className="mx-auto mt-16 max-w-5xl px-5 md:px-8">
+      <div className="mt-16 px-4 sm:px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="rounded-[2rem] border border-[#D5E7F2] bg-white/95 p-8 text-center shadow-xl md:p-10"
+          className="mx-auto max-w-7xl"
         >
-          <h3 className="font-['Ojuju:Bold',sans-serif] text-4xl text-[#ABCEE2]">Want the shorter version?</h3>
-          <p className="mx-auto mt-4 max-w-2xl font-['Poppins:Regular',sans-serif] text-lg leading-8 text-[#364153]">
-            If you want the short version of what I do, we could skip the dramatic scrolling and just start a conversation.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              to="/contact"
-              className="rounded-full bg-[#BF8351] px-8 py-4 font-['Poppins:SemiBold',sans-serif] text-white transition-all hover:-translate-y-0.5 hover:bg-[#A66D42]"
-            >
-              Start a Conversation
-            </Link>
-          </div>
+          <PageContactCta />
         </motion.div>
       </div>
     </motion.div>

@@ -1,9 +1,10 @@
-import { motion } from 'motion/react';
-import { useEffect } from 'react';
-import { Link } from 'react-router';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { useEffect, useRef } from 'react';
 import WaveTransition from '../components/WaveTransition';
+import PageContactCta from '../components/PageContactCta';
 import { UserIcon, DesignIcon, BrandingIcon, CodeIcon } from '../components/Icons';
 import portraitImage from '../../imports/arianna-portrait.jpg';
+import { AudioLines, Figma, Layers3, MonitorSmartphone, PenTool, Sparkles } from 'lucide-react';
 
 const biographyParagraphs = [
   'Arianna Sanchez Narita’s introduction to design began informally, experimenting with Microsoft PowerPoint in elementary school. While others focused on content, she became absorbed in layout, composition, and how far she could push the software visually. This curiosity developed further in high school, where she spent much of her time in the computer lab teaching herself Adobe Photoshop. What began as a way to fill empty lunch hours evolved into a genuine connection to visual design, driven by instinct, experimentation, and a fascination with digital creation.',
@@ -75,7 +76,35 @@ const skills = {
   expanded: ['Sound Design', 'Creature Audio', 'Environmental Audio', 'Creative Collaboration', 'Immersive Experiences'],
 };
 
+const skillTracks = [
+  {
+    title: 'Design Tools',
+    icon: Figma,
+    tone: 'blue',
+    items: skills.design,
+  },
+  {
+    title: 'Digital Practice',
+    icon: MonitorSmartphone,
+    tone: 'warm',
+    items: skills.digital,
+  },
+  {
+    title: 'Expanded Creative Work',
+    icon: AudioLines,
+    tone: 'blue',
+    items: skills.expanded,
+  },
+];
+
 export default function BiographyPage() {
+  const skillsRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: skillsProgress } = useScroll({
+    target: skillsRef,
+    offset: ['start end', 'end start'],
+  });
+  const trackX = useTransform(skillsProgress, [0, 1], ['8%', '-40%']);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -230,8 +259,8 @@ export default function BiographyPage() {
 
       <WaveTransition variant="blue" />
 
-      <div className="py-16 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8">
+      <div ref={skillsRef} className="overflow-hidden py-16 md:py-20">
+        <div className="px-4 sm:px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -240,6 +269,9 @@ export default function BiographyPage() {
             className="mb-12 text-center md:mb-16"
           >
             <h2 className="font-['Ojuju:Bold',sans-serif] text-4xl text-[#5B8FA3] sm:text-5xl">Skills & Tools</h2>
+            <p className="mx-auto mt-4 max-w-2xl font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4A5565]">
+              This row drifts sideways while you scroll down, which feels dramatically more fun than trapping every skill in another polite little box.
+            </p>
           </motion.div>
 
           <motion.div
@@ -247,57 +279,45 @@ export default function BiographyPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8"
+            style={{ x: trackX }}
+            className="flex w-max gap-6 pb-4 pr-8"
           >
-            <div className="rounded-[1.75rem] border-l-4 border-[#ABCEE2] bg-[#F9FAFB]/95 p-7 shadow-lg backdrop-blur-sm sm:p-8">
-              <h3 className="mb-6 font-['Ojuju:Bold',sans-serif] text-xl text-[#1E2939]">Design Tools</h3>
-              <div className="flex flex-wrap gap-3">
-                {skills.design.map((tool) => (
-                  <span
-                    key={tool}
-                    className="rounded-full bg-[#D5E7F2] px-4 py-2 font-['Poppins:Medium',sans-serif] text-sm text-[#5B8FA3]"
-                  >
-                    {tool}
-                  </span>
-                ))}
+            {skillTracks.map((track) => (
+              <div
+                key={track.title}
+                className={`w-[22rem] shrink-0 rounded-[2rem] border p-7 shadow-lg backdrop-blur-sm sm:w-[26rem] sm:p-8 ${
+                  track.tone === 'warm'
+                    ? 'border-[#E6C4A8] bg-[#FFF8F3]/95'
+                    : 'border-[#D5E7F2] bg-[#F9FAFB]/95'
+                }`}
+              >
+                <div className="mb-6 flex items-center gap-3">
+                  <track.icon className={`h-6 w-6 ${track.tone === 'warm' ? 'text-[#BF8351]' : 'text-[#5B8FA3]'}`} />
+                  <h3 className="font-['Ojuju:Bold',sans-serif] text-2xl text-[#1E2939]">{track.title}</h3>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {track.items.map((item) => (
+                    <span
+                      key={item}
+                      className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-['Poppins:Medium',sans-serif] text-sm ${
+                        track.tone === 'warm' ? 'bg-[#E6C4A8] text-[#A66D42]' : 'bg-[#D5E7F2] text-[#5B8FA3]'
+                      }`}
+                    >
+                      {track.tone === 'warm' ? <Sparkles className="h-3.5 w-3.5" /> : <Layers3 className="h-3.5 w-3.5" />}
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-
-            <div className="rounded-[1.75rem] border-l-4 border-[#BF8351] bg-[#F9FAFB]/95 p-7 shadow-lg backdrop-blur-sm sm:p-8">
-              <h3 className="mb-6 font-['Ojuju:Bold',sans-serif] text-xl text-[#1E2939]">Digital Practice</h3>
-              <div className="flex flex-wrap gap-3">
-                {skills.digital.map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full bg-[#E6C4A8] px-4 py-2 font-['Poppins:Medium',sans-serif] text-sm text-[#A66D42]"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-[1.75rem] border-l-4 border-[#ABCEE2] bg-[#F9FAFB]/95 p-7 shadow-lg backdrop-blur-sm sm:p-8">
-              <h3 className="mb-6 font-['Ojuju:Bold',sans-serif] text-xl text-[#1E2939]">Expanded Creative Work</h3>
-              <div className="flex flex-wrap gap-3">
-                {skills.expanded.map((spec) => (
-                  <span
-                    key={spec}
-                    className="rounded-full bg-[#D5E7F2] px-4 py-2 font-['Poppins:Medium',sans-serif] text-sm text-[#5B8FA3]"
-                  >
-                    {spec}
-                  </span>
-                ))}
-              </div>
-            </div>
+            ))}
           </motion.div>
         </div>
       </div>
 
       <WaveTransition variant="orange" flip />
 
-      <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 md:px-8 md:py-20">
-        <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr]">
+      <div className="px-4 py-16 sm:px-6 md:px-8 md:py-20">
+        <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-[1.05fr_0.95fr]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -311,7 +331,7 @@ export default function BiographyPage() {
             <ul className="space-y-4">
               {philosophy.map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <div className="mt-2 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-[#BF8351]" />
+                  <PenTool className="mt-1 h-5 w-5 flex-shrink-0 text-[#BF8351]" />
                   <span className="font-['Poppins:Regular',sans-serif] leading-7 text-[#364153]">{item}</span>
                 </li>
               ))}
@@ -330,14 +350,22 @@ export default function BiographyPage() {
               Arianna wants her work to do more than function well. She wants it to create clarity, humor, and moments of
               relief in a world that already feels too heavy.
             </p>
-            <Link
-              to="/contact"
-              className="mt-8 inline-block rounded-full bg-white px-8 py-4 font-['Ojuju:Bold',sans-serif] text-lg text-[#BF8351] shadow-lg transition-colors hover:bg-white/90"
-            >
-              Start a Conversation
-            </Link>
+            <div className="mt-8 inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 font-['Poppins:SemiBold',sans-serif] text-sm uppercase tracking-[0.14em] text-white/95">
+              <MonitorSmartphone className="h-4 w-4" />
+              UX, graphic design, sound, and personality
+            </div>
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: true }}
+          className="mx-auto mt-8 max-w-7xl"
+        >
+          <PageContactCta />
+        </motion.div>
       </div>
     </motion.div>
   );

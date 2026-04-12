@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { Link, useLocation } from 'react-router';
 import { useEffect, useRef } from 'react';
 import WaveTransition from '../components/WaveTransition';
+import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, BrandingIcon, CodeIcon, PrototypeIcon, UserIcon } from '../components/Icons';
 import { FlowingWater, JapaneseWave, OceanBubbles } from '../components/OceanWave';
 import portraitImage from '../../imports/arianna-portrait.jpg';
@@ -366,63 +367,16 @@ export default function HomePage() {
 
       <WaveTransition variant="blue" flip />
 
-      <section className="relative px-5 py-24 md:px-8">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="rounded-[2rem] border border-[#D5E7F2] bg-white/95 p-8 shadow-xl md:p-10"
-          >
-            <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#BF8351]">
-              Contact
-            </p>
-            <h2 className="mt-3 font-['Ojuju:Bold',sans-serif] text-5xl text-[#ABCEE2]">
-              Easy ways to reach me
-            </h2>
-            <p className="mt-5 max-w-2xl font-['Poppins:Regular',sans-serif] text-lg leading-8 text-[#364153]">
-              If you are hiring, collaborating, or just want to discuss a project that needs clearer thinking and stronger visuals,
-              I am very reachable and only mildly overattached to good type hierarchy, honest feedback, and coffee strong enough to negotiate with my overthinking.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                to="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#BF8351] px-8 py-4 font-['Poppins:SemiBold',sans-serif] text-white transition-all hover:-translate-y-0.5 hover:bg-[#A66D42] hover:shadow-lg"
-              >
-                Open Contact Page
-              </Link>
-              <a
-                href="mailto:ariannanarita@gmail.com"
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ABCEE2] px-8 py-4 font-['Poppins:SemiBold',sans-serif] text-[#7DB1D4] transition-all hover:-translate-y-0.5 hover:bg-[#D5E7F2] hover:shadow-lg"
-              >
-                ariannanarita@gmail.com
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#ABCEE2] to-[#BF8351] p-8 shadow-xl md:p-10"
-          >
-            <div className="absolute inset-0 opacity-15">
-              <FlowingWater className="h-full w-full" />
-            </div>
-            <div className="relative">
-              <h3 className="font-['Ojuju:Bold',sans-serif] text-4xl text-white">Best fit work</h3>
-              <ul className="mt-6 space-y-4 font-['Poppins:Regular',sans-serif] text-base leading-7 text-white/95">
-                <li>Brand systems that need digital consistency</li>
-                <li>UI / UX projects that need structure and polish</li>
-                <li>Portfolio-worthy visual storytelling for campaigns</li>
-                <li>Design problems that deserve more than a rushed template</li>
-              </ul>
-            </div>
-          </motion.div>
-        </div>
+      <section className="relative px-4 py-24 sm:px-6 md:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mx-auto max-w-7xl"
+        >
+          <PageContactCta />
+        </motion.div>
       </section>
 
       <footer className="border-t border-[#D5E7F2] bg-white/90 px-5 py-8 md:px-8">

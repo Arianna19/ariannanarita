@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { useEffect } from 'react';
 import WaveTransition from '../components/WaveTransition';
 import { WaveDecoration } from '../components/OceanWave';
+import { Globe, Mail, MapPin, MessageCircleMore } from 'lucide-react';
 
 export default function ContactPage() {
   useEffect(() => {
@@ -22,7 +23,8 @@ export default function ContactPage() {
           transition={{ duration: 0.6 }}
           className="mb-14 max-w-3xl"
         >
-          <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.18em] text-[#BF8351]">
+          <p className="inline-flex items-center gap-2 font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.18em] text-[#BF8351]">
+            <MessageCircleMore className="h-4 w-4" />
             Contact
           </p>
           <h1 className="mt-3 font-['Ojuju:Bold',sans-serif] text-5xl text-[#ABCEE2] md:text-7xl">
@@ -98,11 +100,18 @@ export default function ContactPage() {
             <section className="overflow-hidden rounded-[2rem] border border-[#D5E7F2] bg-gradient-to-br from-[#ABCEE2] to-[#7DB1D4] p-8 text-white shadow-xl">
               <h2 className="font-['Ojuju:Bold',sans-serif] text-3xl">Direct contact</h2>
               <div className="mt-6 space-y-5 font-['Poppins:Regular',sans-serif] text-lg">
-                <a href="mailto:ariannanarita@gmail.com" className="block transition-opacity hover:opacity-80">
+                <a href="mailto:ariannanarita@gmail.com" className="flex items-center gap-3 transition-opacity hover:opacity-80">
+                  <Mail className="h-5 w-5" />
                   ariannanarita@gmail.com
                 </a>
-                <p>Montreal, Quebec</p>
-                <p>Glad to work remotely with good people anywhere around the globe.</p>
+                <p className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5" />
+                  Montreal, Quebec
+                </p>
+                <p className="flex items-center gap-3">
+                  <Globe className="h-5 w-5" />
+                  Glad to work remotely with good people anywhere around the globe.
+                </p>
               </div>
             </section>
 
