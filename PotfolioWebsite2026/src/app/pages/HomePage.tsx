@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'motion/react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { useEffect, useRef } from 'react';
 import WaveTransition from '../components/WaveTransition';
 import { DesignIcon, BrandingIcon, CodeIcon, PrototypeIcon, UserIcon } from '../components/Icons';
@@ -142,6 +142,7 @@ function WisdomSection() {
 }
 
 export default function HomePage() {
+  const location = useLocation();
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -151,18 +152,18 @@ export default function HomePage() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 180]);
 
   useEffect(() => {
-    if (window.location.hash) {
-      const normalizedHash = window.location.hash.replace(/^#+/, '#');
-      if (normalizedHash && normalizedHash !== '#') {
-        const element = document.querySelector(normalizedHash);
-        if (element) {
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 100);
-        }
+    const rawHash = location.hash || window.location.hash;
+    const targetId = rawHash.split('#').filter(Boolean).at(-1);
+
+    if (targetId) {
+      const element = document.getElementById(targetId);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
       }
     }
-  }, []);
+  }, [location.hash]);
 
   return (
     <motion.div
