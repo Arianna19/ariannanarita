@@ -1,6 +1,5 @@
 import { motion, useMotionValueEvent, useScroll, useTransform } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { LightbulbIcon } from '../components/Icons';
@@ -156,7 +155,12 @@ export default function ArtistStatementPage() {
           viewport={{ once: true }}
           className="mx-auto max-w-7xl"
         >
-          <PageContactCta />
+          <PageContactCta
+            label="Continue the Conversation"
+            title="If the dramatic scrolling worked, the email probably will too."
+            body="This page is the long-form version of how I think. If you want to turn that into a real project, collaboration, or conversation, I am very reachable."
+            accent="blue"
+          />
         </motion.div>
       </div>
     </motion.div>

@@ -132,12 +132,12 @@ function WisdomSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: index * 0.12 }}
           viewport={{ once: true }}
-          className={`relative max-w-md font-['Ojuju:Bold',sans-serif] text-4xl leading-[1.02] text-[#5B8FA3] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] md:text-5xl ${
+          className={`relative max-w-md font-['Ojuju:Bold',sans-serif] leading-[1.02] drop-shadow-[0_10px_20px_rgba(255,255,255,0.55)] ${
             index === 0
-              ? 'ml-[4%] mt-2 rotate-[-3deg]'
+              ? 'ml-[4%] mt-2 rotate-[-3deg] text-5xl italic text-[#5B8FA3] md:text-6xl'
               : index === 1
-                ? 'ml-auto mr-[10%] mt-12 rotate-[2deg]'
-                : 'ml-[18%] mt-14 rotate-[-1deg]'
+                ? 'ml-auto mr-[10%] mt-12 rotate-[2deg] text-4xl text-[#BF8351] md:text-5xl'
+                : 'ml-[18%] mt-14 rotate-[-1deg] text-6xl font-black text-[#7DB1D4] md:text-7xl'
           }`}
         >
           {quote}
@@ -375,7 +375,12 @@ export default function HomePage() {
           viewport={{ once: true }}
           className="mx-auto max-w-7xl"
         >
-          <PageContactCta />
+          <PageContactCta
+            label="Reach Out"
+            title="If the work made sense and the jokes did not scare you off, we should talk."
+            body="For freelance work, collaborations, or projects that need clarity, personality, and fewer weird UX decisions, I am one email away."
+            accent="mixed"
+          />
         </motion.div>
       </section>
 

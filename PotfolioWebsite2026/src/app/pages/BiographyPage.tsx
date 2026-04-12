@@ -101,9 +101,9 @@ export default function BiographyPage() {
   const skillsRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: skillsProgress } = useScroll({
     target: skillsRef,
-    offset: ['start end', 'end start'],
+    offset: ['start start', 'end start'],
   });
-  const trackX = useTransform(skillsProgress, [0, 1], ['8%', '-40%']);
+  const trackX = useTransform(skillsProgress, [0, 1], ['0%', '-40%']);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -364,7 +364,12 @@ export default function BiographyPage() {
           viewport={{ once: true }}
           className="mx-auto mt-8 max-w-7xl"
         >
-          <PageContactCta />
+          <PageContactCta
+            label="Contact Arianna"
+            title="Now you know the backstory, the design obsessions, and the accidental sound-design subplot."
+            body="If that sounds like someone you would like on a project, in a collaboration, or in your inbox, this is the point where reaching out becomes a very good idea."
+            accent="warm"
+          />
         </motion.div>
       </div>
     </motion.div>

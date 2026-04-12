@@ -1,12 +1,34 @@
 import { Link } from 'react-router';
 import { Globe, Mail, MessageCircleMore } from 'lucide-react';
 
-export default function PageContactCta() {
+type PageContactCtaProps = {
+  label?: string;
+  title?: string;
+  body?: string;
+  accent?: 'blue' | 'warm' | 'mixed';
+};
+
+export default function PageContactCta({
+  label = 'Contact Me',
+  title = 'If you made it this far, we should probably talk.',
+  body = 'For projects, freelance work, collaborations, or thoughtful internet correspondence, I am reachable from Montreal and happy to work remotely with good people around the globe.',
+  accent = 'mixed',
+}: PageContactCtaProps) {
+  const shellClass =
+    accent === 'warm'
+      ? 'bg-gradient-to-r from-[#FFF8F3] via-white to-[#F7FBFD]'
+      : accent === 'blue'
+        ? 'bg-gradient-to-r from-[#F1F8FC] via-white to-[#E8F4FA]'
+        : 'bg-gradient-to-r from-[#F7FBFD] via-white to-[#FFF8F3]';
+  const orbLeft = accent === 'warm' ? 'bg-[#E6C4A8]' : 'bg-[#ABCEE2]';
+  const orbRight = accent === 'blue' ? 'bg-[#D5E7F2]' : 'bg-[#E6C4A8]';
+  const titleColor = accent === 'warm' ? 'text-[#BF8351]' : 'text-[#5B8FA3]';
+
   return (
-    <section className="relative overflow-hidden rounded-[2.25rem] border border-[#D5E7F2] bg-gradient-to-r from-[#F7FBFD] via-white to-[#FFF8F3] px-6 py-10 shadow-xl sm:px-8 md:px-10 md:py-12">
+    <section className={`relative overflow-hidden rounded-[2.25rem] border border-[#D5E7F2] px-6 py-10 shadow-xl sm:px-8 md:px-10 md:py-12 ${shellClass}`}>
       <div className="pointer-events-none absolute inset-0 opacity-15">
-        <div className="absolute -left-10 top-0 h-28 w-28 rounded-full bg-[#ABCEE2] blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-32 w-32 rounded-full bg-[#E6C4A8] blur-3xl" />
+        <div className={`absolute -left-10 top-0 h-28 w-28 rounded-full blur-3xl ${orbLeft}`} />
+        <div className={`absolute bottom-0 right-0 h-32 w-32 rounded-full blur-3xl ${orbRight}`} />
       </div>
 
       <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
@@ -14,15 +36,14 @@ export default function PageContactCta() {
           <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 shadow-sm">
             <MessageCircleMore className="h-4 w-4 text-[#BF8351]" />
             <span className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#BF8351]">
-              Contact Me
+              {label}
             </span>
           </div>
-          <h3 className="font-['Ojuju:Bold',sans-serif] text-4xl leading-[0.95] text-[#5B8FA3] md:text-5xl">
-            If you made it this far, we should probably talk.
+          <h3 className={`font-['Ojuju:Bold',sans-serif] text-4xl leading-[0.95] md:text-5xl ${titleColor}`}>
+            {title}
           </h3>
           <p className="mt-4 max-w-2xl font-['Poppins:Regular',sans-serif] text-lg leading-8 text-[#364153]">
-            For projects, freelance work, collaborations, or thoughtful internet correspondence, I am reachable from Montreal
-            and happy to work remotely with good people around the globe.
+            {body}
           </p>
         </div>
 
