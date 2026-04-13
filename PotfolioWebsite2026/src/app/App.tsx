@@ -7,7 +7,7 @@ import ContactPage from './pages/ContactPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import ScrollingOceanBackground from './components/ScrollingOceanBackground';
 import RouteLoadingOverlay from './components/RouteLoadingOverlay';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { ArrowUp, Menu, Moon, SunMedium, X } from 'lucide-react';
 import { SeigaihaIcon } from './components/Icons';
 
@@ -41,8 +41,10 @@ function Navigation({
 }) {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [iconTapped, setIconTapped] = useState(false);
 
   const handleHomeNavigation = () => {
+    setIconTapped(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -65,9 +67,14 @@ function Navigation({
           onClick={handleHomeNavigation}
           className="inline-flex items-center gap-3 font-['Ojuju:Bold',sans-serif] text-2xl text-[#7DB1D4] transition-colors hover:text-[#5B8FA3]"
         >
-          <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#D5E7F2] bg-[#F7FBFD] text-[#7DB1D4] transition-transform hover:-translate-y-0.5">
+          <motion.span
+            animate={iconTapped ? { rotate: [0, -10, 14, 0], scale: [1, 0.92, 1.08, 1] } : { rotate: 0, scale: 1 }}
+            transition={{ duration: 0.55, ease: 'easeInOut' }}
+            onAnimationComplete={() => setIconTapped(false)}
+            className="inline-flex items-center justify-center text-[#7DB1D4]"
+          >
             <SeigaihaIcon className="h-7 w-7" />
-          </span>
+          </motion.span>
           Arianna
         </Link>
 

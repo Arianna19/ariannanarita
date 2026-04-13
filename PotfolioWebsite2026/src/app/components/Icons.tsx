@@ -84,13 +84,14 @@ export function CircleIcon({ className = "w-4 h-4" }: { className?: string }) {
 export function SeigaihaIcon({ className = "w-8 h-8" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8 74C8 56.327 22.327 42 40 42C57.673 42 72 56.327 72 74" stroke="#7DB1D4" strokeWidth="5" strokeLinecap="round"/>
-      <path d="M24 74C24 65.163 31.163 58 40 58C48.837 58 56 65.163 56 74" stroke="#ABCEE2" strokeWidth="5" strokeLinecap="round"/>
-      <path d="M40 74C40 69.582 43.582 66 48 66C52.418 66 56 69.582 56 74" stroke="#BF8351" strokeWidth="5" strokeLinecap="round"/>
-      <path d="M40 42C40 24.327 54.327 10 72 10C89.673 10 104 24.327 104 42" stroke="#7DB1D4" strokeWidth="5" strokeLinecap="round" transform="translate(-32 0)"/>
-      <path d="M56 42C56 33.163 63.163 26 72 26C80.837 26 88 33.163 88 42" stroke="#ABCEE2" strokeWidth="5" strokeLinecap="round" transform="translate(-32 0)"/>
-      <circle cx="24" cy="26" r="5" fill="#BF8351"/>
-      <circle cx="60" cy="26" r="5" fill="#ABCEE2"/>
+      <path d="M8 70C8 52.327 22.327 38 40 38C57.673 38 72 52.327 72 70" stroke="#7DB1D4" strokeWidth="6" strokeLinecap="round"/>
+      <path d="M24 70C24 61.163 31.163 54 40 54C48.837 54 56 61.163 56 70" stroke="#ABCEE2" strokeWidth="6" strokeLinecap="round"/>
+      <path d="M40 70C40 65.582 43.582 62 48 62C52.418 62 56 65.582 56 70" stroke="#BF8351" strokeWidth="6" strokeLinecap="round"/>
+      <path d="M28 42C28 24.327 42.327 10 60 10C77.673 10 92 24.327 92 42" stroke="#7DB1D4" strokeWidth="6" strokeLinecap="round"/>
+      <path d="M44 42C44 33.163 51.163 26 60 26C68.837 26 76 33.163 76 42" stroke="#ABCEE2" strokeWidth="6" strokeLinecap="round"/>
+      <path d="M60 42C60 37.582 63.582 34 68 34C72.418 34 76 37.582 76 42" stroke="#BF8351" strokeWidth="6" strokeLinecap="round"/>
+      <circle cx="18" cy="24" r="4" fill="#BF8351"/>
+      <circle cx="82" cy="76" r="4" fill="#ABCEE2"/>
     </svg>
   );
 }

@@ -491,12 +491,11 @@ export default function HomePage() {
                 Selected Work
               </p>
               <h2 className="mt-3 font-['Ojuju:Bold',sans-serif] text-5xl text-[#ABCEE2]">
-                Case studies with process, not just pretty screenshots
+                Here's some work I did
               </h2>
             </div>
             <p className="max-w-xl font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4A5565]">
-              Each project opens into a narrative structure: thesis, ideation, approach, creative work, and role definition.
-              Recruiters can skim it quickly. Curious people can dig deeper. Everyone else can admire the fact that the buttons are not having an identity crisis.
+              Each project opens into the thinking behind it, the decisions that shaped it, and the final work itself.
             </p>
           </motion.div>
 
@@ -548,7 +547,7 @@ export default function HomePage() {
 
       <footer className="border-t border-[#D5E7F2] bg-white/90 px-5 py-8 md:px-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 text-sm text-[#4A5565] md:flex-row md:items-center md:justify-between">
-          <p className="font-['Poppins:Regular',sans-serif]">Copyright 2026 Arianna. Built to be clear, quick to skim, and slightly powered by caffeine.</p>
+          <p className="font-['Poppins:Regular',sans-serif]">Copyright 2026 Arianna. Built to be clear and slightly powered by caffeine.</p>
           <p className="font-['Poppins:Regular',sans-serif]">Graphic Design, UI, UX</p>
         </div>
       </footer>
