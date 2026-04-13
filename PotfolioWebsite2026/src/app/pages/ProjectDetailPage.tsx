@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useParams, Link } from 'react-router';
-import { useEffect, useRef } from 'react';
-import { HandHeart, LayoutGrid, Search } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Accessibility, BookOpenText, ChefHat, DollarSign, Eye, HandHeart, Landmark, LayoutGrid, Search, Soup, TrendingUp, Type, UtensilsCrossed } from 'lucide-react';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, LightbulbIcon, CodeIcon, UserIcon } from '../components/Icons';
@@ -47,6 +47,12 @@ const projectContent: Record<string, ProjectRecord> = {
       'Delivered a simple, flexible mark that reads clearly in small and large formats.',
     ],
     creativeNotes: ['Monogram mark', 'Logo clarity', 'Financial identity'],
+    approachBullets: [
+      'Built the identity around a monogram system that could stay clear at small sizes and on social platforms.',
+      'Tested the mark in multiple lockups and color versions to make sure it stayed professional and flexible.',
+      'Kept the visual language restrained so the logo feels trustworthy instead of overdesigned.',
+      'Refined spacing, contrast, and typography to support readability across digital and print uses.',
+    ],
   },
   '2': {
     title: 'Flavor Bridge',
@@ -83,26 +89,37 @@ const projectContent: Record<string, ProjectRecord> = {
     ],
   },
   '3': {
-    title: 'Drift Editorial Platform',
-    categories: ['Editorial Design', 'Digital Experience'],
+    title: 'The Center Cannot Hold',
+    categories: ['UX/UI Redesign', 'Accessibility', 'Information Architecture'],
     summary:
-      'Placeholder case study for an editorial platform that balances expressive layouts with readability, hierarchy, and stronger storytelling.',
-    role: 'Designer',
-    duration: '6 weeks',
+      'A redesign of The Center Cannot Hold centered on accessibility for neurodivergent users, with focused work on hierarchy, plain language, page organization, and navigation clarity while respecting the site\'s artistic atmosphere.',
+    role: 'UX/UI designer and information architecture collaborator',
+    duration: '3 months',
     year: '2026',
-    client: 'Placeholder publication',
+    client: 'Post Marginal / The Center Cannot Hold',
     thesis:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate egestas tellus, vitae consequat justo tristique vel. Etiam rhoncus lectus a metus accumsan.',
+      'This project asked how The Center Cannot Hold could remain immersive and artistically unconventional while becoming more accessible for disabled users, especially neurodivergent and blind visitors. The redesign focused on reducing cognitive load without flattening the personality of the site.',
     ideation:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus velit sed neque facilisis, eget suscipit lacus aliquam. In eu est luctus, pretium sem et, cursus libero.',
+      'Our process started with information-architecture analysis, precedent research, and early sitemap and low-fidelity testing. We reviewed accessibility references like WCAG and ARIA patterns, mapped cluttered and uncategorized content, and used user feedback to identify where wording, section titles, and information flow were making the site harder to navigate.',
     approach:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis ligula et turpis tincidunt, nec viverra turpis tristique. Integer ut nulla turpis.',
+      'The redesign introduced clearer headings, more predictable sectioning, a persistent navigation system, and tighter control over how much information appears at once. Long parallax-heavy experiences were restructured into more distinct sections so users could orient themselves more easily, while the visual language stayed thematic and immersive.',
     roleNotes: [
-      'Placeholder for visual system, layout, and production responsibilities',
-      'Placeholder for collaborator credits and the boundaries of your contribution',
-      'Placeholder for how research or audience needs shaped the design direction',
+      'Helped reorganize the main pages of the site with stronger hierarchy and clearer information grouping.',
+      'Reworked titles, wording, and content flow to support neurodivergent users and reduce cognitive overload.',
+      'Contributed to prototypes, accessibility decisions, and iterative changes shaped by research and user feedback.',
     ],
-    creativeNotes: ['Editorial grids', 'Reading rhythm', 'Story pacing across screens'],
+    creativeNotes: ['Accessible hierarchy', 'Navigation redesign', 'Information clarity'],
+    approachBullets: [
+      'Mapped the existing information architecture to identify cluttered content, uncategorized material, and areas with excessive tags.',
+      'Introduced clearer headings, more readable text layout, and a more obvious accessibility entry point.',
+      'Used a persistent navbar and more structured sections to improve orientation for neurodivergent users.',
+      'Iterated from user testing, including feedback from a neurodivergent artist and earlier blind-user accessibility findings.',
+    ],
+    creativeSections: [
+      'The redesign tightened page hierarchy so users could understand what matters first without being overwhelmed.',
+      'Navigation, menu consistency, and wording were refined to support orientation and reduce confusion.',
+      'The visual language stayed atmospheric, but the information was edited and grouped with more intention.',
+    ],
   },
 };
 
@@ -129,18 +146,31 @@ const flavorBridgeSupportingVisuals = [
 const flavorBridgeLogo = encodeURI(`${import.meta.env.BASE_URL}flavor-bridge-exports/Vector.png`);
 const iaFinancialLogoPng = encodeURI(`${import.meta.env.BASE_URL}ia-financial/GuilaumeNoText.png`);
 const iaFinancialSocialImage = encodeURI(`${import.meta.env.BASE_URL}ia-financial/imageGL.png`);
+const iaFinancialFullLogo = encodeURI(`${import.meta.env.BASE_URL}ia-financial/GuillaumelogoFINAL-1.png`);
+const iaFinancialPdfImages = [
+  iaFinancialFullLogo,
+  encodeURI(`${import.meta.env.BASE_URL}ia-financial/Screenshot 2026-01-18 150458.png`),
+  iaFinancialLogoPng,
+];
+const tcchIcon = encodeURI(`${import.meta.env.BASE_URL}tcch-icon-white.png`);
+const tcchBackground = encodeURI(`${import.meta.env.BASE_URL}tcch-hero-bg.jpg`);
+const tcchBeforeAfterImages = {
+  veroniqueBefore: encodeURI(`${import.meta.env.BASE_URL}tcch/veronique-before.png`),
+  veroniqueAfter: encodeURI(`${import.meta.env.BASE_URL}tcch/veronique-after.png`),
+  resourcesBefore: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-before.png`),
+  resourcesAfter: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-after.png`),
+  resourcesAfterDetail: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-after-detail.png`),
+  profilesWireframe: encodeURI(`${import.meta.env.BASE_URL}tcch/profiles-wireframe.png`),
+  resourcesWireframeTwo: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-wireframe-2.png`),
+};
 
 export default function ProjectDetailPage() {
   const { id = '1' } = useParams();
   const project = projectContent[id] ?? projectContent['1'];
   const isFlavorBridge = id === '2';
   const isIAFinancial = id === '1';
-  const approachItems = project.approachBullets ?? [
-    'Placeholder for strategy and key decisions',
-    'Placeholder for how the design evolved',
-    'Placeholder for user or audience considerations',
-    'Placeholder for constraints and how they were handled',
-  ];
+  const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
+  const approachItems = project.approachBullets ?? [];
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -150,10 +180,27 @@ export default function ProjectDetailPage() {
   const orbY = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const floatingScreensY = useTransform(scrollYProgress, [0, 1], [0, -90]);
   const floatingLogoY = useTransform(scrollYProgress, [0, 1], [0, 70]);
+  const financeIconY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const financeIconYAlt = useTransform(scrollYProgress, [0, 1], [0, 95]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [id]);
+
+  useEffect(() => {
+    if (!selectedImage) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSelectedImage(null);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [selectedImage]);
 
   return (
     <motion.div
@@ -164,30 +211,55 @@ export default function ProjectDetailPage() {
         isIAFinancial
           ? 'bg-[radial-gradient(circle_at_top,#f3f8ff_0%,#d2e0f7_40%,#abc0ec_100%)]'
           : isFlavorBridge
-          ? 'bg-[radial-gradient(circle_at_top,#fff0a8_0%,#ffd560_14%,#b9b40f_40%,#a3a207_100%)]'
-          : ''
+            ? 'bg-[radial-gradient(circle_at_top,#fff0a8_0%,#ffd560_14%,#b9b40f_40%,#a3a207_100%)]'
+            : id === '3'
+              ? 'bg-[linear-gradient(180deg,#0f172a_0%,#111827_100%)]'
+              : ''
       }`}
     >
       {isIAFinancial ? (
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" />
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <motion.div style={{ y: financeIconY }} className="absolute left-[7%] top-[13rem] text-[#1E3A8A]/18">
+            <DollarSign className="h-20 w-20" />
+          </motion.div>
+          <motion.div style={{ y: financeIconYAlt }} className="absolute right-[8%] top-[16rem] text-[#1E3A8A]/16">
+            <TrendingUp className="h-24 w-24" />
+          </motion.div>
+          <motion.div style={{ y: financeIconY }} className="absolute left-[10%] top-[44rem] hidden text-[#5B8FA3]/18 lg:block">
+            <Landmark className="h-24 w-24" />
+          </motion.div>
+        </div>
       ) : isFlavorBridge ? (
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <motion.div style={{ y: floatingLogoY }} className="absolute left-[5%] top-[10rem] opacity-20">
-            <img src={flavorBridgeLogo} alt="" className="h-28 w-28 object-contain md:h-40 md:w-40" />
+          <motion.div style={{ y: floatingLogoY }} className="absolute left-[6%] top-[10rem] text-[#B90D37]/18">
+            <ChefHat className="h-20 w-20 md:h-24 md:w-24" />
           </motion.div>
-          <motion.div style={{ y: floatingScreensY }} className="absolute right-[4%] top-[18rem] hidden rotate-[8deg] rounded-[2rem] border border-white/50 bg-white/25 p-3 shadow-2xl backdrop-blur-sm lg:block">
-            <img
-              src={flavorBridgeSupportingVisuals[0]}
-              alt="Flavor Bridge home screen preview"
-              className="h-[18rem] w-[9rem] object-contain"
-            />
+          <motion.div style={{ y: floatingScreensY }} className="absolute right-[8%] top-[18rem] hidden text-[#7B7F26]/18 lg:block">
+            <UtensilsCrossed className="h-24 w-24 md:h-28 md:w-28" />
           </motion.div>
-          <motion.div style={{ y: orbY }} className="absolute left-[6%] top-[44rem] hidden -rotate-[10deg] rounded-[2rem] border border-white/50 bg-white/22 p-3 shadow-2xl backdrop-blur-sm xl:block">
-            <img
-              src={flavorBridgeSupportingVisuals[1]}
-              alt="Flavor Bridge ingredients screen preview"
-              className="h-[18rem] w-[9rem] object-contain"
-            />
+          <motion.div style={{ y: orbY }} className="absolute left-[10%] top-[42rem] hidden text-[#FFC126]/30 xl:block">
+            <Soup className="h-24 w-24" />
+          </motion.div>
+          <motion.div style={{ y: financeIconYAlt }} className="absolute right-[12%] top-[46rem] hidden text-[#B90D37]/16 xl:block">
+            <BookOpenText className="h-24 w-24" />
+          </motion.div>
+          <motion.div style={{ y: financeIconY }} className="absolute left-[14%] top-[28rem] hidden text-[#7B7F26]/15 xl:block">
+            <Search className="h-20 w-20" />
+          </motion.div>
+        </div>
+      ) : id === '3' ? (
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <motion.div style={{ y: floatingLogoY }} className="absolute left-[6%] top-[12rem] hidden opacity-20 lg:block">
+            <img src={tcchIcon} alt="" className="h-24 w-24 object-contain" />
+          </motion.div>
+          <motion.div style={{ y: financeIconY }} className="absolute right-[8%] top-[15rem] hidden text-[#FDE047]/20 lg:block">
+            <Accessibility className="h-20 w-20" />
+          </motion.div>
+          <motion.div style={{ y: financeIconYAlt }} className="absolute left-[10%] top-[42rem] hidden text-[#93C5FD]/18 xl:block">
+            <Type className="h-20 w-20" />
+          </motion.div>
+          <motion.div style={{ y: orbY }} className="absolute right-[10%] top-[44rem] hidden text-[#E2E8F0]/14 xl:block">
+            <Eye className="h-24 w-24" />
           </motion.div>
         </div>
       ) : null}
@@ -234,11 +306,11 @@ export default function ProjectDetailPage() {
               ))}
             </div>
 
-            <h1 className={`font-['Ojuju:Bold',sans-serif] text-5xl leading-[0.95] md:text-7xl ${isIAFinancial ? 'text-[#1E3A8A]' : 'text-[#ABCEE2]'}`}>
+            <h1 className={`font-['Ojuju:Bold',sans-serif] text-5xl leading-[0.95] md:text-7xl ${isIAFinancial ? 'text-[#1E3A8A]' : id === '3' ? 'text-[#F8FAFC]' : 'text-[#ABCEE2]'}`}>
               {project.title}
             </h1>
 
-            <p className="max-w-3xl font-['Poppins:Regular',sans-serif] text-xl leading-8 text-[#4A5565]">
+            <p className={`max-w-3xl font-['Poppins:Regular',sans-serif] text-xl leading-8 ${id === '3' ? 'text-[#D5E7F2]' : 'text-[#4A5565]'}`}>
               {project.summary}
             </p>
 
@@ -267,8 +339,10 @@ export default function ProjectDetailPage() {
               isIAFinancial
                 ? 'border border-[#1E3A8A]/20 bg-[radial-gradient(circle_at_top,#f7fbff_0%,#d8e8ff_60%,#b4d2ff_100%)]'
                 : isFlavorBridge
-                ? 'border border-white/55 bg-[radial-gradient(circle_at_top,#ffd561_0%,#e2c018_24%,#a8a70c_100%)]'
-                : 'border border-[#D5E7F2] bg-gradient-to-br from-[#D5E7F2] via-[#ABCEE2] to-[#D6A882]'
+                  ? 'border border-white/55 bg-[radial-gradient(circle_at_top,#ffd561_0%,#e2c018_24%,#a8a70c_100%)]'
+                  : id === '3'
+                    ? 'border border-white/10 bg-[linear-gradient(180deg,#0f172a_0%,#111827_100%)]'
+                    : 'border border-[#D5E7F2] bg-gradient-to-br from-[#D5E7F2] via-[#ABCEE2] to-[#D6A882]'
             }`}
           >
             <motion.div style={{ y: orbY }} className="absolute -right-10 top-8 h-40 w-40 rounded-full bg-white/35 blur-3xl" />
@@ -285,38 +359,42 @@ export default function ProjectDetailPage() {
                 </div>
               </>
             ) : null}
-            {isIAFinancial ? (
-              <img
-                src={iaFinancialLogoPng}
-                alt="IA Financial Group logo"
-                className="relative h-32 w-32 object-contain drop-shadow-lg md:h-40 md:w-40"
-              />
-            ) : null}
             <OceanBubbles className="absolute left-8 top-8 h-24 w-24 opacity-60" />
             <div className="relative grid w-full gap-4 p-6 sm:p-8">
-              <div className={`rounded-[1.75rem] p-6 shadow-lg ${isFlavorBridge ? 'border border-white/40 bg-white/20 backdrop-blur-sm' : 'border border-white/60 bg-white/70 backdrop-blur-sm'}`}>
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className={`font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] ${isFlavorBridge ? 'text-white/80' : 'text-[#BF8351]'}`}>
-                      {isFlavorBridge ? 'Concept' : 'Identity System'}
-                    </p>
-                    {isFlavorBridge ? (
-                      <p className={`mt-2 font-['Ojuju:Bold',sans-serif] text-3xl text-[#7D1F33] dark:text-[#fff8ea]`}>
-                        Helping couples find recipes they both want to make.
-                      </p>
-                    ) : null}
-                    {isFlavorBridge ? (
-                      <p className="mt-3 max-w-full md:max-w-2xl font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4f4b17] dark:text-[#f8f4de]">
-                        A mobile app concept that turns recipe discovery into a shared, low-friction experience for couples with different tastes and cultural food references.
-                      </p>
-                    ) : null}
+              <div className={`grid min-h-[10rem] place-items-center rounded-[1.75rem] p-6 shadow-lg ${
+                isFlavorBridge
+                  ? 'border border-white/40 bg-white/20 backdrop-blur-sm'
+                  : isIAFinancial
+                    ? 'border border-white/60 bg-[#dcecff]'
+                    : id === '3'
+                      ? 'overflow-hidden border border-white/10 bg-[#111827]'
+                      : 'border border-white/60 bg-white/70 backdrop-blur-sm'
+              }`}>
+                {isFlavorBridge ? (
+                  <img src={flavorBridgeLogo} alt="Flavor Bridge logo" className="h-28 w-28 object-contain md:h-36 md:w-36" />
+                ) : isIAFinancial ? (
+                  <div className="relative h-full w-full">
+                    <div className="absolute inset-0 rounded-[1.25rem] bg-[#dcecff]" />
+                    <div className="absolute inset-4 rounded-[1.25rem] border border-white/70 bg-[#cfe2fb] shadow-[0_18px_36px_rgba(30,58,138,0.1)]" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <img src={iaFinancialFullLogo} alt="IA Financial Group logo" className="h-24 w-full object-contain px-8 md:h-28" />
+                    </div>
                   </div>
-                  {isFlavorBridge ? (
-                    <img src={flavorBridgeLogo} alt="Flavor Bridge logo" className="h-[4.8rem] w-[4.8rem] object-contain" />
-                  ) : (
-                    <DesignIcon className="h-[4.5rem] w-[4.5rem]" />
-                  )}
-                </div>
+                ) : id === '3' ? (
+                  <div className="relative h-full w-full">
+                    <img
+                      src={tcchBackground}
+                      alt="The Center Cannot Hold project hero"
+                      className="absolute inset-0 h-full w-full object-cover opacity-70"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a]/35 via-[#1e3a8a]/25 to-[#111827]/70" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <img src={tcchIcon} alt="The Center Cannot Hold logo" className="h-24 w-24 object-contain md:h-32 md:w-32" />
+                    </div>
+                  </div>
+                ) : (
+                  <DesignIcon className="h-[4.5rem] w-[4.5rem]" />
+                )}
               </div>
 
               {isFlavorBridge ? (
@@ -339,6 +417,27 @@ export default function ProjectDetailPage() {
                         <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-xl text-[#7D1F33] dark:text-[#5b1020]">{item.label}</p>
                       </div>
                     ))}
+                </div>
+              ) : id === '3' ? (
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {[
+                    { icon: Accessibility, label: 'Accessibility' },
+                    { icon: Type, label: 'Hierarchy' },
+                    { icon: Eye, label: 'Orientation' },
+                  ].map((item, index) => (
+                    <div
+                      key={item.label}
+                      className={`rounded-[1.5rem] border p-5 backdrop-blur-sm ${
+                        index === 1 ? 'border-[#FDE047]/40 bg-white/10' : 'border-white/10 bg-white/6'
+                      }`}
+                    >
+                      <item.icon className="h-5 w-5 text-[#FDE047]" />
+                      <p className="mt-3 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#93C5FD]">
+                        Focus
+                      </p>
+                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-xl text-[#F8FAFC]">{item.label}</p>
+                    </div>
+                  ))}
                 </div>
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -378,20 +477,73 @@ export default function ProjectDetailPage() {
         <section className={`rounded-[2rem] p-10 shadow-xl ${isFlavorBridge ? 'border border-[#c8ddbd] bg-[#f8f9ef]/92 backdrop-blur-sm' : 'border border-[#D5E7F2] bg-white/95'}`}>
           <div className="mb-5 flex items-center gap-4">
             <UserIcon className="h-14 w-14" />
-            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#7B7F26]' : 'text-[#ABCEE2]'}`}>Ideation</h2>
+            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#7B7F26]' : isIAFinancial ? 'text-[#1E3A8A]' : 'text-[#ABCEE2]'}`}>Ideation</h2>
           </div>
-          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#1f2937]' : 'text-[#364153]'}`}>{project.ideation}</p>
+          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#1f2937]' : isIAFinancial ? 'text-[#364153]' : 'text-[#364153]'}`}>{project.ideation}</p>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <div className={`grid min-h-[14rem] place-items-center rounded-[1.5rem] p-6 text-center ${isFlavorBridge ? 'border border-[#c8ddbd] bg-white' : 'border border-[#D5E7F2] bg-[#F9FAFB]'}`}>
-              <p className={`font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] ${isFlavorBridge ? 'text-[#7B7F26]' : 'text-[#7DB1D4]'}`}>
-                {isFlavorBridge ? project.ideationPanels?.[0] : 'Research / sketch placeholder'}
-              </p>
-            </div>
-            <div className={`grid min-h-[14rem] place-items-center rounded-[1.5rem] p-6 text-center ${isFlavorBridge ? 'border border-[#ffd986] bg-[#fff6da]' : 'border border-[#E6C4A8] bg-[#FFF8F3]'}`}>
-              <p className={`font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] ${isFlavorBridge ? 'text-[#B90D37]' : 'text-[#BF8351]'}`}>
-                {isFlavorBridge ? project.ideationPanels?.[1] : 'Concept development placeholder'}
-              </p>
-            </div>
+            {isIAFinancial ? (
+              <>
+                <div className="rounded-[1.5rem] border border-[#D0E1FF] bg-[#F5F9FF] p-6">
+                  <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#1E3A8A]">
+                    Research + form study
+                  </p>
+                  <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#364153]">
+                    The early directions leaned into a `G` and `L` monogram, testing how the initials could feel trustworthy and dynamic at the same time. A big part of the research phase was making sure Guillaume&apos;s mark did not slip too close to a logo shape people already know, so the final form had to stay distinct while still feeling familiar enough to read quickly.
+                  </p>
+                </div>
+                <div className="rounded-[1.5rem] border border-[#D0E1FF] bg-[#FFF8F3] p-6">
+                  <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#BF8351]">
+                    Social platform fit
+                  </p>
+                  <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#364153]">
+                    This logo also had to perform well on social media, where it often appears small, cropped, and surrounded by other visual noise. That constraint shaped the simplicity of the icon and the contrast of the typography, because the mark needed to stay recognizable on profile images, story graphics, and short-form content.
+                  </p>
+                </div>
+                <img
+                  src={iaFinancialSocialImage}
+                  alt="IA Financial Group branding used across social media platforms"
+                  className="h-[18rem] w-full rounded-[1.5rem] bg-[#dcecff] object-contain p-6 shadow-lg md:col-span-2"
+                />
+              </>
+            ) : id === '3' ? (
+              <>
+                <div className="rounded-[1.5rem] border border-[#334155] bg-[#0f172a]/88 p-6 shadow-xl md:col-span-2">
+                  <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#93C5FD]">
+                    Structure studies
+                  </p>
+                  <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#E2E8F0]">
+                    The redesign work included wireframing how information could be grouped more intentionally, especially on profile and resource-heavy pages where hierarchy and reading flow had to do more work for neurodivergent visitors.
+                  </p>
+                </div>
+                <div className="overflow-hidden rounded-[1.5rem] border border-[#334155] bg-[#0f172a]/88 shadow-xl">
+                  <img
+                    src={tcchBeforeAfterImages.profilesWireframe}
+                    alt="Wireframe structure for The Center Cannot Hold profiles page redesign"
+                    className="h-[22rem] w-full object-contain object-top"
+                  />
+                </div>
+                <div className="overflow-hidden rounded-[1.5rem] border border-[#334155] bg-[#0f172a]/88 shadow-xl">
+                  <img
+                    src={tcchBeforeAfterImages.resourcesWireframeTwo}
+                    alt="Wireframe structure for The Center Cannot Hold resources page redesign"
+                    className="h-[22rem] w-full object-contain object-top"
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={`grid min-h-[14rem] place-items-center rounded-[1.5rem] p-6 text-center ${isFlavorBridge ? 'border border-[#c8ddbd] bg-white' : 'border border-[#D5E7F2] bg-[#F9FAFB]'}`}>
+                  <p className={`font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] ${isFlavorBridge ? 'text-[#7B7F26]' : 'text-[#7DB1D4]'}`}>
+                    {isFlavorBridge ? project.ideationPanels?.[0] : project.creativeNotes[0]}
+                  </p>
+                </div>
+                <div className={`grid min-h-[14rem] place-items-center rounded-[1.5rem] p-6 text-center ${isFlavorBridge ? 'border border-[#ffd986] bg-[#fff6da]' : 'border border-[#E6C4A8] bg-[#FFF8F3]'}`}>
+                  <p className={`font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] ${isFlavorBridge ? 'text-[#B90D37]' : 'text-[#BF8351]'}`}>
+                    {isFlavorBridge ? project.ideationPanels?.[1] : project.creativeNotes[1]}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </section>
 
@@ -423,7 +575,15 @@ export default function ProjectDetailPage() {
 
         </div>
 
-        <section className={`relative left-1/2 w-screen -translate-x-1/2 overflow-hidden px-5 py-16 md:px-8 ${isFlavorBridge ? 'border-y border-[#c8ddbd]/10 bg-transparent shadow-none' : ''}`}>
+        <section className={`relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-y px-5 py-16 md:px-8 ${
+          isFlavorBridge
+            ? 'border-[#c8ddbd]/10 bg-transparent'
+            : isIAFinancial
+              ? 'border-[#1E3A8A]/10 bg-[linear-gradient(180deg,rgba(30,58,138,0.04),rgba(210,224,247,0.16))]'
+              : id === '3'
+                ? 'border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.82),rgba(15,23,42,0.94))]'
+                : 'border-[#D5E7F2]/20 bg-white/80'
+        }`}>
           <div className="pointer-events-none absolute inset-0 opacity-35">
             <div className="absolute left-0 top-8 w-full">
               <FlowingWater className="h-24 w-full" />
@@ -433,46 +593,155 @@ export default function ProjectDetailPage() {
             </div>
           </div>
 
-          <div className="relative mx-auto max-w-7xl rounded-[2rem] border border-[#c8ddbd] bg-[#f8f9ef]/92 p-10 shadow-xl backdrop-blur-sm">
-          <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#7B7F26] dark:text-[#5d6612]' : 'text-[#ABCEE2]'}`}>Creative Works</h2>
-          <p className={`mt-4 font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge || isIAFinancial ? 'text-[#364153] dark:text-[#1f2937]' : 'text-[#364153]'}`}>
+          <div className="relative mx-auto max-w-7xl">
+          <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${
+            isFlavorBridge
+              ? 'text-[#7B7F26] dark:text-[#5d6612]'
+              : isIAFinancial
+                ? 'text-[#1E3A8A]'
+                : id === '3'
+                  ? 'text-[#F8FAFC]'
+                  : 'text-[#ABCEE2]'
+          }`}>Creative Works</h2>
+          <p className={`mt-4 font-['Poppins:Regular',sans-serif] text-lg leading-8 ${
+            isFlavorBridge || isIAFinancial
+              ? 'text-[#364153] dark:text-[#1f2937]'
+              : id === '3'
+                ? 'text-[#D5E7F2]'
+                : 'text-[#364153]'
+          }`}>
             {isFlavorBridge
               ? 'Flavor Bridge moved through paper and Figma prototyping before settling into a mobile-first direction. The final app uses familiar interaction patterns to make recipe exploration feel light, social, and easier to navigate for couples with different tastes.'
               : isIAFinancial
-              ? 'A clear identity system for Guillaume-René Lalumière designed to feel professional, direct, and easy to use across digital touchpoints and printed advisor materials.'
-              : 'This area is ready for final images, mockups, spreads, flows, and system details once your real project assets are added, preferably before the caffeine wears off.'}
+                ? 'A clear identity system for Guillaume-Rene Lalumiere designed to feel professional, direct, and easy to use across digital touchpoints and printed advisor materials.'
+                : id === '3'
+                  ? 'The redesign centered on clearer structure, stronger orientation, and more accessible information flow while preserving the site\'s immersive artistic atmosphere.'
+                  : 'This area is ready for final images, mockups, spreads, flows, and system details once your real project assets are added, preferably before the caffeine wears off.'}
           </p>
 
           <div className="mt-8 space-y-6">
             {isFlavorBridge ? (
               <div className="grid gap-6 md:grid-cols-3">
                 {[...flavorBridgeVisuals, ...flavorBridgeSupportingVisuals].map((src, index) => (
-                  <div key={src} className="overflow-hidden rounded-[1.5rem] border border-[#c8ddbd] bg-white/90 p-3 shadow-lg">
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={() => setSelectedImage({ src, alt: `Flavor Bridge supporting screen ${index + 1}` })}
+                    className="overflow-hidden rounded-[1.5rem] border border-[#c8ddbd] bg-white/90 p-3 text-left shadow-lg transition-transform hover:-translate-y-1"
+                  >
                     <img
                       src={src}
                       alt={`Flavor Bridge supporting screen ${index + 1}`}
                       className="h-[22rem] w-full object-contain"
                     />
-                  </div>
+                  </button>
                 ))}
               </div>
             ) : isIAFinancial ? (
               <div className="grid gap-6 md:grid-cols-2">
-                <div className="overflow-hidden rounded-[1.5rem] border border-[#1E3A8A]/15 bg-white/90 p-3 shadow-lg">
-                  <img
-                    src={iaFinancialLogoPng}
-                    alt="IA Financial Group identity logo"
-                    className="h-[22rem] w-full object-contain"
-                  />
-                </div>
-                <div className="overflow-hidden rounded-[1.5rem] border border-[#1E3A8A]/15 bg-white/90 p-3 shadow-lg">
-                  <img
-                    src={iaFinancialSocialImage}
-                    alt="IA Financial Group logo in use on social media"
-                    className="h-[22rem] w-full object-contain"
-                  />
-                </div>
+                {iaFinancialPdfImages.map((src, index) => (
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={() => setSelectedImage({ src, alt: `IA Financial Group creative asset ${index + 1}` })}
+                    className="overflow-hidden rounded-[1.5rem] border border-[#1E3A8A]/15 bg-white/90 p-3 text-left shadow-lg transition-transform hover:-translate-y-1"
+                  >
+                    <img
+                      src={src}
+                      alt={`IA Financial Group creative asset ${index + 1}`}
+                      className="h-[22rem] w-full object-contain"
+                    />
+                  </button>
+                ))}
               </div>
+            ) : id === '3' ? (
+              <>
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <div className="rounded-[1.75rem] border border-[#334155] bg-[#0f172a]/88 p-6 shadow-xl">
+                    <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#93C5FD]">
+                      Before
+                    </p>
+                    <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#E2E8F0]">
+                      Earlier pages were visually compelling but often dense, with long vertical passages, weaker hierarchy, and titles that did not help users quickly understand where they were or what to focus on next.
+                    </p>
+                  </div>
+                  <div className="rounded-[1.75rem] border border-[#334155] bg-[#0f172a]/88 p-6 shadow-xl">
+                    <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#93C5FD]">
+                      After
+                    </p>
+                    <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#E2E8F0]">
+                      The redesign introduced clearer sectioning, more readable titles, better control of information load, and a structure that made pages easier to scan and easier to navigate without losing the site&apos;s atmosphere.
+                    </p>
+                  </div>
+                </div>
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <div className="space-y-6">
+                    <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#93C5FD]">
+                      Before pages
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.veroniqueBefore, alt: 'The Center Cannot Hold page before redesign' })}
+                      className="overflow-hidden rounded-[1.5rem] border border-[#334155] bg-[#0f172a]/88 text-left shadow-xl transition-transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={tcchBeforeAfterImages.veroniqueBefore}
+                        alt="The Center Cannot Hold page before redesign"
+                        className="h-[24rem] w-full object-contain object-top"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesBefore, alt: 'The Center Cannot Hold resources page before redesign' })}
+                      className="overflow-hidden rounded-[1.5rem] border border-[#334155] bg-[#0f172a]/88 text-left shadow-xl transition-transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={tcchBeforeAfterImages.resourcesBefore}
+                        alt="The Center Cannot Hold resources page before redesign"
+                        className="h-[24rem] w-full object-contain object-top"
+                      />
+                    </button>
+                  </div>
+                  <div className="space-y-6">
+                    <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#FDE047]">
+                      After pages
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.veroniqueAfter, alt: 'The Center Cannot Hold Veronique West page after redesign' })}
+                      className="overflow-hidden rounded-[1.5rem] border border-[#334155] bg-[#0f172a]/88 text-left shadow-xl transition-transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={tcchBeforeAfterImages.veroniqueAfter}
+                        alt="The Center Cannot Hold Veronique West page after redesign"
+                        className="h-[24rem] w-full object-contain object-top"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesAfter, alt: 'The Center Cannot Hold resources page after redesign' })}
+                      className="overflow-hidden rounded-[1.5rem] border border-[#334155] bg-[#0f172a]/88 text-left shadow-xl transition-transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={tcchBeforeAfterImages.resourcesAfter}
+                        alt="The Center Cannot Hold resources page after redesign"
+                        className="h-[24rem] w-full object-contain object-top"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesAfterDetail, alt: 'Detailed redesigned resources page for The Center Cannot Hold' })}
+                  className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
+                >
+                  <img
+                    src={tcchBeforeAfterImages.resourcesAfterDetail}
+                    alt="Detailed redesigned resources page for The Center Cannot Hold"
+                    className="h-[32rem] w-full object-contain object-top"
+                  />
+                </button>
+              </>
             ) : null}
           </div>
           </div>
@@ -516,7 +785,7 @@ export default function ProjectDetailPage() {
             label={isFlavorBridge ? 'Cook Up Something Together' : 'Contact Me'}
             title={
               isFlavorBridge
-                ? 'If this project feels like the kind of product thinking your team needs, let’s talk.'
+                ? 'If this project feels like the kind of product thinking your team needs, let\'s talk.'
                 : 'If you made it this far, we should probably talk.'
             }
             body={
@@ -528,6 +797,25 @@ export default function ProjectDetailPage() {
           />
         </div>
       </section>
+
+      {selectedImage ? (
+        <button
+          type="button"
+          onClick={() => setSelectedImage(null)}
+          className="fixed inset-0 z-[80] flex cursor-zoom-out items-center justify-center bg-[#020617]/88 p-6 backdrop-blur-sm"
+        >
+          <div className="relative max-h-[90vh] max-w-[90vw] overflow-hidden rounded-[1.5rem] border border-white/15 bg-[#0f172a] p-3 shadow-2xl">
+            <img
+              src={selectedImage.src}
+              alt={selectedImage.alt}
+              className="max-h-[84vh] max-w-[84vw] object-contain"
+            />
+            <span className="absolute right-4 top-4 rounded-full bg-black/40 px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.12em] text-white">
+              Close
+            </span>
+          </div>
+        </button>
+      ) : null}
     </motion.div>
   );
 }

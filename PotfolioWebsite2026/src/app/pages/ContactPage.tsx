@@ -56,7 +56,7 @@ export default function ContactPage() {
             <form className="relative mt-8 space-y-6">
               {[
                 { label: 'Name', placeholder: 'Jane Doe', type: 'text' },
-                { label: 'Email', placeholder: 'ariannanarita@gmail.com', type: 'email' },
+                { label: 'Email', placeholder: 'name@example.com', type: 'email' },
                 { label: 'Subject', placeholder: 'Let us make something good', type: 'text' },
               ].map((field) => (
                 <div key={field.label}>

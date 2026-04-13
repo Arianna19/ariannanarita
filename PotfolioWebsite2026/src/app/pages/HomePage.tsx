@@ -10,6 +10,8 @@ import portraitImage from '../../imports/arianna-portrait.jpg';
 
 const flavorBridgeLogo = encodeURI(`${import.meta.env.BASE_URL}flavor-bridge-exports/Vector.png`);
 const iaFinancialImage = encodeURI(`${import.meta.env.BASE_URL}ia-financial/GuilaumeNoText.png`);
+const tcchIcon = encodeURI(`${import.meta.env.BASE_URL}tcch-icon-white.png`);
+const tcchBackground = encodeURI(`${import.meta.env.BASE_URL}tcch-hero-bg.jpg`);
 
 const projects = [
   {
@@ -20,9 +22,9 @@ const projects = [
   },
   {
     id: '3',
-    title: 'Drift Editorial Platform',
-    category: 'Editorial + Digital',
-    blurb: 'A placeholder publishing concept that balances expressive visuals with practical reading experiences and just a hint of overthinking.',
+    title: 'The Center Cannot Hold',
+    category: 'Accessibility + Website Redesign',
+    blurb: 'A collaborative redesign focused on making an arts website more accessible for neurodivergent users through clearer hierarchy, stronger titles, better information organization, and more supportive navigation.',
   },
   {
     id: '2',
@@ -110,6 +112,22 @@ function SelectedWorkSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/10 via-transparent to-transparent" />
                 </div>
+              ) : project.id === '3' ? (
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#0F172A]">
+                  <img
+                    src={tcchBackground}
+                    alt="The Center Cannot Hold background artwork"
+                    className="h-full w-full object-cover opacity-65"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a]/45 via-[#1e3a8a]/25 to-[#111827]/70" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <img
+                      src={tcchIcon}
+                      alt="The Center Cannot Hold logo"
+                      className="h-24 w-24 object-contain drop-shadow-[0_14px_30px_rgba(0,0,0,0.35)] md:h-28 md:w-28"
+                    />
+                  </div>
+                </div>
               ) : (
                 <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#D5E7F2] via-white to-[#E6C4A8]">
                   <div className="absolute inset-0 opacity-20">
@@ -147,9 +165,9 @@ function SelectedWorkSection() {
                   {(
                     project.id === '2'
                       ? ['Taste profiles', 'Recipe matching', 'Shared cooking']
-                      : project.id === '1'
+                    : project.id === '1'
                         ? ['Client-led', 'Logo', 'Identity']
-                        : ['Thesis', 'Process', 'Outcome']
+                        : ['Accessibility', 'Hierarchy', 'Navigation']
                   ).map((tag, tagIndex) => (
                     <span
                       key={tag}
