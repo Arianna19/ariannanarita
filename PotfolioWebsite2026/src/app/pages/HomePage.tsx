@@ -203,7 +203,7 @@ function SkillsPreviewSection() {
           </h3>
         </div>
         <Link
-          to="/biography"
+          to="/biography#skills-tools"
           className="inline-flex items-center gap-2 rounded-full border border-[#D5E7F2] bg-white/80 px-5 py-3 font-['Poppins:SemiBold',sans-serif] text-sm text-[#7DB1D4] transition-colors hover:bg-[#F1F8FC]"
         >
           See full set

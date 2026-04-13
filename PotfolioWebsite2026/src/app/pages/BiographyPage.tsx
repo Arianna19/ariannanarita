@@ -1,10 +1,11 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { UserIcon, DesignIcon, BrandingIcon, CodeIcon } from '../components/Icons';
 import portraitImage from '../../imports/arianna-portrait.jpg';
-import { AudioLines, Figma, Layers3, MonitorSmartphone, PenTool, Sparkles } from 'lucide-react';
+import { AudioLines, Bot, Figma, Github, Layers3, MonitorSmartphone, PenTool, Sparkles } from 'lucide-react';
 
 const biographyParagraphs = [
   "Arianna Sanchez Narita's introduction to design began informally, experimenting with Microsoft PowerPoint in elementary school. While others focused on content, she became absorbed in layout, composition, and how far she could push the software visually. This curiosity developed further in high school, where she spent much of her time in the computer lab teaching herself Adobe Photoshop. What began as a way to fill empty lunch hours evolved into a genuine connection to visual design, driven by instinct, experimentation, and a fascination with digital creation.",
@@ -70,10 +71,20 @@ const philosophy = [
   'Good digital experiences should create clarity and a little breathing room.',
 ];
 
+type SkillChip = string | { label: string; iconText?: string };
+
 const skills = {
-  design: ['Figma', 'Adobe Photoshop', 'Adobe Creative Suite', 'Graphic Design', 'Visual Storytelling'],
-  digital: ['UX Design', 'UI Design', 'User-Centered Design', 'Prototyping', 'Game Development Context'],
-  expanded: ['Sound Design', 'Creature Audio', 'Environmental Audio', 'Creative Collaboration', 'Immersive Experiences'],
+  design: ['Figma', 'Adobe Photoshop', 'Adobe Creative Suite', 'Graphic Design', 'Visual Storytelling'] as SkillChip[],
+  digital: ['UX Design', 'UI Design', 'User-Centered Design', 'Prototyping', 'Game Development Context'] as SkillChip[],
+  code: ['HTML', 'CSS', 'JavaScript', 'p5.js', 'Python', 'GitHub'] as SkillChip[],
+  expanded: ['Sound Design', 'Creature Audio', 'Environmental Audio', 'Creative Collaboration', 'Immersive Experiences'] as SkillChip[],
+  ai: [
+    { label: 'ChatGPT', iconText: 'CG' },
+    { label: 'Claude', iconText: 'CL' },
+    { label: 'Gemini', iconText: 'GM' },
+    { label: 'Perplexity', iconText: 'PX' },
+    { label: 'GitHub Copilot', iconText: 'GH' },
+  ] as SkillChip[],
 };
 
 const skillTracks = [
@@ -90,10 +101,22 @@ const skillTracks = [
     items: skills.digital,
   },
   {
+    title: 'Code + Web',
+    icon: Github,
+    tone: 'blue',
+    items: skills.code,
+  },
+  {
     title: 'Expanded Creative Work',
     icon: AudioLines,
     tone: 'blue',
     items: skills.expanded,
+  },
+  {
+    title: 'AI Tools',
+    icon: Bot,
+    tone: 'warm',
+    items: skills.ai,
   },
 ];
 
@@ -101,6 +124,7 @@ const loopingSkillTracks = [...skillTracks, ...skillTracks];
 
 export default function BiographyPage() {
   const skillsRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
   const { scrollYProgress: skillsProgress } = useScroll({
     target: skillsRef,
     offset: ['start start', 'end start'],
@@ -108,8 +132,16 @@ export default function BiographyPage() {
   const trackX = useTransform(skillsProgress, [0, 1], ['0%', '-50%']);
 
   useEffect(() => {
+    if (location.hash === '#skills-tools') {
+      const frame = window.requestAnimationFrame(() => {
+        document.getElementById('skills-tools')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      return () => window.cancelAnimationFrame(frame);
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+  }, [location.hash]);
 
   return (
     <motion.div
@@ -261,7 +293,7 @@ export default function BiographyPage() {
 
       <WaveTransition variant="blue" />
 
-      <section ref={skillsRef} className="relative h-[280vh] md:h-[320vh]">
+      <section id="skills-tools" ref={skillsRef} className="relative h-[280vh] md:h-[360vh]">
         <div className="sticky top-24 overflow-hidden py-10 md:top-28 md:py-12">
           <div className="px-4 sm:px-6 md:px-8">
             <motion.div
@@ -312,13 +344,19 @@ export default function BiographyPage() {
                       <div className="flex flex-wrap gap-3">
                         {track.items.map((item) => (
                           <span
-                            key={`${track.title}-${item}-${index}`}
+                            key={`${track.title}-${typeof item === 'string' ? item : item.label}-${index}`}
                             className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 font-['Poppins:Medium',sans-serif] text-sm sm:text-base ${
                               track.tone === 'warm' ? 'bg-[#E6C4A8] text-[#A66D42]' : 'bg-[#D5E7F2] text-[#5B8FA3]'
                             }`}
                           >
-                            {track.tone === 'warm' ? <Sparkles className="h-4 w-4" /> : <Layers3 className="h-4 w-4" />}
-                            {item}
+                            {typeof item === 'string' ? (
+                              track.tone === 'warm' ? <Sparkles className="h-4 w-4" /> : <Layers3 className="h-4 w-4" />
+                            ) : (
+                              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/70 text-[10px] font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.08em] text-[#1E2939]">
+                                {item.iconText}
+                              </span>
+                            )}
+                            {typeof item === 'string' ? item : item.label}
                           </span>
                         ))}
                       </div>

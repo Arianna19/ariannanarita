@@ -374,10 +374,11 @@ export default function ProjectDetailPage() {
                   <img src={flavorBridgeLogo} alt="Flavor Bridge logo" className="h-28 w-28 object-contain md:h-36 md:w-36" />
                 ) : isIAFinancial ? (
                   <div className="relative h-full w-full">
-                    <div className="absolute inset-0 rounded-[1.25rem] bg-[#dcecff]" />
+                    <div className="absolute inset-0 rounded-[1.25rem] bg-[#d7e9ff]" />
                     <div className="absolute inset-4 rounded-[1.25rem] border border-white/70 bg-[#cfe2fb] shadow-[0_18px_36px_rgba(30,58,138,0.1)]" />
+                    <div className="absolute inset-8 rounded-[1.25rem] border border-white/65 bg-[#dcecff]" />
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <img src={iaFinancialFullLogo} alt="IA Financial Group logo" className="h-24 w-full object-contain px-8 md:h-28" />
+                      <img src={iaFinancialFullLogo} alt="IA Financial Group logo" className="h-24 w-full object-contain px-10 md:h-28" />
                     </div>
                   </div>
                 ) : id === '3' ? (
@@ -440,18 +441,18 @@ export default function ProjectDetailPage() {
                   ))}
                 </div>
               ) : (
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-3">
                   {project.creativeNotes.map((note, index) => (
                     <div
                       key={note}
                       className={`rounded-[1.5rem] border p-5 backdrop-blur-sm ${
-                        index % 2 === 0 ? 'border-white/55 bg-white/72' : 'border-[#E6C4A8]/70 bg-[#FFF8F3]/85'
+                        index === 1 ? 'border-[#E6C4A8]/70 bg-[#FFF8F3]/85' : 'border-white/55 bg-white/72'
                       }`}
                     >
                       <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#5B8FA3]">
                         Focus
                       </p>
-                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-2xl text-[#1E2939]">{note}</p>
+                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-[1.75rem] leading-none text-[#1E2939]">{note}</p>
                     </div>
                   ))}
                 </div>
@@ -656,79 +657,81 @@ export default function ProjectDetailPage() {
               </div>
             ) : id === '3' ? (
               <>
+                <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.veroniqueAfter, alt: 'The Center Cannot Hold Veronique West page after redesign' })}
+                    className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
+                  >
+                    <img
+                      src={tcchBeforeAfterImages.veroniqueAfter}
+                      alt="The Center Cannot Hold Veronique West page after redesign"
+                      className="h-[28rem] w-full object-contain object-top"
+                    />
+                  </button>
+                  <div className="space-y-6">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesAfter, alt: 'The Center Cannot Hold resources page after redesign' })}
+                      className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={tcchBeforeAfterImages.resourcesAfter}
+                        alt="The Center Cannot Hold resources page after redesign"
+                        className="h-[15rem] w-full object-contain object-top"
+                      />
+                    </button>
+                    <div className="rounded-[1.75rem] border border-[#334155] bg-[#0f172a]/88 p-6 shadow-xl">
+                      <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#93C5FD]">
+                        Key redesign moves
+                      </p>
+                      <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#E2E8F0]">
+                        Titles became more direct, sections were grouped with more intention, and the pages were edited so neurodivergent users could orient themselves faster without losing the site&apos;s atmosphere.
+                      </p>
+                    </div>
+                  </div>
+                </div>
                 <div className="grid gap-6 lg:grid-cols-2">
                   <div className="rounded-[1.75rem] border border-[#334155] bg-[#0f172a]/88 p-6 shadow-xl">
                     <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#93C5FD]">
                       Before
                     </p>
                     <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#E2E8F0]">
-                      Earlier pages were visually compelling but often dense, with long vertical passages, weaker hierarchy, and titles that did not help users quickly understand where they were or what to focus on next.
+                      The original experience leaned heavily on mood and experimentation, but page titles, grouping, and information hierarchy often made it harder to scan and understand.
                     </p>
                   </div>
                   <div className="rounded-[1.75rem] border border-[#334155] bg-[#0f172a]/88 p-6 shadow-xl">
-                    <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#93C5FD]">
+                    <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#FDE047]">
                       After
                     </p>
                     <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#E2E8F0]">
-                      The redesign introduced clearer sectioning, more readable titles, better control of information load, and a structure that made pages easier to scan and easier to navigate without losing the site&apos;s atmosphere.
+                      The redesign clarified orientation through stronger headings, cleaner grouping, and pages that reveal information more intentionally for neurodivergent visitors.
                     </p>
                   </div>
                 </div>
                 <div className="grid gap-6 lg:grid-cols-2">
-                  <div className="space-y-6">
-                    <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#93C5FD]">
-                      Before pages
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.veroniqueBefore, alt: 'The Center Cannot Hold page before redesign' })}
-                      className="overflow-hidden rounded-[1.5rem] border border-[#334155] bg-[#0f172a]/88 text-left shadow-xl transition-transform hover:-translate-y-1"
-                    >
-                      <img
-                        src={tcchBeforeAfterImages.veroniqueBefore}
-                        alt="The Center Cannot Hold page before redesign"
-                        className="h-[24rem] w-full object-contain object-top"
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesBefore, alt: 'The Center Cannot Hold resources page before redesign' })}
-                      className="overflow-hidden rounded-[1.5rem] border border-[#334155] bg-[#0f172a]/88 text-left shadow-xl transition-transform hover:-translate-y-1"
-                    >
-                      <img
-                        src={tcchBeforeAfterImages.resourcesBefore}
-                        alt="The Center Cannot Hold resources page before redesign"
-                        className="h-[24rem] w-full object-contain object-top"
-                      />
-                    </button>
-                  </div>
-                  <div className="space-y-6">
-                    <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#FDE047]">
-                      After pages
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.veroniqueAfter, alt: 'The Center Cannot Hold Veronique West page after redesign' })}
-                      className="overflow-hidden rounded-[1.5rem] border border-[#334155] bg-[#0f172a]/88 text-left shadow-xl transition-transform hover:-translate-y-1"
-                    >
-                      <img
-                        src={tcchBeforeAfterImages.veroniqueAfter}
-                        alt="The Center Cannot Hold Veronique West page after redesign"
-                        className="h-[24rem] w-full object-contain object-top"
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesAfter, alt: 'The Center Cannot Hold resources page after redesign' })}
-                      className="overflow-hidden rounded-[1.5rem] border border-[#334155] bg-[#0f172a]/88 text-left shadow-xl transition-transform hover:-translate-y-1"
-                    >
-                      <img
-                        src={tcchBeforeAfterImages.resourcesAfter}
-                        alt="The Center Cannot Hold resources page after redesign"
-                        className="h-[24rem] w-full object-contain object-top"
-                      />
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.veroniqueBefore, alt: 'The Center Cannot Hold page before redesign' })}
+                    className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
+                  >
+                    <img
+                      src={tcchBeforeAfterImages.veroniqueBefore}
+                      alt="The Center Cannot Hold page before redesign"
+                      className="h-[24rem] w-full object-contain object-top"
+                    />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesBefore, alt: 'The Center Cannot Hold resources page before redesign' })}
+                    className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
+                  >
+                    <img
+                      src={tcchBeforeAfterImages.resourcesBefore}
+                      alt="The Center Cannot Hold resources page before redesign"
+                      className="h-[24rem] w-full object-contain object-top"
+                    />
+                  </button>
                 </div>
                 <button
                   type="button"
