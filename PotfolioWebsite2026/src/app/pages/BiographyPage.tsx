@@ -160,6 +160,7 @@ export default function BiographyPage() {
     damping: 20,
     mass: 1.9,
   });
+  const manualTrackOffsetX = useTransform(manualTrackOffsetSpring, (value) => -value);
 
   useEffect(() => {
     if (location.hash === '#skills-tools') {
@@ -450,7 +451,7 @@ export default function BiographyPage() {
                 </div>
               </button>
 
-              <motion.div style={{ x: -manualTrackOffsetSpring }}>
+              <motion.div style={{ x: manualTrackOffsetX }}>
                 <motion.div style={{ x: trackX }} className="flex w-max gap-8 pr-8 md:gap-10">
                   {loopingSkillTracks.map((track, index) => (
                     <div
@@ -495,6 +496,18 @@ export default function BiographyPage() {
                               {typeof item === 'string' ? item : item.label}
                             </span>
                           ))}
+                        </div>
+
+                        <div className="mt-6 flex items-center justify-between gap-4">
+                          <div className="h-2 flex-1 rounded-full bg-[#D5E7F2]/70">
+                            <div
+                              className="h-full rounded-full bg-gradient-to-r from-[#BF8351] via-[#ABCEE2] to-[#5B8FA3]"
+                              style={{ width: `${(((index % skillTracks.length) + 1) / skillTracks.length) * 100}%` }}
+                            />
+                          </div>
+                          <p className="font-['Poppins:SemiBold',sans-serif] text-sm uppercase tracking-[0.16em] text-[#BF8351]">
+                            {((index % skillTracks.length) + 1)} / {skillTracks.length}
+                          </p>
                         </div>
                       </div>
                     </div>
