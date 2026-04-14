@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useEffect, useRef } from 'react';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
+import SeigaihaClusterBackground from '../components/SeigaihaClusterBackground';
 import { LightbulbIcon } from '../components/Icons';
 import { FlowingWater } from '../components/OceanWave';
 
@@ -102,76 +103,6 @@ export default function ArtistStatementPage() {
   const railScale = useTransform(scrollYProgress, [0, 1], [0.08, 1]);
   const warmGlowY = useTransform(scrollYProgress, [0, 1], [0, 22]);
 
-  const buildSeigaihaCluster = (strokeColor: string, variant: 'wide' | 'compact' | 'split') =>
-    encodeURIComponent(`
-      <svg xmlns="http://www.w3.org/2000/svg" width="640" height="220" viewBox="0 0 640 220" fill="none">
-        <g stroke="${strokeColor}" stroke-width="7" fill="none" stroke-linecap="round" opacity="1">
-          ${(variant === 'wide'
-            ? [
-                [164, 58],
-                [112, 94],
-                [164, 94],
-                [216, 94],
-                [86, 130],
-                [138, 130],
-                [190, 130],
-                [242, 130],
-                [430, 94],
-                [482, 94],
-                [534, 94],
-              ]
-            : variant === 'compact'
-              ? [
-                  [176, 66],
-                  [136, 96],
-                  [176, 96],
-                  [216, 96],
-                  [96, 126],
-                  [136, 126],
-                  [176, 126],
-                  [216, 126],
-                  [256, 126],
-                ]
-              : [
-                  [146, 74],
-                  [102, 108],
-                  [146, 108],
-                  [190, 108],
-                  [420, 90],
-                  [376, 124],
-                  [420, 124],
-                  [464, 124],
-                ]).map(([x, y]) => `
-            <path d="M${x - 30} ${y}a30 30 0 0 1 60 0" />
-            <path d="M${x - 20} ${y}a20 20 0 0 1 40 0" />
-            <path d="M${x - 10} ${y}a10 10 0 0 1 20 0" />
-          `).join('')}
-        </g>
-      </svg>
-    `);
-
-  const lightSeigaihaSvgs = [
-    buildSeigaihaCluster('#7DB1D4', 'wide'),
-    buildSeigaihaCluster('#5B8FA3', 'compact'),
-    buildSeigaihaCluster('#ABCEE2', 'split'),
-  ];
-  const darkSeigaihaSvgs = [
-    buildSeigaihaCluster('#ABCEE2', 'wide'),
-    buildSeigaihaCluster('#7DB1D4', 'compact'),
-    buildSeigaihaCluster('#D5E7F2', 'split'),
-  ];
-
-  const patternPlacements = [
-    { top: '4%', left: '4%', width: '18rem', height: '5rem', opacity: 0.14, variant: 0 },
-    { top: '12%', right: '6%', width: '16rem', height: '4.5rem', opacity: 0.12, variant: 2 },
-    { top: '26%', left: '18%', width: '17rem', height: '5rem', opacity: 0.14, variant: 1 },
-    { top: '40%', right: '12%', width: '18rem', height: '5rem', opacity: 0.13, variant: 0 },
-    { top: '56%', left: '10%', width: '16rem', height: '4.5rem', opacity: 0.12, variant: 2 },
-    { top: '70%', right: '20%', width: '17rem', height: '5rem', opacity: 0.14, variant: 1 },
-    { top: '84%', left: '28%', width: '18rem', height: '5rem', opacity: 0.13, variant: 0 },
-    { top: '94%', right: '10%', width: '16rem', height: '4.5rem', opacity: 0.12, variant: 2 },
-  ] as const;
-
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -183,57 +114,7 @@ export default function ArtistStatementPage() {
       exit={{ opacity: 0 }}
       className="relative min-h-screen pb-20 pt-32"
     >
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        {patternPlacements.map((placement, index) => (
-          <div
-            key={`light-cloud-${index}`}
-            className="absolute dark:hidden"
-            style={{
-              top: placement.top,
-              left: 'left' in placement ? placement.left : undefined,
-              right: 'right' in placement ? placement.right : undefined,
-              width: `clamp(12rem, 28vw, ${placement.width})`,
-              height: `clamp(3.5rem, 7vw, ${placement.height})`,
-            }}
-          >
-            <div
-              className="h-full w-full"
-              style={{
-                opacity: placement.opacity,
-                backgroundImage: `url("data:image/svg+xml,${lightSeigaihaSvgs[placement.variant]}")`,
-                backgroundPosition: 'center center',
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-              }}
-            />
-          </div>
-        ))}
-
-        {patternPlacements.map((placement, index) => (
-          <div
-            key={`dark-cloud-${index}`}
-            className="absolute hidden dark:block"
-            style={{
-              top: placement.top,
-              left: 'left' in placement ? placement.left : undefined,
-              right: 'right' in placement ? placement.right : undefined,
-              width: `clamp(12rem, 28vw, ${placement.width})`,
-              height: `clamp(3.5rem, 7vw, ${placement.height})`,
-            }}
-          >
-            <div
-              className="h-full w-full"
-              style={{
-                opacity: Math.max(0.1, placement.opacity - 0.02),
-                backgroundImage: `url("data:image/svg+xml,${darkSeigaihaSvgs[placement.variant]}")`,
-                backgroundPosition: 'center center',
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-              }}
-            />
-          </div>
-        ))}
-      </div>
+      <SeigaihaClusterBackground />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
