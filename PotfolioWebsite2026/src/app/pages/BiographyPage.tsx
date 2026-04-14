@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 import type { JSX } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
@@ -146,21 +146,13 @@ const loopingSkillTracks = [...skillTracks, ...skillTracks];
 
 export default function BiographyPage() {
   const skillsRef = useRef<HTMLDivElement>(null);
-  const skillsViewportRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const [isStoryExpanded, setIsStoryExpanded] = useState(false);
-  const [manualTrackOffset, setManualTrackOffset] = useState(0);
   const { scrollYProgress: skillsProgress } = useScroll({
     target: skillsRef,
     offset: ['start start', 'end start'],
   });
   const trackX = useTransform(skillsProgress, [0, 1], ['0%', '-50%']);
-  const manualTrackOffsetSpring = useSpring(manualTrackOffset, {
-    stiffness: 38,
-    damping: 20,
-    mass: 1.9,
-  });
-  const manualTrackOffsetX = useTransform(manualTrackOffsetSpring, (value) => -value);
 
   useEffect(() => {
     if (location.hash === '#skills-tools') {
@@ -173,16 +165,6 @@ export default function BiographyPage() {
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.hash]);
-
-  const nudgeSkillsTrack = (direction: 'left' | 'right') => {
-    const viewportWidth = skillsViewportRef.current?.clientWidth ?? 0;
-    const nudgeAmount = Math.max(260, Math.round(viewportWidth * 0.34));
-    setManualTrackOffset((current) =>
-      direction === 'right'
-        ? Math.min(current + nudgeAmount, 2400)
-        : Math.max(current - nudgeAmount, 0)
-    );
-  };
 
   return (
     <motion.div
@@ -429,90 +411,67 @@ export default function BiographyPage() {
               <ChevronRight className="h-4 w-4" />
             </div>
 
-            <div ref={skillsViewportRef} className="relative overflow-hidden">
-              <button
-                type="button"
-                onClick={() => nudgeSkillsTrack('left')}
-                className="absolute inset-y-0 left-0 z-10 flex w-12 items-center justify-center bg-[#5B8FA3]/82 text-white transition-colors hover:bg-[#4B7E93]/92 sm:w-14 md:w-16"
-                aria-label="Scroll skills left"
-              >
-                <div className="flex h-full w-full items-center justify-center border-r border-white/18">
-                  <ChevronLeft className="h-8 w-8 sm:h-9 sm:w-9" strokeWidth={2.5} />
-                </div>
-              </button>
-              <button
-                type="button"
-                onClick={() => nudgeSkillsTrack('right')}
-                className="absolute inset-y-0 right-0 z-10 flex w-12 items-center justify-center bg-[#5B8FA3]/82 text-white transition-colors hover:bg-[#4B7E93]/92 sm:w-14 md:w-16"
-                aria-label="Scroll skills right"
-              >
-                <div className="flex h-full w-full items-center justify-center border-l border-white/18">
-                  <ChevronRight className="h-8 w-8 sm:h-9 sm:w-9" strokeWidth={2.5} />
-                </div>
-              </button>
-
-              <motion.div style={{ x: manualTrackOffsetX }}>
-                <motion.div style={{ x: trackX }} className="flex w-max gap-8 pr-8 md:gap-10">
-                  {loopingSkillTracks.map((track, index) => (
-                    <div
-                      key={`${track.title}-${index}`}
-                      className={`flex min-h-[26rem] w-fit max-w-[26rem] shrink-0 flex-col rounded-[2.25rem] border p-7 shadow-xl backdrop-blur-sm sm:max-w-[29rem] sm:p-8 lg:max-w-[31rem] ${
-                        track.tone === 'warm'
-                          ? 'border-[#E6C4A8] bg-[#FFF8F3]/95'
-                          : 'border-[#D5E7F2] bg-[#F9FAFB]/95'
-                      }`}
-                    >
-                      <div className="flex h-full flex-col">
-                        <div className="mb-6 flex items-center gap-4">
-                          <div
-                            className={`rounded-2xl p-4 ${
-                              track.tone === 'warm' ? 'bg-[#E6C4A8]/80 text-[#BF8351]' : 'bg-[#D5E7F2]/85 text-[#5B8FA3]'
-                            }`}
-                          >
-                            <track.icon className="h-8 w-8" />
-                          </div>
-                          <div>
-                            <h3 className="mt-1 font-['Ojuju:Bold',sans-serif] text-3xl text-[#1E2939] sm:text-4xl">
-                              {track.title}
-                            </h3>
-                          </div>
+            <div className="overflow-hidden">
+              <motion.div style={{ x: trackX }} className="flex w-max gap-8 pr-8 md:gap-10">
+                {loopingSkillTracks.map((track, index) => (
+                  <div
+                    key={`${track.title}-${index}`}
+                    className={`flex min-h-[26rem] w-fit max-w-[26rem] shrink-0 flex-col rounded-[2.25rem] border p-7 shadow-xl backdrop-blur-sm sm:max-w-[29rem] sm:p-8 lg:max-w-[31rem] ${
+                      track.tone === 'warm'
+                        ? 'border-[#E6C4A8] bg-[#FFF8F3]/95'
+                        : 'border-[#D5E7F2] bg-[#F9FAFB]/95'
+                    }`}
+                  >
+                    <div className="flex h-full flex-col">
+                      <div className="mb-6 flex items-center gap-4">
+                        <div
+                          className={`rounded-2xl p-4 ${
+                            track.tone === 'warm' ? 'bg-[#E6C4A8]/80 text-[#BF8351]' : 'bg-[#D5E7F2]/85 text-[#5B8FA3]'
+                          }`}
+                        >
+                          <track.icon className="h-8 w-8" />
                         </div>
-
-                        <div className="flex flex-wrap gap-3">
-                          {track.items.map((item) => (
-                            <span
-                              key={`${track.title}-${typeof item === 'string' ? item : item.label}-${index}`}
-                              className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 font-['Poppins:Medium',sans-serif] text-sm sm:text-base ${
-                                track.tone === 'warm' ? 'bg-[#E6C4A8] text-[#A66D42]' : 'bg-[#D5E7F2] text-[#5B8FA3]'
-                              }`}
-                            >
-                              {typeof item === 'string' ? (
-                                track.tone === 'warm' ? <Sparkles className="h-4 w-4" /> : <Layers3 className="h-4 w-4" />
-                              ) : (
-                                <span className="inline-flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-current/20 bg-white/55 p-1 text-[#1E2939] dark:bg-[#0f172a]/45 dark:text-[#F8FAFC]">
-                                  <item.icon className="h-full w-full" />
-                                </span>
-                              )}
-                              {typeof item === 'string' ? item : item.label}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="mt-auto flex items-center justify-between gap-4 pt-8">
-                          <div className="h-2 flex-1 rounded-full bg-[#D5E7F2]/70">
-                            <div
-                              className="h-full rounded-full bg-gradient-to-r from-[#BF8351] via-[#ABCEE2] to-[#5B8FA3]"
-                              style={{ width: `${(((index % skillTracks.length) + 1) / skillTracks.length) * 100}%` }}
-                            />
-                          </div>
-                          <p className="font-['Poppins:SemiBold',sans-serif] text-sm uppercase tracking-[0.16em] text-[#BF8351]">
-                            {((index % skillTracks.length) + 1)} / {skillTracks.length}
-                          </p>
+                        <div>
+                          <h3 className="mt-1 font-['Ojuju:Bold',sans-serif] text-3xl text-[#1E2939] sm:text-4xl">
+                            {track.title}
+                          </h3>
                         </div>
                       </div>
+
+                      <div className="flex flex-wrap gap-3">
+                        {track.items.map((item) => (
+                          <span
+                            key={`${track.title}-${typeof item === 'string' ? item : item.label}-${index}`}
+                            className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 font-['Poppins:Medium',sans-serif] text-sm sm:text-base ${
+                              track.tone === 'warm' ? 'bg-[#E6C4A8] text-[#A66D42]' : 'bg-[#D5E7F2] text-[#5B8FA3]'
+                            }`}
+                          >
+                            {typeof item === 'string' ? (
+                              track.tone === 'warm' ? <Sparkles className="h-4 w-4" /> : <Layers3 className="h-4 w-4" />
+                            ) : (
+                              <span className="inline-flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-current/20 bg-white/55 p-1 text-[#1E2939] dark:bg-[#0f172a]/45 dark:text-[#F8FAFC]">
+                                <item.icon className="h-full w-full" />
+                              </span>
+                            )}
+                            {typeof item === 'string' ? item : item.label}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="mt-auto flex items-center justify-between gap-4 pt-8">
+                        <div className="h-2 flex-1 rounded-full bg-[#D5E7F2]/70">
+                          <div
+                            className="h-full rounded-full bg-gradient-to-r from-[#BF8351] via-[#ABCEE2] to-[#5B8FA3]"
+                            style={{ width: `${(((index % skillTracks.length) + 1) / skillTracks.length) * 100}%` }}
+                          />
+                        </div>
+                        <p className="font-['Poppins:SemiBold',sans-serif] text-sm uppercase tracking-[0.16em] text-[#BF8351]">
+                          {((index % skillTracks.length) + 1)} / {skillTracks.length}
+                        </p>
+                      </div>
                     </div>
-                  ))}
-                </motion.div>
+                  </div>
+                ))}
               </motion.div>
             </div>
           </div>
