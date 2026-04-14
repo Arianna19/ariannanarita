@@ -339,6 +339,23 @@ export default function ProjectDetailPage() {
               {project.summary}
             </p>
 
+            <button
+              type="button"
+              onClick={() => document.getElementById('creative-works')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              className={`inline-flex w-fit items-center gap-2 rounded-full border px-5 py-3 font-['Poppins:SemiBold',sans-serif] text-sm transition-all hover:-translate-y-0.5 hover:shadow-md ${
+                isFlavorBridge
+                  ? 'border-[#ffd986] bg-white/88 text-[#7D1F33] hover:bg-[#fff2c8]'
+                  : isIAFinancial
+                    ? 'border-[#d0e1ff] bg-white/88 text-[#1E3A8A] hover:bg-[#eef5ff]'
+                    : id === '3'
+                      ? 'border-white/12 bg-[#111827]/78 text-[#F8FAFC] hover:bg-[#182235]'
+                      : 'border-[#D5E7F2] bg-white/88 text-[#5B8FA3] hover:bg-[#F7FBFD]'
+              }`}
+            >
+              Jump to Images
+              <ChevronRight className="h-4 w-4" />
+            </button>
+
             <div className="grid gap-6 rounded-[1.75rem] border border-[#D5E7F2] bg-white/95 p-8 shadow-lg sm:grid-cols-2 lg:grid-cols-4">
               {[
                 ['Role', project.role],
@@ -599,7 +616,7 @@ export default function ProjectDetailPage() {
 
         </div>
 
-        <section className={`relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-y px-5 py-16 md:px-8 ${
+        <section id="creative-works" className={`relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-y px-5 py-16 md:px-8 ${
           isFlavorBridge
             ? 'border-[#c8ddbd]/10 bg-transparent'
             : isIAFinancial

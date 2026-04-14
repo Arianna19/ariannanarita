@@ -6,7 +6,7 @@ import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, BrandingIcon, CodeIcon, PrototypeIcon } from '../components/Icons';
 import { FlowingWater, JapaneseWave, OceanBubbles } from '../components/OceanWave';
-import portraitImage from '../../imports/arianna-portrait.jpg';
+import portraitImage from '../../imports/me.png';
 
 const flavorBridgeLogo = encodeURI(`${import.meta.env.BASE_URL}flavor-bridge-exports/Vector.png`);
 const iaFinancialImage = encodeURI(`${import.meta.env.BASE_URL}ia-financial/GuilaumeNoText.png`);
@@ -93,9 +93,6 @@ function SelectedWorkSection() {
             >
               {project.id === '2' ? (
                 <div className="relative aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_top,#ffd561_0%,#ddb717_28%,#a8a70c_100%)] dark:bg-[radial-gradient(circle_at_top,#7a6a1b_0%,#5b520d_26%,#353609_100%)]">
-                  <div className="absolute inset-0 opacity-20">
-                    <FlowingWater className="absolute bottom-0 left-0 h-36 w-full text-white" />
-                  </div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="relative flex h-full w-full items-center justify-center">
                       <div className="absolute h-52 w-52 rounded-full bg-[#C8DDBD]/80 blur-2xl md:h-64 md:w-64" />
@@ -553,12 +550,6 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      <footer className="border-t border-[#D5E7F2] bg-white/90 px-5 py-8 md:px-8">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 text-sm text-[#4A5565] md:flex-row md:items-center md:justify-between">
-          <p className="font-['Poppins:Regular',sans-serif]">Copyright 2026 Arianna. Built to be clear and slightly powered by caffeine.</p>
-          <p className="font-['Poppins:Regular',sans-serif]">Graphic Design, UI, UX</p>
-        </div>
-      </footer>
     </motion.div>
   );
 }

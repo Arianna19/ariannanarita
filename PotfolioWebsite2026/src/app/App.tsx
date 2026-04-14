@@ -219,6 +219,17 @@ function ScrollToTopButton() {
   );
 }
 
+function SiteFooter() {
+  return (
+    <footer className="border-t border-[#D5E7F2] bg-white/88 px-5 py-8 backdrop-blur-sm dark:border-[#334155] dark:bg-[#0b1220]/88 md:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-2 text-sm text-[#4A5565] dark:text-[#CBD5E1] md:flex-row md:items-center md:justify-between">
+        <p className="font-['Poppins:Regular',sans-serif]">Copyright 2026 Arianna. Built to be clear and slightly powered by caffeine.</p>
+        <p className="font-['Poppins:Regular',sans-serif]">Graphic Design, UI, UX</p>
+      </div>
+    </footer>
+  );
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -272,6 +283,7 @@ function AppShell() {
           onToggleTheme={() => setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))}
         />
         <AnimatedRoutes />
+        <SiteFooter />
         <ScrollToTopButton />
       </div>
     </>

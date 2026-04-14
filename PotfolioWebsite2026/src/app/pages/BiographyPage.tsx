@@ -17,7 +17,7 @@ import {
   PythonLogoIcon,
   GithubLogoIcon,
 } from '../components/Icons';
-import portraitImage from '../../imports/arianna-portrait.jpg';
+import portraitImage from '../../imports/me.png';
 import { AudioLines, Bot, Figma, Github, Layers3, MonitorSmartphone, PenTool, Sparkles } from 'lucide-react';
 
 const biographyParagraphs = [
@@ -163,6 +163,37 @@ export default function BiographyPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.hash]);
 
+  const seigaihaSvg = encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="68" viewBox="0 0 120 68" fill="none">
+      <g stroke="currentColor" stroke-width="4" fill="none">
+        <path d="M0 34a17 17 0 0 1 34 0" />
+        <path d="M-8 34a25 25 0 0 1 50 0" />
+        <path d="M-16 34a33 33 0 0 1 66 0" />
+        <circle cx="17" cy="34" r="4" fill="currentColor" stroke="none" />
+        <path d="M34 34a17 17 0 0 1 34 0" />
+        <path d="M26 34a25 25 0 0 1 50 0" />
+        <path d="M18 34a33 33 0 0 1 66 0" />
+        <circle cx="51" cy="34" r="4" fill="currentColor" stroke="none" />
+        <path d="M68 34a17 17 0 0 1 34 0" />
+        <path d="M60 34a25 25 0 0 1 50 0" />
+        <path d="M52 34a33 33 0 0 1 66 0" />
+        <circle cx="85" cy="34" r="4" fill="currentColor" stroke="none" />
+        <path d="M17 68a17 17 0 0 1 34 0" />
+        <path d="M9 68a25 25 0 0 1 50 0" />
+        <path d="M1 68a33 33 0 0 1 66 0" />
+        <circle cx="34" cy="68" r="4" fill="currentColor" stroke="none" />
+        <path d="M51 68a17 17 0 0 1 34 0" />
+        <path d="M43 68a25 25 0 0 1 50 0" />
+        <path d="M35 68a33 33 0 0 1 66 0" />
+        <circle cx="68" cy="68" r="4" fill="currentColor" stroke="none" />
+        <path d="M85 68a17 17 0 0 1 34 0" />
+        <path d="M77 68a25 25 0 0 1 50 0" />
+        <path d="M69 68a33 33 0 0 1 66 0" />
+        <circle cx="102" cy="68" r="4" fill="currentColor" stroke="none" />
+      </g>
+    </svg>
+  `);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -170,6 +201,34 @@ export default function BiographyPage() {
       exit={{ opacity: 0 }}
       className="relative min-h-screen pb-20 pt-28 md:pt-32"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.07] dark:hidden"
+        style={{
+          color: '#1E2939',
+          backgroundImage: `url("data:image/svg+xml,${seigaihaSvg}")`,
+          backgroundSize: '120px 68px',
+          backgroundRepeat: 'repeat',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 hidden opacity-[0.08] dark:block"
+        style={{
+          color: '#ABCEE2',
+          backgroundImage: `url("data:image/svg+xml,${seigaihaSvg}")`,
+          backgroundSize: '120px 68px',
+          backgroundRepeat: 'repeat',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 hidden dark:block"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(8,15,28,0.35) 0%, rgba(15,23,42,0.08) 100%)',
+        }}
+      />
       <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
