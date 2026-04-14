@@ -89,10 +89,10 @@ function SelectedWorkSection() {
           >
             <Link
               to={`/project/${project.id}`}
-              className="group block overflow-hidden rounded-[2rem] border border-[#D5E7F2] bg-white/95 shadow-xl transition-all hover:-translate-y-2 hover:border-[#BF8351] hover:shadow-2xl"
+              className="group block overflow-hidden rounded-[2rem] border border-[#D5E7F2] bg-white/95 shadow-xl transition-all hover:-translate-y-2 hover:border-[#BF8351] hover:shadow-2xl dark:border-[#334155] dark:bg-[#111827]/92 dark:hover:border-[#BF8351]"
             >
               {project.id === '2' ? (
-                <div className="relative aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_top,#ffd561_0%,#ddb717_28%,#a8a70c_100%)]">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_top,#ffd561_0%,#ddb717_28%,#a8a70c_100%)] dark:bg-[radial-gradient(circle_at_top,#7a6a1b_0%,#5b520d_26%,#353609_100%)]">
                   <div className="absolute inset-0 opacity-20">
                     <FlowingWater className="absolute bottom-0 left-0 h-36 w-full text-white" />
                   </div>
@@ -104,7 +104,7 @@ function SelectedWorkSection() {
                   </div>
                 </div>
               ) : project.id === '1' ? (
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#EAF3FF]">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#EAF3FF] dark:bg-[#162338]">
                   <img
                     src={iaFinancialImage}
                     alt="IA Financial Group brand preview"
@@ -113,7 +113,7 @@ function SelectedWorkSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/10 via-transparent to-transparent" />
                 </div>
               ) : project.id === '3' ? (
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#0F172A]">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#0F172A] dark:bg-[#09101d]">
                   <img
                     src={tcchBackground}
                     alt="The Center Cannot Hold background artwork"
@@ -156,11 +156,11 @@ function SelectedWorkSection() {
                   </span>
                 </div>
 
-                <h3 className="font-['Ojuju:Bold',sans-serif] text-3xl leading-none text-[#1E2939] transition-colors group-hover:text-[#7DB1D4]">
+                <h3 className="font-['Ojuju:Bold',sans-serif] text-3xl leading-none text-[#1E2939] transition-colors group-hover:text-[#7DB1D4] dark:text-[#F8FAFC] dark:group-hover:text-[#ABCEE2]">
                   {project.title}
                 </h3>
 
-                <p className="font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4A5565]">{project.blurb}</p>
+                <p className="font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4A5565] dark:text-[#CBD5E1]">{project.blurb}</p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {(
                     project.id === '2'
@@ -173,8 +173,8 @@ function SelectedWorkSection() {
                       key={tag}
                       className={`px-3 py-1 font-['Poppins:Medium',sans-serif] text-xs ${
                         tagIndex % 2 === 0
-                          ? 'bg-[#D5E7F2] text-[#5B8FA3]'
-                          : 'bg-[#E6C4A8] text-[#A66D42]'
+                          ? 'bg-[#D5E7F2] text-[#5B8FA3] dark:bg-[#1e293b] dark:text-[#ABCEE2]'
+                          : 'bg-[#E6C4A8] text-[#A66D42] dark:bg-[#3f2d24] dark:text-[#E6C4A8]'
                       }`}
                     >
                       {tag}
@@ -199,7 +199,7 @@ function SkillsPreviewSection() {
             Skills Preview
           </p>
           <h3 className="mt-3 font-['Ojuju:Bold',sans-serif] text-3xl text-[#5B8FA3] md:text-4xl">
-            A quick look before the full scroll on the biography page
+            Tiny teaser before the skills spiral
           </h3>
         </div>
         <Link
@@ -363,12 +363,12 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <a
-                  href="#work"
+                <Link
+                  to="/#work"
                   className="inline-flex items-center justify-center rounded-full bg-[#BF8351] px-8 py-4 font-['Poppins:SemiBold',sans-serif] text-white transition-all hover:-translate-y-0.5 hover:bg-[#A66D42] hover:shadow-lg"
                 >
                   See Selected Work
-                </a>
+                </Link>
                 <Link
                   to="/contact"
                   className="inline-flex items-center justify-center rounded-full border-2 border-[#ABCEE2] px-8 py-4 font-['Poppins:SemiBold',sans-serif] text-[#7DB1D4] transition-all hover:-translate-y-0.5 hover:bg-[#D5E7F2] hover:shadow-lg"

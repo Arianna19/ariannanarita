@@ -4,6 +4,19 @@ import { useLocation } from 'react-router';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { UserIcon, DesignIcon, BrandingIcon, CodeIcon } from '../components/Icons';
+import {
+  ChatGptLogoIcon,
+  ClaudeLogoIcon,
+  GeminiLogoIcon,
+  PerplexityLogoIcon,
+  CopilotLogoIcon,
+  HtmlLogoIcon,
+  CssLogoIcon,
+  JavascriptLogoIcon,
+  P5LogoIcon,
+  PythonLogoIcon,
+  GithubLogoIcon,
+} from '../components/Icons';
 import portraitImage from '../../imports/arianna-portrait.jpg';
 import { AudioLines, Bot, Figma, Github, Layers3, MonitorSmartphone, PenTool, Sparkles } from 'lucide-react';
 
@@ -71,19 +84,26 @@ const philosophy = [
   'Good digital experiences should create clarity and a little breathing room.',
 ];
 
-type SkillChip = string | { label: string; iconText?: string };
+type SkillChip = string | { label: string; icon: ({ className }: { className?: string }) => JSX.Element };
 
 const skills = {
   design: ['Figma', 'Adobe Photoshop', 'Adobe Creative Suite', 'Graphic Design', 'Visual Storytelling'] as SkillChip[],
   digital: ['UX Design', 'UI Design', 'User-Centered Design', 'Prototyping', 'Game Development Context'] as SkillChip[],
-  code: ['HTML', 'CSS', 'JavaScript', 'p5.js', 'Python', 'GitHub'] as SkillChip[],
+  code: [
+    { label: 'HTML', icon: HtmlLogoIcon },
+    { label: 'CSS', icon: CssLogoIcon },
+    { label: 'JavaScript', icon: JavascriptLogoIcon },
+    { label: 'p5.js', icon: P5LogoIcon },
+    { label: 'Python', icon: PythonLogoIcon },
+    { label: 'GitHub', icon: GithubLogoIcon },
+  ] as SkillChip[],
   expanded: ['Sound Design', 'Creature Audio', 'Environmental Audio', 'Creative Collaboration', 'Immersive Experiences'] as SkillChip[],
   ai: [
-    { label: 'ChatGPT', iconText: 'CG' },
-    { label: 'Claude', iconText: 'CL' },
-    { label: 'Gemini', iconText: 'GM' },
-    { label: 'Perplexity', iconText: 'PX' },
-    { label: 'GitHub Copilot', iconText: 'GH' },
+    { label: 'ChatGPT', icon: ChatGptLogoIcon },
+    { label: 'Claude', icon: ClaudeLogoIcon },
+    { label: 'Gemini', icon: GeminiLogoIcon },
+    { label: 'Perplexity', icon: PerplexityLogoIcon },
+    { label: 'GitHub Copilot', icon: CopilotLogoIcon },
   ] as SkillChip[],
 };
 
@@ -332,9 +352,6 @@ export default function BiographyPage() {
                           <track.icon className="h-8 w-8" />
                         </div>
                         <div>
-                          <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#BF8351]">
-                            Scroll-powered menu
-                          </p>
                           <h3 className="mt-1 font-['Ojuju:Bold',sans-serif] text-3xl text-[#1E2939] sm:text-4xl">
                             {track.title}
                           </h3>
@@ -352,8 +369,8 @@ export default function BiographyPage() {
                             {typeof item === 'string' ? (
                               track.tone === 'warm' ? <Sparkles className="h-4 w-4" /> : <Layers3 className="h-4 w-4" />
                             ) : (
-                              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/70 text-[10px] font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.08em] text-[#1E2939]">
-                                {item.iconText}
+                              <span className="inline-flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-current/20 bg-white/55 p-1 text-[#1E2939] dark:bg-[#0f172a]/45 dark:text-[#F8FAFC]">
+                                <item.icon className="h-full w-full" />
                               </span>
                             )}
                             {typeof item === 'string' ? item : item.label}

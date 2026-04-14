@@ -155,11 +155,11 @@ const iaFinancialPdfImages = [
 const tcchIcon = encodeURI(`${import.meta.env.BASE_URL}tcch-icon-white.png`);
 const tcchBackground = encodeURI(`${import.meta.env.BASE_URL}tcch-hero-bg.jpg`);
 const tcchBeforeAfterImages = {
-  veroniqueBefore: encodeURI(`${import.meta.env.BASE_URL}tcch/veronique-before.png`),
-  veroniqueAfter: encodeURI(`${import.meta.env.BASE_URL}tcch/veronique-after.png`),
-  resourcesBefore: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-before.png`),
-  resourcesAfter: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-after.png`),
-  resourcesAfterDetail: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-after-detail.png`),
+  frameBefore: encodeURI(`${import.meta.env.BASE_URL}tcch/frame-30-before.png`),
+  resourcesWireframeBefore: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-wireframe-1-before.png`),
+  veroniqueAfter: encodeURI(`${import.meta.env.BASE_URL}tcch/veronique-after-final.png`),
+  resourcesAfterPrimary: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-after-primary.png`),
+  resourcesAfterSecondary: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-after-secondary.png`),
   profilesWireframe: encodeURI(`${import.meta.env.BASE_URL}tcch/profiles-wireframe.png`),
   resourcesWireframeTwo: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-wireframe-2.png`),
 };
@@ -170,8 +170,10 @@ export default function ProjectDetailPage() {
   const isFlavorBridge = id === '2';
   const isIAFinancial = id === '1';
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
+  const [zoom, setZoom] = useState(1);
   const approachItems = project.approachBullets ?? [];
   const heroRef = useRef<HTMLDivElement>(null);
+  const zoomContainerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
@@ -202,6 +204,29 @@ export default function ProjectDetailPage() {
     };
   }, [selectedImage]);
 
+  useEffect(() => {
+    setZoom(1);
+  }, [selectedImage]);
+
+  useEffect(() => {
+    const container = zoomContainerRef.current;
+    if (!selectedImage || !container) return;
+
+    const handleWheel = (event: WheelEvent) => {
+      event.preventDefault();
+      setZoom((currentZoom) => {
+        const nextZoom = event.deltaY < 0 ? currentZoom + 0.15 : currentZoom - 0.15;
+        return Math.min(4, Math.max(1, Number(nextZoom.toFixed(2))));
+      });
+    };
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+    };
+  }, [selectedImage]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -209,11 +234,11 @@ export default function ProjectDetailPage() {
       exit={{ opacity: 0 }}
       className={`relative min-h-screen pb-20 pt-32 ${
         isIAFinancial
-          ? 'bg-[radial-gradient(circle_at_top,#f3f8ff_0%,#d2e0f7_40%,#abc0ec_100%)]'
+          ? 'bg-[radial-gradient(circle_at_top,#f3f8ff_0%,#d2e0f7_40%,#abc0ec_100%)] dark:bg-[radial-gradient(circle_at_top,#162338_0%,#111c2d_42%,#0b1220_100%)]'
           : isFlavorBridge
-            ? 'bg-[radial-gradient(circle_at_top,#fff0a8_0%,#ffd560_14%,#b9b40f_40%,#a3a207_100%)]'
+            ? 'bg-[radial-gradient(circle_at_top,#fff0a8_0%,#ffd560_14%,#b9b40f_40%,#a3a207_100%)] dark:bg-[radial-gradient(circle_at_top,#6a5a12_0%,#4f4710_26%,#272a08_100%)]'
             : id === '3'
-              ? 'bg-[linear-gradient(180deg,#0f172a_0%,#111827_100%)]'
+              ? 'bg-[linear-gradient(180deg,#0f172a_0%,#111827_100%)] dark:bg-[linear-gradient(180deg,#09111f_0%,#050b16_100%)]'
               : ''
       }`}
     >
@@ -264,7 +289,7 @@ export default function ProjectDetailPage() {
         </div>
       ) : null}
 
-      <div ref={heroRef} className="mx-auto max-w-7xl px-5 md:px-8">
+      <div ref={heroRef} className="relative mx-auto max-w-7xl px-5 md:px-8">
         <Link
           to="/#work"
           className={`inline-flex items-center gap-2 border-b-2 border-transparent font-['Poppins:SemiBold',sans-serif] transition-colors ${
@@ -373,13 +398,7 @@ export default function ProjectDetailPage() {
                 {isFlavorBridge ? (
                   <img src={flavorBridgeLogo} alt="Flavor Bridge logo" className="h-28 w-28 object-contain md:h-36 md:w-36" />
                 ) : isIAFinancial ? (
-                  <div className="relative h-full w-full">
-                    <div className="absolute inset-0 rounded-[1.25rem] bg-[#d7e9ff]" />
-                    <div className="absolute inset-4 rounded-[1.25rem] border border-white/70 bg-[#cfe2fb] shadow-[0_18px_36px_rgba(30,58,138,0.1)]" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <img src={iaFinancialLogoPng} alt="IA Financial Group logo" className="h-24 w-full object-contain px-10 md:h-28" />
-                    </div>
-                  </div>
+                  <img src={iaFinancialLogoPng} alt="IA Financial Group logo" className="h-24 w-full object-contain px-10 md:h-28" />
                 ) : id === '3' ? (
                   <div className="relative h-full w-full">
                     <img
@@ -484,7 +503,7 @@ export default function ProjectDetailPage() {
             <UserIcon className="h-14 w-14" />
             <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#7B7F26]' : isIAFinancial ? 'text-[#1E3A8A]' : 'text-[#ABCEE2]'}`}>Ideation</h2>
           </div>
-          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#1f2937]' : isIAFinancial ? 'text-[#364153]' : 'text-[#364153]'}`}>{project.ideation}</p>
+          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#475569]' : isIAFinancial ? 'text-[#364153]' : 'text-[#364153]'}`}>{project.ideation}</p>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {isIAFinancial ? (
               <>
@@ -664,67 +683,88 @@ export default function ProjectDetailPage() {
                 <div className="grid gap-6 lg:grid-cols-2">
                   <div className="rounded-[1.75rem] border border-[#334155] bg-[#0f172a]/88 p-6 shadow-xl">
                     <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#93C5FD]">
-                      Before
+                      Before: original page flow
                     </p>
                     <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#E2E8F0]">
-                      The original experience leaned heavily on mood and experimentation, but page titles, grouping, and information hierarchy often made it harder to scan and understand.
+                      These earlier screens show the denser, less guided structure. The atmosphere was strong, but the hierarchy and page framing did less to help users quickly understand what they were seeing.
                     </p>
                   </div>
                   <div className="rounded-[1.75rem] border border-[#334155] bg-[#0f172a]/88 p-6 shadow-xl">
                     <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#FDE047]">
-                      After
+                      After: clearer hierarchy
                     </p>
                     <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#E2E8F0]">
-                      The redesign clarified orientation through stronger headings, cleaner grouping, and pages that reveal information more intentionally for neurodivergent visitors.
+                      The redesign uses more direct titles, cleaner grouping, and stronger orientation cues so the pages feel easier to parse while still keeping the project&apos;s atmosphere intact.
                     </p>
                   </div>
                 </div>
-                <div className="grid gap-6 lg:grid-cols-2">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.veroniqueBefore, alt: 'The Center Cannot Hold page before redesign' })}
-                    className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
-                  >
-                    <img
-                      src={tcchBeforeAfterImages.veroniqueBefore}
-                      alt="The Center Cannot Hold page before redesign"
-                      className="h-[24rem] w-full object-contain object-top"
-                    />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesBefore, alt: 'The Center Cannot Hold resources page before redesign' })}
-                    className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
-                  >
-                    <img
-                      src={tcchBeforeAfterImages.resourcesBefore}
-                      alt="The Center Cannot Hold resources page before redesign"
-                      className="h-[24rem] w-full object-contain object-top"
-                    />
-                  </button>
-                </div>
-                <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.veroniqueAfter, alt: 'The Center Cannot Hold Veronique West page after redesign' })}
-                    className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
-                  >
-                    <img
-                      src={tcchBeforeAfterImages.veroniqueAfter}
-                      alt="The Center Cannot Hold Veronique West page after redesign"
-                      className="h-[28rem] w-full object-contain object-top"
-                    />
-                  </button>
-                  <div className="space-y-6">
+                <div className="space-y-4">
+                  <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#93C5FD]">
+                    Before examples
+                  </p>
+                  <div className="grid gap-6 lg:grid-cols-2">
                     <button
                       type="button"
-                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesAfter, alt: 'The Center Cannot Hold resources page after redesign' })}
+                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.frameBefore, alt: 'The Center Cannot Hold page before redesign' })}
                       className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
                     >
                       <img
-                        src={tcchBeforeAfterImages.resourcesAfter}
-                        alt="The Center Cannot Hold resources page after redesign"
-                        className="h-[15rem] w-full object-contain object-top"
+                        src={tcchBeforeAfterImages.frameBefore}
+                        alt="The Center Cannot Hold page before redesign"
+                        className="h-[24rem] w-full object-contain object-top"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesWireframeBefore, alt: 'The Center Cannot Hold resources page before redesign' })}
+                      className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={tcchBeforeAfterImages.resourcesWireframeBefore}
+                        alt="The Center Cannot Hold resources page before redesign"
+                        className="h-[24rem] w-full object-contain object-top"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#FDE047]">
+                    After examples
+                  </p>
+                  <div className="grid gap-6 lg:grid-cols-2">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.veroniqueAfter, alt: 'The Center Cannot Hold Veronique West page after redesign' })}
+                      className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={tcchBeforeAfterImages.veroniqueAfter}
+                        alt="The Center Cannot Hold Veronique West page after redesign"
+                        className="h-[28rem] w-full object-contain object-top"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesAfterPrimary, alt: 'The Center Cannot Hold primary resources page after redesign' })}
+                      className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={tcchBeforeAfterImages.resourcesAfterPrimary}
+                        alt="The Center Cannot Hold primary resources page after redesign"
+                        className="h-[28rem] w-full object-contain object-top"
+                      />
+                    </button>
+                  </div>
+                  <div className="grid gap-6 lg:grid-cols-2">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesAfterSecondary, alt: 'The Center Cannot Hold secondary resources page after redesign' })}
+                      className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={tcchBeforeAfterImages.resourcesAfterSecondary}
+                        alt="The Center Cannot Hold secondary resources page after redesign"
+                        className="h-[28rem] w-full object-contain object-top"
                       />
                     </button>
                     <div className="rounded-[1.75rem] border border-[#334155] bg-[#0f172a]/88 p-6 shadow-xl">
@@ -737,17 +777,6 @@ export default function ProjectDetailPage() {
                     </div>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setSelectedImage({ src: tcchBeforeAfterImages.resourcesAfterDetail, alt: 'Detailed redesigned resources page for The Center Cannot Hold' })}
-                  className="overflow-hidden rounded-[1.75rem] border border-[#334155] bg-[#0f172a] text-left shadow-xl transition-transform hover:-translate-y-1"
-                >
-                  <img
-                    src={tcchBeforeAfterImages.resourcesAfterDetail}
-                    alt="Detailed redesigned resources page for The Center Cannot Hold"
-                    className="h-[32rem] w-full object-contain object-top"
-                  />
-                </button>
               </>
             ) : null}
           </div>
@@ -806,22 +835,33 @@ export default function ProjectDetailPage() {
       </section>
 
       {selectedImage ? (
-        <button
-          type="button"
+        <div
+          role="presentation"
           onClick={() => setSelectedImage(null)}
           className="fixed inset-0 z-[80] flex cursor-zoom-out items-center justify-center bg-[#020617]/88 p-6 backdrop-blur-sm"
         >
-          <div className="relative max-h-[90vh] max-w-[90vw] overflow-hidden rounded-[1.5rem] border border-white/15 bg-[#0f172a] p-3 shadow-2xl">
-            <img
-              src={selectedImage.src}
-              alt={selectedImage.alt}
-              className="max-h-[84vh] max-w-[84vw] object-contain"
-            />
+          <div
+            role="presentation"
+            onClick={(event) => event.stopPropagation()}
+            ref={zoomContainerRef}
+            className="relative max-h-[90vh] max-w-[90vw] overflow-hidden rounded-[1.5rem] border border-white/15 bg-[#0f172a] p-3 shadow-2xl"
+          >
+            <div className="flex max-h-[84vh] max-w-[84vw] items-center justify-center overflow-auto">
+              <img
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                className="max-h-[84vh] max-w-[84vw] object-contain transition-transform duration-150 ease-out"
+                style={{ transform: `scale(${zoom})` }}
+              />
+            </div>
+            <span className="absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.12em] text-white">
+              Scroll to zoom
+            </span>
             <span className="absolute right-4 top-4 rounded-full bg-black/40 px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.12em] text-white">
               Close
             </span>
           </div>
-        </button>
+        </div>
       ) : null}
     </motion.div>
   );

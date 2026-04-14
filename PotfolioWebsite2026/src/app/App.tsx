@@ -42,15 +42,44 @@ function Navigation({
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [iconTapped, setIconTapped] = useState(false);
+  const [isWorkSectionActive, setIsWorkSectionActive] = useState(false);
 
   const handleHomeNavigation = () => {
     setIconTapped(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setIsWorkSectionActive(false);
+      return;
+    }
+
+    const updateWorkSectionState = () => {
+      const workSection = document.getElementById('work');
+      if (!workSection) {
+        setIsWorkSectionActive(false);
+        return;
+      }
+
+      const rect = workSection.getBoundingClientRect();
+      const probeLine = window.innerHeight * 0.35;
+      setIsWorkSectionActive(rect.top <= probeLine && rect.bottom >= probeLine);
+    };
+
+    updateWorkSectionState();
+    window.addEventListener('scroll', updateWorkSectionState, { passive: true });
+    window.addEventListener('resize', updateWorkSectionState);
+
+    return () => {
+      window.removeEventListener('scroll', updateWorkSectionState);
+      window.removeEventListener('resize', updateWorkSectionState);
+    };
+  }, [location.pathname]);
+
   const navItems = [
-    { label: 'Home', to: '/', match: location.pathname === '/' },
-    { label: 'Selected Work', to: '/#work', match: location.pathname === '/' || location.pathname.startsWith('/project/') },
+    { label: 'Home', to: '/', match: location.pathname === '/' && !isWorkSectionActive },
+    { label: 'Selected Work', to: '/#work', match: location.pathname.startsWith('/project/') || (location.pathname === '/' && isWorkSectionActive) },
     { label: 'Artist Statement', to: '/artist-statement', match: location.pathname === '/artist-statement' },
     { label: 'Biography', to: '/biography', match: location.pathname === '/biography' },
   ];
@@ -60,7 +89,7 @@ function Navigation({
   }, [location.pathname, location.hash]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#D5E7F2] bg-white/92 shadow-sm backdrop-blur-md">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#D5E7F2] bg-white/92 shadow-sm backdrop-blur-md dark:border-[#334155] dark:bg-[#0f172a]/92">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 md:px-8">
         <Link
           to="/"
@@ -75,7 +104,7 @@ function Navigation({
           >
             <SeigaihaIcon className="h-7 w-7" />
           </motion.span>
-          Arianna
+          Me, Arianna
         </Link>
 
         <button
@@ -83,21 +112,21 @@ function Navigation({
           aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#ABCEE2] bg-white/80 text-[#7DB1D4] transition-all hover:bg-[#D5E7F2] md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#ABCEE2] bg-white/80 text-[#7DB1D4] transition-all hover:bg-[#D5E7F2] lg:hidden dark:border-[#475569] dark:bg-[#111827] dark:text-[#ABCEE2] dark:hover:bg-[#1e293b]"
         >
           {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
-        <div className={`${menuOpen ? 'flex' : 'hidden'} order-4 w-full flex-col gap-3 border-t border-[#D5E7F2]/70 pt-4 md:order-2 md:flex md:w-auto md:flex-row md:flex-wrap md:items-center md:justify-center md:gap-x-4 md:gap-y-2 md:border-t-0 md:pt-0 lg:justify-start`}>
+        <div className={`${menuOpen ? 'flex' : 'hidden'} order-4 w-full flex-col gap-3 border-t border-[#D5E7F2]/70 pt-4 lg:order-2 lg:flex lg:w-auto lg:flex-row lg:flex-wrap lg:items-center lg:justify-center lg:gap-x-4 lg:gap-y-2 lg:border-t-0 lg:pt-0 xl:justify-start dark:border-[#334155]/70`}>
           {navItems.map((item) => (
             <Link
               key={item.label}
               to={item.to}
               onClick={item.to === '/' ? handleHomeNavigation : undefined}
-              className={`rounded-full border px-4 py-3 text-center font-['Poppins:Medium',sans-serif] text-sm tracking-[0.02em] transition-all md:px-3 md:py-2 md:text-xs md:sm:text-sm ${
+              className={`rounded-full border px-4 py-3 text-center font-['Poppins:Medium',sans-serif] text-sm tracking-[0.02em] transition-all lg:px-3 lg:py-2 lg:text-xs lg:sm:text-sm ${
                 item.match
-                  ? 'border-[#BF8351] bg-[#FFF8F3] text-[#BF8351]'
-                  : 'border-transparent text-[#4A5565] hover:border-[#ABCEE2] hover:bg-[#F7FBFD] hover:text-[#7DB1D4]'
+                  ? 'border-[#BF8351] bg-[#FFF8F3] text-[#BF8351] dark:bg-[#3f2d24] dark:text-[#E6C4A8]'
+                  : 'border-transparent text-[#4A5565] hover:border-[#ABCEE2] hover:bg-[#F7FBFD] hover:text-[#7DB1D4] dark:text-[#CBD5E1] dark:hover:border-[#475569] dark:hover:bg-[#111827] dark:hover:text-[#ABCEE2]'
               }`}
             >
               {item.label}
@@ -105,20 +134,20 @@ function Navigation({
           ))}
         </div>
 
-        <div className="order-2 hidden items-center gap-2 md:order-3 md:flex md:gap-3">
+        <div className="order-2 hidden items-center gap-2 lg:order-3 lg:flex lg:gap-3">
           <button
             type="button"
             onClick={onToggleTheme}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             aria-pressed={theme === 'dark'}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#ABCEE2] bg-white/80 text-[#7DB1D4] transition-all hover:-translate-y-0.5 hover:bg-[#D5E7F2] hover:shadow-md"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#ABCEE2] bg-white/80 text-[#7DB1D4] transition-all hover:-translate-y-0.5 hover:bg-[#D5E7F2] hover:shadow-md dark:border-[#475569] dark:bg-[#111827] dark:text-[#ABCEE2] dark:hover:bg-[#1e293b]"
           >
             {theme === 'dark' ? <SunMedium className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
           <a
             href={`${import.meta.env.BASE_URL}cv.pdf`}
             download
-            className="inline-flex items-center justify-center rounded-full border-2 border-[#ABCEE2] px-3 py-2 text-center font-['Poppins:SemiBold',sans-serif] text-xs text-[#7DB1D4] transition-all hover:-translate-y-0.5 hover:bg-[#D5E7F2] hover:shadow-md sm:px-4 sm:text-sm md:px-6"
+            className="inline-flex items-center justify-center rounded-full border-2 border-[#ABCEE2] px-3 py-2 text-center font-['Poppins:SemiBold',sans-serif] text-xs text-[#7DB1D4] transition-all hover:-translate-y-0.5 hover:bg-[#D5E7F2] hover:shadow-md sm:px-4 sm:text-sm md:px-6 dark:border-[#475569] dark:text-[#ABCEE2] dark:hover:bg-[#1e293b]"
           >
             Download CV
           </a>
@@ -130,13 +159,13 @@ function Navigation({
           </Link>
         </div>
 
-        <div className={`${menuOpen ? 'flex' : 'hidden'} order-5 w-full flex-col gap-3 border-t border-[#D5E7F2]/70 pt-4 md:hidden`}>
+        <div className={`${menuOpen ? 'flex' : 'hidden'} order-5 w-full flex-col gap-3 border-t border-[#D5E7F2]/70 pt-4 lg:hidden dark:border-[#334155]/70`}>
           <button
             type="button"
             onClick={onToggleTheme}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             aria-pressed={theme === 'dark'}
-            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#ABCEE2] bg-white/80 px-4 py-3 font-['Poppins:SemiBold',sans-serif] text-sm text-[#7DB1D4] transition-all hover:bg-[#D5E7F2]"
+            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#ABCEE2] bg-white/80 px-4 py-3 font-['Poppins:SemiBold',sans-serif] text-sm text-[#7DB1D4] transition-all hover:bg-[#D5E7F2] dark:border-[#475569] dark:bg-[#111827] dark:text-[#ABCEE2] dark:hover:bg-[#1e293b]"
           >
             {theme === 'dark' ? <SunMedium className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             {theme === 'dark' ? 'Light mode' : 'Dark mode'}
@@ -144,7 +173,7 @@ function Navigation({
           <a
             href={`${import.meta.env.BASE_URL}cv.pdf`}
             download
-            className="inline-flex items-center justify-center rounded-full border-2 border-[#ABCEE2] px-4 py-3 text-center font-['Poppins:SemiBold',sans-serif] text-sm text-[#7DB1D4] transition-all hover:bg-[#D5E7F2]"
+            className="inline-flex items-center justify-center rounded-full border-2 border-[#ABCEE2] px-4 py-3 text-center font-['Poppins:SemiBold',sans-serif] text-sm text-[#7DB1D4] transition-all hover:bg-[#D5E7F2] dark:border-[#475569] dark:text-[#ABCEE2] dark:hover:bg-[#1e293b]"
           >
             Download CV
           </a>
