@@ -875,22 +875,35 @@ export default function ProjectDetailPage() {
             role="presentation"
             onClick={(event) => event.stopPropagation()}
             ref={zoomContainerRef}
-            className="relative max-h-[90vh] max-w-[90vw] overflow-hidden rounded-[1.5rem] border border-white/15 bg-[#0f172a] p-3 shadow-2xl"
+            className="relative max-h-[90vh] max-w-[90vw] rounded-[1.5rem] border border-white/15 bg-[#0f172a] p-3 shadow-2xl"
           >
-            <div className="flex max-h-[84vh] max-w-[84vw] items-center justify-center overflow-auto">
-              <img
-                src={selectedImage.src}
-                alt={selectedImage.alt}
-                className="max-h-[84vh] max-w-[84vw] object-contain transition-transform duration-150 ease-out"
-                style={{ transform: `scale(${zoom})` }}
-              />
+            <div className="flex max-h-[84vh] max-w-[84vw] overflow-auto rounded-[1rem]">
+              <div
+                className="flex min-h-full min-w-full items-center justify-center transition-[width,height] duration-150 ease-out"
+                style={{
+                  width: `${zoom * 100}%`,
+                  height: `${zoom * 100}%`,
+                  minWidth: `${zoom * 100}%`,
+                  minHeight: `${zoom * 100}%`,
+                }}
+              >
+                <img
+                  src={selectedImage.src}
+                  alt={selectedImage.alt}
+                  className="max-h-[84vh] max-w-[84vw] object-contain"
+                />
+              </div>
             </div>
             <span className="absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.12em] text-white">
               Scroll to zoom
             </span>
-            <span className="absolute right-4 top-4 rounded-full bg-black/40 px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.12em] text-white">
+            <button
+              type="button"
+              onClick={() => setSelectedImage(null)}
+              className="absolute right-4 top-4 rounded-full bg-black/40 px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.12em] text-white transition-colors hover:bg-black/60"
+            >
               Close
-            </span>
+            </button>
           </div>
         </div>
       ) : null}
