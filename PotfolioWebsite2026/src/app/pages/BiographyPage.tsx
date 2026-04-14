@@ -191,34 +191,43 @@ export default function BiographyPage() {
       exit={{ opacity: 0 }}
       className="relative min-h-screen pb-20 pt-28 md:pt-32"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.13] dark:hidden"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,${lightSeigaihaSvg}")`,
-          backgroundPosition: 'center top',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden opacity-[0.12] dark:block"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,${darkSeigaihaSvg}")`,
-          backgroundPosition: 'center top',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden dark:block"
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(8,15,28,0.35) 0%, rgba(15,23,42,0.08) 100%)',
-        }}
-      />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        {[
+          'left-[-10%] top-20 h-[18rem] w-[28rem] md:left-[-2%] md:h-[22rem] md:w-[34rem]',
+          'right-[-14%] top-[34rem] h-[20rem] w-[26rem] md:right-[4%] md:top-[28rem] md:h-[24rem] md:w-[32rem]',
+          'left-[8%] bottom-[14rem] h-[18rem] w-[24rem] md:left-[16%] md:h-[22rem] md:w-[30rem]',
+        ].map((positionClass, index) => (
+          <div key={`light-cloud-${index}`} className={`absolute ${positionClass} dark:hidden`}>
+            <div
+              className="h-full w-full rounded-[45%] opacity-[0.12]"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,${lightSeigaihaSvg}")`,
+                backgroundPosition: index === 1 ? 'right center' : 'center center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          </div>
+        ))}
+
+        {[
+          'left-[-8%] top-24 h-[18rem] w-[28rem] md:left-[0%] md:h-[22rem] md:w-[34rem]',
+          'right-[-10%] top-[35rem] h-[20rem] w-[26rem] md:right-[5%] md:top-[29rem] md:h-[24rem] md:w-[32rem]',
+          'left-[10%] bottom-[14rem] h-[18rem] w-[24rem] md:left-[18%] md:h-[22rem] md:w-[30rem]',
+        ].map((positionClass, index) => (
+          <div key={`dark-cloud-${index}`} className={`absolute hidden ${positionClass} dark:block`}>
+            <div
+              className="h-full w-full rounded-[45%] opacity-[0.11]"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,${darkSeigaihaSvg}")`,
+                backgroundPosition: index === 1 ? 'right center' : 'center center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          </div>
+        ))}
+      </div>
       <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
