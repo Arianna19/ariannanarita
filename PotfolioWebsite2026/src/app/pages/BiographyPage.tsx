@@ -165,25 +165,24 @@ export default function BiographyPage() {
 
   const buildSeigaihaCluster = (strokeColor: string) =>
     encodeURIComponent(`
-      <svg xmlns="http://www.w3.org/2000/svg" width="620" height="300" viewBox="0 0 620 300" fill="none">
-        <g stroke="${strokeColor}" stroke-width="8" fill="none" stroke-linecap="round" opacity="1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="640" height="220" viewBox="0 0 640 220" fill="none">
+        <g stroke="${strokeColor}" stroke-width="7" fill="none" stroke-linecap="round" opacity="1">
           ${[
-            [190, 90],
-            [120, 132],
-            [190, 132],
-            [260, 132],
-            [50, 174],
-            [120, 174],
-            [190, 174],
-            [260, 174],
-            [330, 174],
-            [400, 132],
-            [470, 132],
-            [540, 132],
+            [164, 58],
+            [112, 94],
+            [164, 94],
+            [216, 94],
+            [86, 130],
+            [138, 130],
+            [190, 130],
+            [242, 130],
+            [430, 94],
+            [482, 94],
+            [534, 94],
           ].map(([x, y]) => `
-            <path d="M${x - 38} ${y}a38 38 0 0 1 76 0" />
-            <path d="M${x - 26} ${y}a26 26 0 0 1 52 0" />
-            <path d="M${x - 14} ${y}a14 14 0 0 1 28 0" />
+            <path d="M${x - 30} ${y}a30 30 0 0 1 60 0" />
+            <path d="M${x - 20} ${y}a20 20 0 0 1 40 0" />
+            <path d="M${x - 10} ${y}a10 10 0 0 1 20 0" />
           `).join('')}
         </g>
       </svg>
@@ -201,11 +200,16 @@ export default function BiographyPage() {
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         {[
-          'left-[-2rem] top-24 h-32 w-72 md:left-[4%] md:h-40 md:w-[24rem]',
-          'right-[-3rem] top-[28rem] h-28 w-64 md:right-[6%] md:h-36 md:w-[22rem]',
-          'left-[2%] top-[58rem] h-32 w-72 md:left-[18%] md:h-40 md:w-[24rem]',
-          'right-[8%] bottom-[28rem] h-28 w-64 md:h-36 md:w-[22rem]',
-          'left-[10%] bottom-[6rem] h-32 w-72 md:left-[30%] md:h-40 md:w-[24rem]',
+          'left-[-1rem] top-20 h-20 w-56 md:left-[4%] md:h-24 md:w-72',
+          'right-[-1rem] top-[14rem] h-20 w-56 md:right-[6%] md:h-24 md:w-72',
+          'left-[6%] top-[28rem] h-20 w-56 md:left-[18%] md:h-24 md:w-72',
+          'right-[8%] top-[42rem] h-20 w-56 md:right-[14%] md:h-24 md:w-72',
+          'left-[2%] top-[56rem] h-20 w-56 md:left-[10%] md:h-24 md:w-72',
+          'right-[2%] top-[70rem] h-20 w-56 md:right-[20%] md:h-24 md:w-72',
+          'left-[12%] top-[84rem] h-20 w-56 md:left-[26%] md:h-24 md:w-72',
+          'right-[10%] bottom-[30rem] h-20 w-56 md:h-24 md:w-72',
+          'left-[16%] bottom-[16rem] h-20 w-56 md:left-[34%] md:h-24 md:w-72',
+          'right-[4%] bottom-[4rem] h-20 w-56 md:right-[12%] md:h-24 md:w-72',
         ].map((positionClass, index) => (
           <div key={`light-cloud-${index}`} className={`absolute ${positionClass} dark:hidden`}>
             <div
@@ -221,11 +225,16 @@ export default function BiographyPage() {
         ))}
 
         {[
-          'left-[-1rem] top-24 h-32 w-72 md:left-[5%] md:h-40 md:w-[24rem]',
-          'right-[-2rem] top-[28rem] h-28 w-64 md:right-[7%] md:h-36 md:w-[22rem]',
-          'left-[3%] top-[58rem] h-32 w-72 md:left-[19%] md:h-40 md:w-[24rem]',
-          'right-[9%] bottom-[28rem] h-28 w-64 md:h-36 md:w-[22rem]',
-          'left-[12%] bottom-[6rem] h-32 w-72 md:left-[31%] md:h-40 md:w-[24rem]',
+          'left-[0%] top-20 h-20 w-56 md:left-[5%] md:h-24 md:w-72',
+          'right-[0%] top-[14rem] h-20 w-56 md:right-[7%] md:h-24 md:w-72',
+          'left-[7%] top-[28rem] h-20 w-56 md:left-[19%] md:h-24 md:w-72',
+          'right-[9%] top-[42rem] h-20 w-56 md:right-[15%] md:h-24 md:w-72',
+          'left-[3%] top-[56rem] h-20 w-56 md:left-[11%] md:h-24 md:w-72',
+          'right-[3%] top-[70rem] h-20 w-56 md:right-[21%] md:h-24 md:w-72',
+          'left-[13%] top-[84rem] h-20 w-56 md:left-[27%] md:h-24 md:w-72',
+          'right-[11%] bottom-[30rem] h-20 w-56 md:h-24 md:w-72',
+          'left-[17%] bottom-[16rem] h-20 w-56 md:left-[35%] md:h-24 md:w-72',
+          'right-[5%] bottom-[4rem] h-20 w-56 md:right-[13%] md:h-24 md:w-72',
         ].map((positionClass, index) => (
           <div key={`dark-cloud-${index}`} className={`absolute hidden ${positionClass} dark:block`}>
             <div
