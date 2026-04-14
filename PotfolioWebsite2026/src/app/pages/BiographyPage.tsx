@@ -176,7 +176,7 @@ export default function BiographyPage() {
 
   const nudgeSkillsTrack = (direction: 'left' | 'right') => {
     const viewportWidth = skillsViewportRef.current?.clientWidth ?? 0;
-    const nudgeAmount = Math.max(200, Math.round(viewportWidth * 0.28));
+    const nudgeAmount = Math.max(260, Math.round(viewportWidth * 0.34));
     setManualTrackOffset((current) =>
       direction === 'right'
         ? Math.min(current + nudgeAmount, 2400)
@@ -456,13 +456,13 @@ export default function BiographyPage() {
                   {loopingSkillTracks.map((track, index) => (
                     <div
                       key={`${track.title}-${index}`}
-                      className={`w-fit max-w-[26rem] shrink-0 rounded-[2.25rem] border p-7 shadow-xl backdrop-blur-sm sm:max-w-[29rem] sm:p-8 lg:max-w-[31rem] ${
+                      className={`flex min-h-[26rem] w-fit max-w-[26rem] shrink-0 flex-col rounded-[2.25rem] border p-7 shadow-xl backdrop-blur-sm sm:max-w-[29rem] sm:p-8 lg:max-w-[31rem] ${
                         track.tone === 'warm'
                           ? 'border-[#E6C4A8] bg-[#FFF8F3]/95'
                           : 'border-[#D5E7F2] bg-[#F9FAFB]/95'
                       }`}
                     >
-                      <div>
+                      <div className="flex h-full flex-col">
                         <div className="mb-6 flex items-center gap-4">
                           <div
                             className={`rounded-2xl p-4 ${
@@ -498,7 +498,7 @@ export default function BiographyPage() {
                           ))}
                         </div>
 
-                        <div className="mt-6 flex items-center justify-between gap-4">
+                        <div className="mt-auto flex items-center justify-between gap-4 pt-8">
                           <div className="h-2 flex-1 rounded-full bg-[#D5E7F2]/70">
                             <div
                               className="h-full rounded-full bg-gradient-to-r from-[#BF8351] via-[#ABCEE2] to-[#5B8FA3]"
