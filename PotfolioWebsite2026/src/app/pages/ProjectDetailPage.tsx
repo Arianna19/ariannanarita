@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useParams, Link } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import { Accessibility, BookOpenText, ChefHat, DollarSign, Eye, HandHeart, Landmark, LayoutGrid, Search, Soup, TrendingUp, Type, UtensilsCrossed } from 'lucide-react';
+import { Accessibility, BookOpenText, ChefHat, ChevronLeft, ChevronRight, DollarSign, Eye, HandHeart, Landmark, LayoutGrid, Search, Soup, TrendingUp, Type, UtensilsCrossed } from 'lucide-react';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, LightbulbIcon, CodeIcon, UserIcon } from '../components/Icons';
@@ -360,7 +360,7 @@ export default function ProjectDetailPage() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className={`relative grid aspect-[4/3] place-items-center overflow-hidden rounded-[2rem] shadow-2xl ${
+            className={`relative grid min-h-[42rem] place-items-center overflow-hidden rounded-[2rem] shadow-2xl md:min-h-0 md:aspect-[4/3] ${
               isIAFinancial
                 ? 'border border-[#1E3A8A]/20 bg-[radial-gradient(circle_at_top,#f7fbff_0%,#d8e8ff_60%,#b4d2ff_100%)]'
                 : isFlavorBridge
@@ -498,7 +498,7 @@ export default function ProjectDetailPage() {
           <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#1f2937]' : 'text-[#364153]'}`}>{project.thesis}</p>
         </section>
 
-        <section className={`rounded-[2rem] p-10 shadow-xl ${isFlavorBridge ? 'border border-[#c8ddbd] bg-[#f8f9ef]/92 backdrop-blur-sm' : 'border border-[#D5E7F2] bg-white/95'}`}>
+        <section className={`rounded-[2rem] p-10 shadow-xl ${isFlavorBridge ? 'border border-[#c8ddbd] bg-[#f8f9ef]/92 backdrop-blur-sm dark:border-[#3e4715] dark:bg-[#15190d]/92' : 'border border-[#D5E7F2] bg-white/95'}`}>
           <div className="mb-5 flex items-center gap-4">
             <UserIcon className="h-14 w-14" />
             <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#7B7F26]' : isIAFinancial ? 'text-[#1E3A8A]' : 'text-[#ABCEE2]'}`}>Ideation</h2>
@@ -793,6 +793,20 @@ export default function ProjectDetailPage() {
               Here's what I actually did
             </h3>
           </div>
+        </div>
+
+        <div className={`mx-auto mb-4 flex max-w-7xl items-center justify-center gap-3 md:hidden ${
+          isFlavorBridge
+            ? 'text-[#7B7F26]'
+            : isIAFinancial
+              ? 'text-[#1E3A8A]'
+              : 'text-[#93C5FD]'
+        }`}>
+          <ChevronLeft className="h-4 w-4" />
+          <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.14em]">
+            Swipe through
+          </p>
+          <ChevronRight className="h-4 w-4" />
         </div>
 
         <div className="mx-auto flex max-w-7xl snap-x snap-mandatory justify-center gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

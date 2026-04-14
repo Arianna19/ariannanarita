@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Link, useLocation } from 'react-router';
 import { useEffect, useRef } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, BrandingIcon, CodeIcon, PrototypeIcon } from '../components/Icons';
@@ -199,7 +199,7 @@ function SkillsPreviewSection() {
             Skills Preview
           </p>
           <h3 className="mt-3 font-['Ojuju:Bold',sans-serif] text-3xl text-[#5B8FA3] md:text-4xl">
-            Tiny teaser before the skills spiral
+            Tiny teaser of some of my skills
           </h3>
         </div>
         <Link
@@ -209,6 +209,14 @@ function SkillsPreviewSection() {
           See full set
           <ChevronRight className="h-4 w-4" />
         </Link>
+      </div>
+
+      <div className="mx-auto mb-4 flex max-w-7xl items-center justify-center gap-3 text-[#7DB1D4] md:hidden">
+        <ChevronLeft className="h-4 w-4" />
+        <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.14em]">
+          Swipe through
+        </p>
+        <ChevronRight className="h-4 w-4" />
       </div>
 
       <div className="mx-auto flex max-w-7xl snap-x snap-mandatory justify-center gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
