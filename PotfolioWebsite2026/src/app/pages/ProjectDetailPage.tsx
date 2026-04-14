@@ -879,18 +879,16 @@ export default function ProjectDetailPage() {
           >
             <div className="flex max-h-[84vh] max-w-[84vw] overflow-auto rounded-[1rem]">
               <div
-                className="flex min-h-full min-w-full items-center justify-center transition-[width,height] duration-150 ease-out"
+                className="flex items-center justify-center transition-[width,height] duration-150 ease-out"
                 style={{
-                  width: `${zoom * 100}%`,
-                  height: `${zoom * 100}%`,
-                  minWidth: `${zoom * 100}%`,
-                  minHeight: `${zoom * 100}%`,
+                  width: `${zoom * 84}vw`,
+                  height: `${zoom * 84}vh`,
                 }}
               >
                 <img
                   src={selectedImage.src}
                   alt={selectedImage.alt}
-                  className="max-h-[84vh] max-w-[84vw] object-contain"
+                  className="h-full w-full object-contain"
                 />
               </div>
             </div>
@@ -899,8 +897,11 @@ export default function ProjectDetailPage() {
             </span>
             <button
               type="button"
-              onClick={() => setSelectedImage(null)}
-              className="absolute right-4 top-4 rounded-full bg-black/40 px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.12em] text-white transition-colors hover:bg-black/60"
+              onClick={(event) => {
+                event.stopPropagation();
+                setSelectedImage(null);
+              }}
+              className="absolute right-4 top-4 z-10 rounded-full bg-black/40 px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.12em] text-white transition-colors hover:bg-black/60"
             >
               Close
             </button>

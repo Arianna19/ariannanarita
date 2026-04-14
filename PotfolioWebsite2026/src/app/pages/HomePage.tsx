@@ -329,6 +329,16 @@ export default function HomePage() {
     }
   }, [location.hash]);
 
+  const scrollToWorkSection = () => {
+    const workSection = document.getElementById('work');
+    if (workSection) {
+      workSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
+    window.location.hash = 'work';
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -370,6 +380,12 @@ export default function HomePage() {
               <div className="flex flex-wrap gap-4">
                 <Link
                   to="/#work"
+                  onClick={(event) => {
+                    if (location.pathname === '/') {
+                      event.preventDefault();
+                      scrollToWorkSection();
+                    }
+                  }}
                   className="inline-flex items-center justify-center rounded-full bg-[#BF8351] px-8 py-4 font-['Poppins:SemiBold',sans-serif] text-white transition-all hover:-translate-y-0.5 hover:bg-[#A66D42] hover:shadow-lg"
                 >
                   See Selected Work

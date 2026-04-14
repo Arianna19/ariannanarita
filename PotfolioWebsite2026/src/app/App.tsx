@@ -49,6 +49,18 @@ function Navigation({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleWorkNavigation = () => {
+    if (location.pathname === '/') {
+      const workSection = document.getElementById('work');
+      if (workSection) {
+        workSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
+
+    window.location.hash = 'work';
+  };
+
   useEffect(() => {
     if (location.pathname !== '/') {
       setIsWorkSectionActive(false);
@@ -122,7 +134,17 @@ function Navigation({
             <Link
               key={item.label}
               to={item.to}
-              onClick={item.to === '/' ? handleHomeNavigation : undefined}
+              onClick={(event) => {
+                if (item.to === '/') {
+                  handleHomeNavigation();
+                  return;
+                }
+
+                if (item.label === 'Selected Work' && location.pathname === '/') {
+                  event.preventDefault();
+                  handleWorkNavigation();
+                }
+              }}
               className={`rounded-full border px-4 py-3 text-center font-['Poppins:Medium',sans-serif] text-sm tracking-[0.02em] transition-all lg:px-3 lg:py-2 lg:text-xs lg:sm:text-sm ${
                 item.match
                   ? 'border-[#BF8351] bg-[#FFF8F3] text-[#BF8351] dark:bg-[#3f2d24] dark:text-[#E6C4A8]'

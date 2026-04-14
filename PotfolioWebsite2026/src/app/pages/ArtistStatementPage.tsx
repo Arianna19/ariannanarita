@@ -50,9 +50,6 @@ function MoodScrollerSection() {
                 >
                   <div className="pointer-events-none absolute opacity-0" />
                   <div className="space-y-4">
-                    <span className="inline-flex rounded-full bg-[#F1F8FC] px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.16em] text-[#5B8FA3]">
-                      Scroll-held mood board
-                    </span>
                     <p
                       className={`max-w-4xl ${
                         index === 0
