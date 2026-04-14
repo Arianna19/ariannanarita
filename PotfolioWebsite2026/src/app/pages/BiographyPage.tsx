@@ -156,9 +156,9 @@ export default function BiographyPage() {
   });
   const trackX = useTransform(skillsProgress, [0, 1], ['0%', '-50%']);
   const manualTrackOffsetSpring = useSpring(manualTrackOffset, {
-    stiffness: 55,
-    damping: 18,
-    mass: 1.4,
+    stiffness: 38,
+    damping: 20,
+    mass: 1.9,
   });
   const combinedTrackX = useMotionTemplate`calc(${trackX} - ${manualTrackOffsetSpring}px)`;
 
@@ -255,6 +255,18 @@ export default function BiographyPage() {
                 My Story
               </h2>
 
+              <div className="mb-8 flex flex-wrap items-center gap-3">
+                <span className="rounded-full bg-[#FFF8F3] px-4 py-2 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#BF8351]">
+                  Design origin story
+                </span>
+                <span className="rounded-full bg-[#F1F8FC] px-4 py-2 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#5B8FA3]">
+                  UX/UI + graphic design
+                </span>
+                <span className="rounded-full bg-[#F1F8FC] px-4 py-2 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#5B8FA3]">
+                  Sound and systems thinking
+                </span>
+              </div>
+
               <div className="space-y-5 md:space-y-6">
                 {biographyParagraphs.slice(0, 3).map((paragraph) => (
                   <p
@@ -298,6 +310,18 @@ export default function BiographyPage() {
                 >
                   {isStoryExpanded ? 'Show less' : 'Read more'}
                 </button>
+              </div>
+
+              <div className="mt-6 flex items-center justify-between gap-4">
+                <div className="h-2 flex-1 rounded-full bg-[#D5E7F2]/70">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-[#BF8351] via-[#ABCEE2] to-[#5B8FA3]"
+                    style={{ width: isStoryExpanded ? '100%' : '56%' }}
+                  />
+                </div>
+                <p className="font-['Poppins:SemiBold',sans-serif] text-sm uppercase tracking-[0.16em] text-[#BF8351]">
+                  {isStoryExpanded ? 'Full story' : 'Part 1'}
+                </p>
               </div>
             </div>
 
@@ -399,20 +423,20 @@ export default function BiographyPage() {
               <button
                 type="button"
                 onClick={() => nudgeSkillsTrack('left')}
-                className="absolute inset-y-0 left-0 z-10 flex w-12 items-center justify-center bg-gradient-to-r from-[#5B8FA3]/78 via-[#5B8FA3]/44 to-transparent text-white transition-all hover:from-[#4B7E93]/90 hover:via-[#4B7E93]/55 sm:w-14 md:w-16"
+                className="absolute inset-y-0 left-0 z-10 flex w-12 items-center justify-center bg-[#5B8FA3]/82 text-white transition-colors hover:bg-[#4B7E93]/92 sm:w-14 md:w-16"
                 aria-label="Scroll skills left"
               >
-                <div className="flex h-full w-full items-center justify-center border-r border-white/20">
+                <div className="flex h-full w-full items-center justify-center border-r border-white/18">
                   <ChevronLeft className="h-8 w-8 sm:h-9 sm:w-9" strokeWidth={2.5} />
                 </div>
               </button>
               <button
                 type="button"
                 onClick={() => nudgeSkillsTrack('right')}
-                className="absolute inset-y-0 right-0 z-10 flex w-12 items-center justify-center bg-gradient-to-l from-[#5B8FA3]/78 via-[#5B8FA3]/44 to-transparent text-white transition-all hover:from-[#4B7E93]/90 hover:via-[#4B7E93]/55 sm:w-14 md:w-16"
+                className="absolute inset-y-0 right-0 z-10 flex w-12 items-center justify-center bg-[#5B8FA3]/82 text-white transition-colors hover:bg-[#4B7E93]/92 sm:w-14 md:w-16"
                 aria-label="Scroll skills right"
               >
-                <div className="flex h-full w-full items-center justify-center border-l border-white/20">
+                <div className="flex h-full w-full items-center justify-center border-l border-white/18">
                   <ChevronRight className="h-8 w-8 sm:h-9 sm:w-9" strokeWidth={2.5} />
                 </div>
               </button>
