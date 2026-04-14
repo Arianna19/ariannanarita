@@ -163,26 +163,34 @@ export default function BiographyPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.hash]);
 
-  const buildSeigaihaBackground = (stripeColor: string, baseColor: string) =>
+  const buildSeigaihaCluster = (strokeColor: string) =>
     encodeURIComponent(`
-      <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600" fill="none">
-        <rect width="1600" height="1600" fill="${baseColor}" />
-        <g stroke="${stripeColor}" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.96">
-          ${Array.from({ length: 12 }, (_, row) =>
-            Array.from({ length: 11 }, (_, col) => {
-              const x = col * 156 + (row % 2 === 0 ? 54 : 132);
-              const y = row * 126 + 180;
-              return `
-                <path d="M${x - 76} ${y}a76 76 0 0 1 152 0" />
-              `;
-            }).join('')
-          ).join('')}
+      <svg xmlns="http://www.w3.org/2000/svg" width="620" height="300" viewBox="0 0 620 300" fill="none">
+        <g stroke="${strokeColor}" stroke-width="8" fill="none" stroke-linecap="round" opacity="1">
+          ${[
+            [190, 90],
+            [120, 132],
+            [190, 132],
+            [260, 132],
+            [50, 174],
+            [120, 174],
+            [190, 174],
+            [260, 174],
+            [330, 174],
+            [400, 132],
+            [470, 132],
+            [540, 132],
+          ].map(([x, y]) => `
+            <path d="M${x - 38} ${y}a38 38 0 0 1 76 0" />
+            <path d="M${x - 26} ${y}a26 26 0 0 1 52 0" />
+            <path d="M${x - 14} ${y}a14 14 0 0 1 28 0" />
+          `).join('')}
         </g>
       </svg>
     `);
 
-  const lightSeigaihaSvg = buildSeigaihaBackground('#ABCEE2', '#F7FBFD');
-  const darkSeigaihaSvg = buildSeigaihaBackground('#5B8FA3', '#0F172A');
+  const lightSeigaihaSvg = buildSeigaihaCluster('#7DB1D4');
+  const darkSeigaihaSvg = buildSeigaihaCluster('#ABCEE2');
 
   return (
     <motion.div
@@ -193,17 +201,19 @@ export default function BiographyPage() {
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         {[
-          'left-[-10%] top-20 h-[18rem] w-[28rem] md:left-[-2%] md:h-[22rem] md:w-[34rem]',
-          'right-[-14%] top-[34rem] h-[20rem] w-[26rem] md:right-[4%] md:top-[28rem] md:h-[24rem] md:w-[32rem]',
-          'left-[8%] bottom-[14rem] h-[18rem] w-[24rem] md:left-[16%] md:h-[22rem] md:w-[30rem]',
+          'left-[-2rem] top-24 h-32 w-72 md:left-[4%] md:h-40 md:w-[24rem]',
+          'right-[-3rem] top-[28rem] h-28 w-64 md:right-[6%] md:h-36 md:w-[22rem]',
+          'left-[2%] top-[58rem] h-32 w-72 md:left-[18%] md:h-40 md:w-[24rem]',
+          'right-[8%] bottom-[28rem] h-28 w-64 md:h-36 md:w-[22rem]',
+          'left-[10%] bottom-[6rem] h-32 w-72 md:left-[30%] md:h-40 md:w-[24rem]',
         ].map((positionClass, index) => (
           <div key={`light-cloud-${index}`} className={`absolute ${positionClass} dark:hidden`}>
             <div
-              className="h-full w-full rounded-[45%] opacity-[0.12]"
+              className="h-full w-full opacity-[0.16]"
               style={{
                 backgroundImage: `url("data:image/svg+xml,${lightSeigaihaSvg}")`,
-                backgroundPosition: index === 1 ? 'right center' : 'center center',
-                backgroundSize: 'cover',
+                backgroundPosition: 'center center',
+                backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
               }}
             />
@@ -211,17 +221,19 @@ export default function BiographyPage() {
         ))}
 
         {[
-          'left-[-8%] top-24 h-[18rem] w-[28rem] md:left-[0%] md:h-[22rem] md:w-[34rem]',
-          'right-[-10%] top-[35rem] h-[20rem] w-[26rem] md:right-[5%] md:top-[29rem] md:h-[24rem] md:w-[32rem]',
-          'left-[10%] bottom-[14rem] h-[18rem] w-[24rem] md:left-[18%] md:h-[22rem] md:w-[30rem]',
+          'left-[-1rem] top-24 h-32 w-72 md:left-[5%] md:h-40 md:w-[24rem]',
+          'right-[-2rem] top-[28rem] h-28 w-64 md:right-[7%] md:h-36 md:w-[22rem]',
+          'left-[3%] top-[58rem] h-32 w-72 md:left-[19%] md:h-40 md:w-[24rem]',
+          'right-[9%] bottom-[28rem] h-28 w-64 md:h-36 md:w-[22rem]',
+          'left-[12%] bottom-[6rem] h-32 w-72 md:left-[31%] md:h-40 md:w-[24rem]',
         ].map((positionClass, index) => (
           <div key={`dark-cloud-${index}`} className={`absolute hidden ${positionClass} dark:block`}>
             <div
-              className="h-full w-full rounded-[45%] opacity-[0.11]"
+              className="h-full w-full opacity-[0.13]"
               style={{
                 backgroundImage: `url("data:image/svg+xml,${darkSeigaihaSvg}")`,
-                backgroundPosition: index === 1 ? 'right center' : 'center center',
-                backgroundSize: 'cover',
+                backgroundPosition: 'center center',
+                backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
               }}
             />
