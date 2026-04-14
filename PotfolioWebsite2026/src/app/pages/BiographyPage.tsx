@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useMotionTemplate, useScroll, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useMotionTemplate, useScroll, useSpring, useTransform } from 'motion/react';
 import type { JSX } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
@@ -155,7 +155,12 @@ export default function BiographyPage() {
     offset: ['start start', 'end start'],
   });
   const trackX = useTransform(skillsProgress, [0, 1], ['0%', '-50%']);
-  const combinedTrackX = useMotionTemplate`calc(${trackX} - ${manualTrackOffset}px)`;
+  const manualTrackOffsetSpring = useSpring(manualTrackOffset, {
+    stiffness: 55,
+    damping: 18,
+    mass: 1.4,
+  });
+  const combinedTrackX = useMotionTemplate`calc(${trackX} - ${manualTrackOffsetSpring}px)`;
 
   useEffect(() => {
     if (location.hash === '#skills-tools') {
@@ -171,7 +176,7 @@ export default function BiographyPage() {
 
   const nudgeSkillsTrack = (direction: 'left' | 'right') => {
     const viewportWidth = skillsViewportRef.current?.clientWidth ?? 0;
-    const nudgeAmount = Math.max(220, Math.round(viewportWidth * 0.38));
+    const nudgeAmount = Math.max(200, Math.round(viewportWidth * 0.28));
     setManualTrackOffset((current) =>
       direction === 'right'
         ? Math.min(current + nudgeAmount, 2400)
@@ -394,21 +399,21 @@ export default function BiographyPage() {
               <button
                 type="button"
                 onClick={() => nudgeSkillsTrack('left')}
-                className="absolute inset-y-0 left-0 z-10 flex w-10 items-center justify-center bg-gradient-to-r from-white/88 to-white/10 text-[#7DB1D4] transition-colors hover:text-[#5B8FA3] sm:w-12 md:w-14"
+                className="absolute inset-y-0 left-0 z-10 flex w-12 items-center justify-center bg-gradient-to-r from-[#5B8FA3]/78 via-[#5B8FA3]/44 to-transparent text-white transition-all hover:from-[#4B7E93]/90 hover:via-[#4B7E93]/55 sm:w-14 md:w-16"
                 aria-label="Scroll skills left"
               >
-                <div className="flex h-full w-full items-center justify-center border-r border-[#D5E7F2]/45">
-                  <ChevronLeft className="h-6 w-6" />
+                <div className="flex h-full w-full items-center justify-center border-r border-white/20">
+                  <ChevronLeft className="h-8 w-8 sm:h-9 sm:w-9" strokeWidth={2.5} />
                 </div>
               </button>
               <button
                 type="button"
                 onClick={() => nudgeSkillsTrack('right')}
-                className="absolute inset-y-0 right-0 z-10 flex w-10 items-center justify-center bg-gradient-to-l from-white/88 to-white/10 text-[#7DB1D4] transition-colors hover:text-[#5B8FA3] sm:w-12 md:w-14"
+                className="absolute inset-y-0 right-0 z-10 flex w-12 items-center justify-center bg-gradient-to-l from-[#5B8FA3]/78 via-[#5B8FA3]/44 to-transparent text-white transition-all hover:from-[#4B7E93]/90 hover:via-[#4B7E93]/55 sm:w-14 md:w-16"
                 aria-label="Scroll skills right"
               >
-                <div className="flex h-full w-full items-center justify-center border-l border-[#D5E7F2]/45">
-                  <ChevronRight className="h-6 w-6" />
+                <div className="flex h-full w-full items-center justify-center border-l border-white/20">
+                  <ChevronRight className="h-8 w-8 sm:h-9 sm:w-9" strokeWidth={2.5} />
                 </div>
               </button>
 
