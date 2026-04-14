@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useMotionTemplate, useScroll, useSpring, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react';
 import type { JSX } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
@@ -160,7 +160,6 @@ export default function BiographyPage() {
     damping: 20,
     mass: 1.9,
   });
-  const combinedTrackX = useMotionTemplate`calc(${trackX} - ${manualTrackOffsetSpring}px)`;
 
   useEffect(() => {
     if (location.hash === '#skills-tools') {
@@ -250,7 +249,16 @@ export default function BiographyPage() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="space-y-6 lg:col-span-2 lg:space-y-8"
           >
-            <div className="rounded-[2rem] bg-white/95 p-7 shadow-xl backdrop-blur-sm sm:p-10 lg:p-12">
+            <div className="relative overflow-hidden rounded-[2rem] bg-white/95 p-7 shadow-xl backdrop-blur-sm sm:p-10 lg:p-12">
+              <div className="absolute bottom-8 left-6 top-8 hidden w-px bg-[#D5E7F2] lg:block" />
+              <div
+                className="absolute left-[1.32rem] hidden w-1 rounded-full bg-gradient-to-b from-[#BF8351] via-[#ABCEE2] to-[#5B8FA3] lg:block"
+                style={{
+                  top: '2rem',
+                  height: isStoryExpanded ? 'calc(100% - 4rem)' : '58%',
+                }}
+              />
+              <div className="relative lg:pl-8">
               <h2 className="mb-6 font-['Ojuju:Bold',sans-serif] text-3xl text-[#BF8351] sm:text-4xl lg:mb-8">
                 My Story
               </h2>
@@ -312,7 +320,7 @@ export default function BiographyPage() {
                 </button>
               </div>
 
-              <div className="mt-6 flex items-center justify-between gap-4">
+              <div className="mt-6 flex items-center justify-between gap-4 lg:hidden">
                 <div className="h-2 flex-1 rounded-full bg-[#D5E7F2]/70">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-[#BF8351] via-[#ABCEE2] to-[#5B8FA3]"
@@ -323,6 +331,7 @@ export default function BiographyPage() {
                   {isStoryExpanded ? 'Full story' : 'Part 1'}
                 </p>
               </div>
+            </div>
             </div>
 
             <div className="rounded-[2rem] bg-white/95 p-7 shadow-xl backdrop-blur-sm sm:p-10 lg:p-12">
@@ -441,54 +450,56 @@ export default function BiographyPage() {
                 </div>
               </button>
 
-              <motion.div style={{ x: combinedTrackX }} className="flex w-max gap-8 pr-8 md:gap-10">
-                {loopingSkillTracks.map((track, index) => (
-                  <div
-                    key={`${track.title}-${index}`}
-                    className={`w-fit max-w-[26rem] shrink-0 rounded-[2.25rem] border p-7 shadow-xl backdrop-blur-sm sm:max-w-[29rem] sm:p-8 lg:max-w-[31rem] ${
-                      track.tone === 'warm'
-                        ? 'border-[#E6C4A8] bg-[#FFF8F3]/95'
-                        : 'border-[#D5E7F2] bg-[#F9FAFB]/95'
-                    }`}
-                  >
-                    <div>
-                      <div className="mb-6 flex items-center gap-4">
-                        <div
-                          className={`rounded-2xl p-4 ${
-                            track.tone === 'warm' ? 'bg-[#E6C4A8]/80 text-[#BF8351]' : 'bg-[#D5E7F2]/85 text-[#5B8FA3]'
-                          }`}
-                        >
-                          <track.icon className="h-8 w-8" />
-                        </div>
-                        <div>
-                          <h3 className="mt-1 font-['Ojuju:Bold',sans-serif] text-3xl text-[#1E2939] sm:text-4xl">
-                            {track.title}
-                          </h3>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-3">
-                        {track.items.map((item) => (
-                          <span
-                            key={`${track.title}-${typeof item === 'string' ? item : item.label}-${index}`}
-                            className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 font-['Poppins:Medium',sans-serif] text-sm sm:text-base ${
-                              track.tone === 'warm' ? 'bg-[#E6C4A8] text-[#A66D42]' : 'bg-[#D5E7F2] text-[#5B8FA3]'
+              <motion.div style={{ x: -manualTrackOffsetSpring }}>
+                <motion.div style={{ x: trackX }} className="flex w-max gap-8 pr-8 md:gap-10">
+                  {loopingSkillTracks.map((track, index) => (
+                    <div
+                      key={`${track.title}-${index}`}
+                      className={`w-fit max-w-[26rem] shrink-0 rounded-[2.25rem] border p-7 shadow-xl backdrop-blur-sm sm:max-w-[29rem] sm:p-8 lg:max-w-[31rem] ${
+                        track.tone === 'warm'
+                          ? 'border-[#E6C4A8] bg-[#FFF8F3]/95'
+                          : 'border-[#D5E7F2] bg-[#F9FAFB]/95'
+                      }`}
+                    >
+                      <div>
+                        <div className="mb-6 flex items-center gap-4">
+                          <div
+                            className={`rounded-2xl p-4 ${
+                              track.tone === 'warm' ? 'bg-[#E6C4A8]/80 text-[#BF8351]' : 'bg-[#D5E7F2]/85 text-[#5B8FA3]'
                             }`}
                           >
-                            {typeof item === 'string' ? (
-                              track.tone === 'warm' ? <Sparkles className="h-4 w-4" /> : <Layers3 className="h-4 w-4" />
-                            ) : (
-                              <span className="inline-flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-current/20 bg-white/55 p-1 text-[#1E2939] dark:bg-[#0f172a]/45 dark:text-[#F8FAFC]">
-                                <item.icon className="h-full w-full" />
-                              </span>
-                            )}
-                            {typeof item === 'string' ? item : item.label}
-                          </span>
-                        ))}
+                            <track.icon className="h-8 w-8" />
+                          </div>
+                          <div>
+                            <h3 className="mt-1 font-['Ojuju:Bold',sans-serif] text-3xl text-[#1E2939] sm:text-4xl">
+                              {track.title}
+                            </h3>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-wrap gap-3">
+                          {track.items.map((item) => (
+                            <span
+                              key={`${track.title}-${typeof item === 'string' ? item : item.label}-${index}`}
+                              className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 font-['Poppins:Medium',sans-serif] text-sm sm:text-base ${
+                                track.tone === 'warm' ? 'bg-[#E6C4A8] text-[#A66D42]' : 'bg-[#D5E7F2] text-[#5B8FA3]'
+                              }`}
+                            >
+                              {typeof item === 'string' ? (
+                                track.tone === 'warm' ? <Sparkles className="h-4 w-4" /> : <Layers3 className="h-4 w-4" />
+                              ) : (
+                                <span className="inline-flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-current/20 bg-white/55 p-1 text-[#1E2939] dark:bg-[#0f172a]/45 dark:text-[#F8FAFC]">
+                                  <item.icon className="h-full w-full" />
+                                </span>
+                              )}
+                              {typeof item === 'string' ? item : item.label}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </motion.div>
               </motion.div>
             </div>
           </div>
