@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { Globe, Mail, MessageCircleMore } from 'lucide-react';
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from '../constants/contact';
 
 type PageContactCtaProps = {
   label?: string;
@@ -56,11 +57,11 @@ export default function PageContactCta({
             Contact Page
           </Link>
           <a
-            href="mailto:ariannanarita@gmail.com"
+            href={CONTACT_EMAIL_HREF}
             className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#ABCEE2] bg-white/85 px-7 py-4 font-['Poppins:SemiBold',sans-serif] text-[#7DB1D4] transition-all hover:-translate-y-0.5 hover:bg-[#D5E7F2] hover:shadow-lg"
           >
             <Mail className="h-4 w-4" />
-            ariannanarita@gmail.com
+            {CONTACT_EMAIL}
           </a>
           <div className="inline-flex items-center justify-center gap-2 rounded-full border border-[#D5E7F2] bg-white/70 px-7 py-4 font-['Poppins:Medium',sans-serif] text-[#4A5565] shadow-sm">
             <Globe className="h-4 w-4 text-[#5B8FA3]" />
