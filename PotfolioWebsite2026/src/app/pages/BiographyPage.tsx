@@ -163,23 +163,46 @@ export default function BiographyPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.hash]);
 
-  const buildSeigaihaCluster = (strokeColor: string) =>
+  const buildSeigaihaCluster = (strokeColor: string, variant: 'wide' | 'compact' | 'split') =>
     encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" width="640" height="220" viewBox="0 0 640 220" fill="none">
         <g stroke="${strokeColor}" stroke-width="7" fill="none" stroke-linecap="round" opacity="1">
-          ${[
-            [164, 58],
-            [112, 94],
-            [164, 94],
-            [216, 94],
-            [86, 130],
-            [138, 130],
-            [190, 130],
-            [242, 130],
-            [430, 94],
-            [482, 94],
-            [534, 94],
-          ].map(([x, y]) => `
+          ${(variant === 'wide'
+            ? [
+                [164, 58],
+                [112, 94],
+                [164, 94],
+                [216, 94],
+                [86, 130],
+                [138, 130],
+                [190, 130],
+                [242, 130],
+                [430, 94],
+                [482, 94],
+                [534, 94],
+              ]
+            : variant === 'compact'
+              ? [
+                  [176, 66],
+                  [136, 96],
+                  [176, 96],
+                  [216, 96],
+                  [96, 126],
+                  [136, 126],
+                  [176, 126],
+                  [216, 126],
+                  [256, 126],
+                ]
+              : [
+                  [146, 74],
+                  [102, 108],
+                  [146, 108],
+                  [190, 108],
+                  [420, 90],
+                  [376, 124],
+                  [420, 124],
+                  [464, 124],
+                ]).map(([x, y]) => `
             <path d="M${x - 30} ${y}a30 30 0 0 1 60 0" />
             <path d="M${x - 20} ${y}a20 20 0 0 1 40 0" />
             <path d="M${x - 10} ${y}a10 10 0 0 1 20 0" />
@@ -188,8 +211,32 @@ export default function BiographyPage() {
       </svg>
     `);
 
-  const lightSeigaihaSvg = buildSeigaihaCluster('#7DB1D4');
-  const darkSeigaihaSvg = buildSeigaihaCluster('#ABCEE2');
+  const lightSeigaihaSvgs = [
+    buildSeigaihaCluster('#7DB1D4', 'wide'),
+    buildSeigaihaCluster('#5B8FA3', 'compact'),
+    buildSeigaihaCluster('#ABCEE2', 'split'),
+  ];
+  const darkSeigaihaSvgs = [
+    buildSeigaihaCluster('#ABCEE2', 'wide'),
+    buildSeigaihaCluster('#7DB1D4', 'compact'),
+    buildSeigaihaCluster('#D5E7F2', 'split'),
+  ];
+
+  const patternPlacements = [
+    { top: '3%', left: '4%', width: '18rem', height: '5rem', opacity: 0.16, variant: 0 },
+    { top: '10%', right: '6%', width: '16rem', height: '4.5rem', opacity: 0.13, variant: 2 },
+    { top: '18%', left: '16%', width: '17rem', height: '5rem', opacity: 0.15, variant: 1 },
+    { top: '26%', right: '12%', width: '18rem', height: '5rem', opacity: 0.14, variant: 0 },
+    { top: '34%', left: '8%', width: '16rem', height: '4.5rem', opacity: 0.13, variant: 2 },
+    { top: '42%', right: '20%', width: '17rem', height: '5rem', opacity: 0.15, variant: 1 },
+    { top: '50%', left: '24%', width: '18rem', height: '5rem', opacity: 0.14, variant: 0 },
+    { top: '58%', right: '8%', width: '16rem', height: '4.5rem', opacity: 0.13, variant: 2 },
+    { top: '66%', left: '12%', width: '17rem', height: '5rem', opacity: 0.15, variant: 1 },
+    { top: '74%', right: '18%', width: '18rem', height: '5rem', opacity: 0.14, variant: 0 },
+    { top: '82%', left: '28%', width: '16rem', height: '4.5rem', opacity: 0.13, variant: 2 },
+    { top: '90%', right: '10%', width: '17rem', height: '5rem', opacity: 0.15, variant: 1 },
+    { top: '96%', left: '18%', width: '18rem', height: '5rem', opacity: 0.14, variant: 0 },
+  ] as const;
 
   return (
     <motion.div
@@ -199,23 +246,23 @@ export default function BiographyPage() {
       className="relative min-h-screen pb-20 pt-28 md:pt-32"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        {[
-          'left-[-1rem] top-20 h-20 w-56 md:left-[4%] md:h-24 md:w-72',
-          'right-[-1rem] top-[14rem] h-20 w-56 md:right-[6%] md:h-24 md:w-72',
-          'left-[6%] top-[28rem] h-20 w-56 md:left-[18%] md:h-24 md:w-72',
-          'right-[8%] top-[42rem] h-20 w-56 md:right-[14%] md:h-24 md:w-72',
-          'left-[2%] top-[56rem] h-20 w-56 md:left-[10%] md:h-24 md:w-72',
-          'right-[2%] top-[70rem] h-20 w-56 md:right-[20%] md:h-24 md:w-72',
-          'left-[12%] top-[84rem] h-20 w-56 md:left-[26%] md:h-24 md:w-72',
-          'right-[10%] bottom-[30rem] h-20 w-56 md:h-24 md:w-72',
-          'left-[16%] bottom-[16rem] h-20 w-56 md:left-[34%] md:h-24 md:w-72',
-          'right-[4%] bottom-[4rem] h-20 w-56 md:right-[12%] md:h-24 md:w-72',
-        ].map((positionClass, index) => (
-          <div key={`light-cloud-${index}`} className={`absolute ${positionClass} dark:hidden`}>
+        {patternPlacements.map((placement, index) => (
+          <div
+            key={`light-cloud-${index}`}
+            className="absolute dark:hidden"
+            style={{
+              top: placement.top,
+              left: 'left' in placement ? placement.left : undefined,
+              right: 'right' in placement ? placement.right : undefined,
+              width: `clamp(12rem, 28vw, ${placement.width})`,
+              height: `clamp(3.5rem, 7vw, ${placement.height})`,
+            }}
+          >
             <div
-              className="h-full w-full opacity-[0.16]"
+              className="h-full w-full"
               style={{
-                backgroundImage: `url("data:image/svg+xml,${lightSeigaihaSvg}")`,
+                opacity: placement.opacity,
+                backgroundImage: `url("data:image/svg+xml,${lightSeigaihaSvgs[placement.variant]}")`,
                 backgroundPosition: 'center center',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
@@ -224,23 +271,23 @@ export default function BiographyPage() {
           </div>
         ))}
 
-        {[
-          'left-[0%] top-20 h-20 w-56 md:left-[5%] md:h-24 md:w-72',
-          'right-[0%] top-[14rem] h-20 w-56 md:right-[7%] md:h-24 md:w-72',
-          'left-[7%] top-[28rem] h-20 w-56 md:left-[19%] md:h-24 md:w-72',
-          'right-[9%] top-[42rem] h-20 w-56 md:right-[15%] md:h-24 md:w-72',
-          'left-[3%] top-[56rem] h-20 w-56 md:left-[11%] md:h-24 md:w-72',
-          'right-[3%] top-[70rem] h-20 w-56 md:right-[21%] md:h-24 md:w-72',
-          'left-[13%] top-[84rem] h-20 w-56 md:left-[27%] md:h-24 md:w-72',
-          'right-[11%] bottom-[30rem] h-20 w-56 md:h-24 md:w-72',
-          'left-[17%] bottom-[16rem] h-20 w-56 md:left-[35%] md:h-24 md:w-72',
-          'right-[5%] bottom-[4rem] h-20 w-56 md:right-[13%] md:h-24 md:w-72',
-        ].map((positionClass, index) => (
-          <div key={`dark-cloud-${index}`} className={`absolute hidden ${positionClass} dark:block`}>
+        {patternPlacements.map((placement, index) => (
+          <div
+            key={`dark-cloud-${index}`}
+            className="absolute hidden dark:block"
+            style={{
+              top: placement.top,
+              left: 'left' in placement ? placement.left : undefined,
+              right: 'right' in placement ? placement.right : undefined,
+              width: `clamp(12rem, 28vw, ${placement.width})`,
+              height: `clamp(3.5rem, 7vw, ${placement.height})`,
+            }}
+          >
             <div
-              className="h-full w-full opacity-[0.13]"
+              className="h-full w-full"
               style={{
-                backgroundImage: `url("data:image/svg+xml,${darkSeigaihaSvg}")`,
+                opacity: Math.max(0.1, placement.opacity - 0.02),
+                backgroundImage: `url("data:image/svg+xml,${darkSeigaihaSvgs[placement.variant]}")`,
                 backgroundPosition: 'center center',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
