@@ -163,20 +163,17 @@ export default function BiographyPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.hash]);
 
-  const buildSeigaihaBackground = (strokeColor: string, backgroundColor: string) =>
+  const buildSeigaihaBackground = (stripeColor: string, baseColor: string) =>
     encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600" fill="none">
-        <rect width="1600" height="1600" fill="${backgroundColor}" />
-        <g stroke="${strokeColor}" stroke-width="10" fill="none" opacity="0.95">
-          ${Array.from({ length: 13 }, (_, row) =>
+        <rect width="1600" height="1600" fill="${baseColor}" />
+        <g stroke="${stripeColor}" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.96">
+          ${Array.from({ length: 12 }, (_, row) =>
             Array.from({ length: 11 }, (_, col) => {
-              const x = col * 150 + (row % 2 === 0 ? 45 : 120);
-              const y = row * 118 + 160;
+              const x = col * 156 + (row % 2 === 0 ? 54 : 132);
+              const y = row * 126 + 180;
               return `
-                <path d="M${x - 78} ${y}a78 78 0 0 1 156 0" />
-                <path d="M${x - 56} ${y}a56 56 0 0 1 112 0" />
-                <path d="M${x - 34} ${y}a34 34 0 0 1 68 0" />
-                <circle cx="${x}" cy="${y}" r="8" fill="${strokeColor}" stroke="none" />
+                <path d="M${x - 76} ${y}a76 76 0 0 1 152 0" />
               `;
             }).join('')
           ).join('')}
@@ -184,8 +181,8 @@ export default function BiographyPage() {
       </svg>
     `);
 
-  const lightSeigaihaSvg = buildSeigaihaBackground('#1E2939', '#f5f9fd');
-  const darkSeigaihaSvg = buildSeigaihaBackground('#ABCEE2', '#08101c');
+  const lightSeigaihaSvg = buildSeigaihaBackground('#ABCEE2', '#F7FBFD');
+  const darkSeigaihaSvg = buildSeigaihaBackground('#5B8FA3', '#0F172A');
 
   return (
     <motion.div
@@ -196,7 +193,7 @@ export default function BiographyPage() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.07] dark:hidden"
+        className="pointer-events-none absolute inset-0 opacity-[0.13] dark:hidden"
         style={{
           backgroundImage: `url("data:image/svg+xml,${lightSeigaihaSvg}")`,
           backgroundPosition: 'center top',
@@ -206,7 +203,7 @@ export default function BiographyPage() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden opacity-[0.08] dark:block"
+        className="pointer-events-none absolute inset-0 hidden opacity-[0.12] dark:block"
         style={{
           backgroundImage: `url("data:image/svg+xml,${darkSeigaihaSvg}")`,
           backgroundPosition: 'center top',
