@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useMotionTemplate, useScroll, useTransform } from 'motion/react';
 import type { JSX } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
@@ -146,13 +146,16 @@ const loopingSkillTracks = [...skillTracks, ...skillTracks];
 
 export default function BiographyPage() {
   const skillsRef = useRef<HTMLDivElement>(null);
+  const skillsViewportRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const [isStoryExpanded, setIsStoryExpanded] = useState(false);
+  const [manualTrackOffset, setManualTrackOffset] = useState(0);
   const { scrollYProgress: skillsProgress } = useScroll({
     target: skillsRef,
     offset: ['start start', 'end start'],
   });
   const trackX = useTransform(skillsProgress, [0, 1], ['0%', '-50%']);
+  const combinedTrackX = useMotionTemplate`calc(${trackX} - ${manualTrackOffset}px)`;
 
   useEffect(() => {
     if (location.hash === '#skills-tools') {
@@ -165,6 +168,16 @@ export default function BiographyPage() {
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.hash]);
+
+  const nudgeSkillsTrack = (direction: 'left' | 'right') => {
+    const viewportWidth = skillsViewportRef.current?.clientWidth ?? 0;
+    const nudgeAmount = Math.max(220, Math.round(viewportWidth * 0.38));
+    setManualTrackOffset((current) =>
+      direction === 'right'
+        ? Math.min(current + nudgeAmount, 2400)
+        : Math.max(current - nudgeAmount, 0)
+    );
+  };
 
   return (
     <motion.div
@@ -238,7 +251,7 @@ export default function BiographyPage() {
               </h2>
 
               <div className="space-y-5 md:space-y-6">
-                {(isStoryExpanded ? biographyParagraphs : biographyParagraphs.slice(0, 3)).map((paragraph) => (
+                {biographyParagraphs.slice(0, 3).map((paragraph) => (
                   <p
                     key={paragraph.slice(0, 48)}
                     className="text-justify font-['Poppins:Regular',sans-serif] text-base leading-relaxed text-[#364153] sm:text-lg"
@@ -248,13 +261,39 @@ export default function BiographyPage() {
                 ))}
               </div>
 
-              <button
-                type="button"
-                onClick={() => setIsStoryExpanded((expanded) => !expanded)}
-                className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#D5E7F2] bg-[#F7FBFD] px-5 py-3 font-['Poppins:SemiBold',sans-serif] text-sm text-[#5B8FA3] transition-colors hover:bg-[#ECF5FA]"
-              >
-                {isStoryExpanded ? 'Show less' : 'Read more'}
-              </button>
+              <AnimatePresence initial={false}>
+                {isStoryExpanded ? (
+                  <motion.div
+                    key="story-extra"
+                    initial={{ opacity: 0, height: 0, y: -8 }}
+                    animate={{ opacity: 1, height: 'auto', y: 0 }}
+                    exit={{ opacity: 0, height: 0, y: -8 }}
+                    transition={{ duration: 0.38, ease: 'easeInOut' }}
+                    className="overflow-hidden"
+                  >
+                    <div className="space-y-5 pt-5 md:space-y-6">
+                      {biographyParagraphs.slice(3).map((paragraph) => (
+                        <p
+                          key={paragraph.slice(0, 48)}
+                          className="text-justify font-['Poppins:Regular',sans-serif] text-base leading-relaxed text-[#364153] sm:text-lg"
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
+
+              <div className="mt-6">
+                <button
+                  type="button"
+                  onClick={() => setIsStoryExpanded((expanded) => !expanded)}
+                  className="inline-flex items-center gap-2 rounded-full border border-[#D5E7F2] bg-[#F7FBFD] px-5 py-3 font-['Poppins:SemiBold',sans-serif] text-sm text-[#5B8FA3] transition-colors hover:bg-[#ECF5FA]"
+                >
+                  {isStoryExpanded ? 'Show less' : 'Read more'}
+                </button>
+              </div>
             </div>
 
             <div className="rounded-[2rem] bg-white/95 p-7 shadow-xl backdrop-blur-sm sm:p-10 lg:p-12">
@@ -351,8 +390,29 @@ export default function BiographyPage() {
               <ChevronRight className="h-4 w-4" />
             </div>
 
-            <div className="overflow-hidden">
-              <motion.div style={{ x: trackX }} className="flex w-max gap-8 pr-8 md:gap-10">
+            <div ref={skillsViewportRef} className="relative overflow-hidden">
+              <button
+                type="button"
+                onClick={() => nudgeSkillsTrack('left')}
+                className="absolute inset-y-0 left-0 z-10 flex w-10 items-center justify-center bg-gradient-to-r from-white/88 to-white/10 text-[#7DB1D4] transition-colors hover:text-[#5B8FA3] sm:w-12 md:w-14"
+                aria-label="Scroll skills left"
+              >
+                <div className="flex h-full w-full items-center justify-center border-r border-[#D5E7F2]/45">
+                  <ChevronLeft className="h-6 w-6" />
+                </div>
+              </button>
+              <button
+                type="button"
+                onClick={() => nudgeSkillsTrack('right')}
+                className="absolute inset-y-0 right-0 z-10 flex w-10 items-center justify-center bg-gradient-to-l from-white/88 to-white/10 text-[#7DB1D4] transition-colors hover:text-[#5B8FA3] sm:w-12 md:w-14"
+                aria-label="Scroll skills right"
+              >
+                <div className="flex h-full w-full items-center justify-center border-l border-[#D5E7F2]/45">
+                  <ChevronRight className="h-6 w-6" />
+                </div>
+              </button>
+
+              <motion.div style={{ x: combinedTrackX }} className="flex w-max gap-8 pr-8 md:gap-10">
                 {loopingSkillTracks.map((track, index) => (
                   <div
                     key={`${track.title}-${index}`}
