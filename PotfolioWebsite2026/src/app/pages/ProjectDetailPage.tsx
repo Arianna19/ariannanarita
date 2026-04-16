@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useParams, Link } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import { Accessibility, BookOpenText, ChefHat, ChevronLeft, ChevronRight, DollarSign, Eye, Globe, Landmark, LayoutGrid, Mail, MessageCircleMore, Search, Soup, TrendingUp, Type, UtensilsCrossed } from 'lucide-react';
+import { Accessibility, BookOpenText, ChefHat, ChevronLeft, ChevronRight, DollarSign, Eye, Globe, HandHeart, Landmark, LayoutGrid, Mail, MessageCircleMore, Search, Soup, TrendingUp, Type, UtensilsCrossed } from 'lucide-react';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, LightbulbIcon, CodeIcon, UserIcon } from '../components/Icons';
