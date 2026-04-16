@@ -946,12 +946,104 @@ export default function ProjectDetailPage() {
       <section className={`relative left-1/2 mt-16 w-screen -translate-x-1/2 px-5 py-18 md:px-8 ${
         isFlavorBridge
           ? 'bg-[linear-gradient(180deg,rgba(201,221,189,0.1),rgba(171,206,226,0.16))]'
+          : isIAFinancial
+            ? 'bg-[linear-gradient(180deg,rgba(30,58,138,0.08),rgba(210,224,247,0.18))]'
           : isTCCH
             ? 'bg-[linear-gradient(180deg,rgba(15,23,42,0.22),rgba(9,14,24,0.48))]'
             : ''
       }`}>
         <div className="mx-auto max-w-7xl">
-          {isTCCH ? (
+          {isIAFinancial ? (
+            <section className="relative overflow-hidden rounded-[2.25rem] border border-[#D0E1FF] bg-[radial-gradient(circle_at_top,#f8fbff_0%,#e6f0ff_46%,#d6e6ff_100%)] px-6 py-10 shadow-2xl sm:px-8 md:px-10 md:py-12">
+              <div className="pointer-events-none absolute inset-0 opacity-35">
+                <div className="absolute -left-8 top-6 h-28 w-28 rounded-full bg-[#93C5FD]/28 blur-3xl" />
+                <div className="absolute right-0 top-0 h-36 w-36 rounded-full bg-[#1E3A8A]/10 blur-3xl" />
+                <div className="absolute bottom-0 right-1/4 h-28 w-28 rounded-full bg-[#BF8351]/12 blur-3xl" />
+              </div>
+              <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+                <div className="max-w-3xl">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/85 px-4 py-2 shadow-sm">
+                    <MessageCircleMore className="h-4 w-4 text-[#1E3A8A]" />
+                    <span className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#1E3A8A]">
+                      Brand clarity + polished identity
+                    </span>
+                  </div>
+                  <h3 className="mt-5 font-['Ojuju:Bold',sans-serif] text-4xl leading-[0.95] text-[#1E3A8A] md:text-5xl">
+                    If your team needs branding that feels clear, credible, and genuinely polished, let&apos;s talk.
+                  </h3>
+                  <p className="mt-4 max-w-2xl font-['Poppins:Regular',sans-serif] text-lg leading-8 text-[#364153]">
+                    I love identity work that has to feel strong and professional without becoming stiff or forgettable.
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col xl:flex-row">
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1E3A8A] px-7 py-4 font-['Poppins:SemiBold',sans-serif] text-white transition-all hover:-translate-y-0.5 hover:bg-[#18317a] hover:shadow-lg"
+                  >
+                    <MessageCircleMore className="h-4 w-4" />
+                    Contact Page
+                  </Link>
+                  <a
+                    href={CONTACT_EMAIL_HREF}
+                    className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#ABCEE2] bg-white/85 px-7 py-4 font-['Poppins:SemiBold',sans-serif] text-[#7DB1D4] transition-all hover:-translate-y-0.5 hover:bg-[#D5E7F2] hover:shadow-lg"
+                  >
+                    <Mail className="h-4 w-4" />
+                    {CONTACT_EMAIL}
+                  </a>
+                  <div className="inline-flex items-center justify-center gap-2 rounded-full border border-[#D0E1FF] bg-white/75 px-7 py-4 font-['Poppins:Medium',sans-serif] text-[#4A5565] shadow-sm">
+                    <Globe className="h-4 w-4 text-[#5B8FA3]" />
+                    Montreal + remote worldwide
+                  </div>
+                </div>
+              </div>
+            </section>
+          ) : isFlavorBridge ? (
+            <section className="relative overflow-hidden rounded-[2.25rem] border border-[#c8ddbd] bg-[radial-gradient(circle_at_top,#fff7c8_0%,#fff3ae_28%,#eef5cf_100%)] px-6 py-10 shadow-2xl sm:px-8 md:px-10 md:py-12">
+              <div className="pointer-events-none absolute inset-0 opacity-30">
+                <div className="absolute -left-8 top-4 h-28 w-28 rounded-full bg-[#ffd561]/30 blur-3xl" />
+                <div className="absolute right-0 top-0 h-36 w-36 rounded-full bg-[#B90D37]/10 blur-3xl" />
+                <div className="absolute bottom-0 left-1/3 h-28 w-28 rounded-full bg-[#7B7F26]/16 blur-3xl" />
+              </div>
+              <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+                <div className="max-w-3xl">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/85 px-4 py-2 shadow-sm">
+                    <MessageCircleMore className="h-4 w-4 text-[#B90D37]" />
+                    <span className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#B90D37]">
+                      Product thinking with personality
+                    </span>
+                  </div>
+                  <h3 className="mt-5 font-['Ojuju:Bold',sans-serif] text-4xl leading-[0.95] text-[#7B7F26] md:text-5xl">
+                    If your product needs research, warmth, and a little more personality, let&apos;s talk.
+                  </h3>
+                  <p className="mt-4 max-w-2xl font-['Poppins:Regular',sans-serif] text-lg leading-8 text-[#4f4b17]">
+                    I love shaping product ideas that feel intuitive, emotionally smart, and easy for people to actually use together.
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col xl:flex-row">
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#B90D37] px-7 py-4 font-['Poppins:SemiBold',sans-serif] text-white transition-all hover:-translate-y-0.5 hover:bg-[#96102f] hover:shadow-lg"
+                  >
+                    <MessageCircleMore className="h-4 w-4" />
+                    Contact Page
+                  </Link>
+                  <a
+                    href={CONTACT_EMAIL_HREF}
+                    className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#ABCEE2] bg-white/85 px-7 py-4 font-['Poppins:SemiBold',sans-serif] text-[#7DB1D4] transition-all hover:-translate-y-0.5 hover:bg-[#D5E7F2] hover:shadow-lg"
+                  >
+                    <Mail className="h-4 w-4" />
+                    {CONTACT_EMAIL}
+                  </a>
+                  <div className="inline-flex items-center justify-center gap-2 rounded-full border border-[#c8ddbd] bg-white/75 px-7 py-4 font-['Poppins:Medium',sans-serif] text-[#4A5565] shadow-sm">
+                    <Globe className="h-4 w-4 text-[#5B8FA3]" />
+                    Montreal + remote worldwide
+                  </div>
+                </div>
+              </div>
+            </section>
+          ) : isTCCH ? (
             <section className="relative overflow-hidden rounded-[2.25rem] border border-[#334155] bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(17,24,39,0.98))] px-6 py-10 shadow-2xl sm:px-8 md:px-10 md:py-12">
               <div className="pointer-events-none absolute inset-0 opacity-30">
                 <div className="absolute -left-10 top-10 h-32 w-32 rounded-full bg-[#1D4ED8]/25 blur-3xl" />

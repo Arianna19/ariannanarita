@@ -167,11 +167,11 @@ function Navigation({
             {theme === 'dark' ? <SunMedium className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
           <a
-            href={`${import.meta.env.BASE_URL}cv.pdf`}
+            href={`${import.meta.env.BASE_URL}UXResume_arianna.pdf`}
             download
             className="inline-flex items-center justify-center rounded-full border-2 border-[#ABCEE2] px-3 py-2 text-center font-['Poppins:SemiBold',sans-serif] text-xs text-[#7DB1D4] transition-all hover:-translate-y-0.5 hover:bg-[#D5E7F2] hover:shadow-md sm:px-4 sm:text-sm md:px-6 dark:border-[#475569] dark:text-[#ABCEE2] dark:hover:bg-[#1e293b]"
           >
-            Download CV
+            Download Resume
           </a>
           <Link
             to="/contact"
@@ -193,11 +193,11 @@ function Navigation({
             {theme === 'dark' ? 'Light mode' : 'Dark mode'}
           </button>
           <a
-            href={`${import.meta.env.BASE_URL}cv.pdf`}
+            href={`${import.meta.env.BASE_URL}UXResume_arianna.pdf`}
             download
             className="inline-flex items-center justify-center rounded-full border-2 border-[#ABCEE2] px-4 py-3 text-center font-['Poppins:SemiBold',sans-serif] text-sm text-[#7DB1D4] transition-all hover:bg-[#D5E7F2] dark:border-[#475569] dark:text-[#ABCEE2] dark:hover:bg-[#1e293b]"
           >
-            Download CV
+            Download Resume
           </a>
           <Link
             to="/contact"
