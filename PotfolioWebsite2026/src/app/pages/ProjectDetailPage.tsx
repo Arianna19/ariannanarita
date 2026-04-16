@@ -1,11 +1,12 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useParams, Link } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import { Accessibility, BookOpenText, ChefHat, ChevronLeft, ChevronRight, DollarSign, Eye, HandHeart, Landmark, LayoutGrid, Search, Soup, TrendingUp, Type, UtensilsCrossed } from 'lucide-react';
+import { Accessibility, BookOpenText, ChefHat, ChevronLeft, ChevronRight, DollarSign, Eye, Globe, Landmark, LayoutGrid, Mail, MessageCircleMore, Search, Soup, TrendingUp, Type, UtensilsCrossed } from 'lucide-react';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, LightbulbIcon, CodeIcon, UserIcon } from '../components/Icons';
 import { FlowingWater, OceanBubbles } from '../components/OceanWave';
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from '../constants/contact';
 
 type ProjectRecord = {
   title: string;
@@ -164,14 +165,33 @@ const tcchBeforeAfterImages = {
   resourcesWireframeTwo: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-wireframe-2.png`),
 };
 
+function renderLeadWord(text: string, accentClass: string) {
+  const [firstWord, ...rest] = text.split(' ');
+
+  return (
+    <>
+      <span className={`font-['Poppins:Bold',sans-serif] ${accentClass}`}>{firstWord}</span>
+      {rest.length ? ` ${rest.join(' ')}` : ''}
+    </>
+  );
+}
+
 export default function ProjectDetailPage() {
   const { id = '1' } = useParams();
   const project = projectContent[id] ?? projectContent['1'];
   const isFlavorBridge = id === '2';
   const isIAFinancial = id === '1';
+  const isTCCH = id === '3';
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
   const [zoom, setZoom] = useState(1);
   const approachItems = project.approachBullets ?? [];
+  const roleAccentClass = isFlavorBridge
+    ? 'text-[#B90D37]'
+    : isIAFinancial
+      ? 'text-[#1E3A8A]'
+      : isTCCH
+        ? 'text-[#FDE047]'
+        : 'text-[#BF8351]';
   const heroRef = useRef<HTMLDivElement>(null);
   const zoomContainerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -588,27 +608,45 @@ export default function ProjectDetailPage() {
           </div>
         </section>
 
-        <section className={`rounded-[2rem] p-10 shadow-xl ${isFlavorBridge ? 'border border-[#ffd986] bg-white/88 backdrop-blur-sm' : 'border border-[#E6C4A8] bg-white/95'}`}>
+        <section className={`rounded-[2rem] p-10 shadow-xl ${
+          isFlavorBridge
+            ? 'border border-[#ffd986] bg-white/88 backdrop-blur-sm'
+            : isTCCH
+              ? 'border border-[#334155] bg-[#0f172a]/90'
+              : 'border border-[#E6C4A8] bg-white/95'
+        }`}>
           <div className="mb-5 flex items-center gap-4">
             <CodeIcon className="h-14 w-14" />
-            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#B90D37]' : 'text-[#BF8351]'}`}>Approach</h2>
+            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${
+              isFlavorBridge ? 'text-[#B90D37]' : isTCCH ? 'text-[#F8FAFC]' : 'text-[#BF8351]'
+            }`}>Approach</h2>
           </div>
-          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#1f2937]' : 'text-[#364153]'}`}>{project.approach}</p>
+          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${
+            isFlavorBridge
+              ? 'text-[#364153] dark:text-[#1f2937]'
+              : isTCCH
+                ? 'text-[#D5E7F2]'
+                : 'text-[#364153]'
+          }`}>{project.approach}</p>
           <ul className="mt-6 grid gap-4 md:grid-cols-2">
             {approachItems.map((item, index) => (
               <li
                 key={item}
-                className={`rounded-[1.25rem] p-5 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#364153] ${
+                className={`rounded-[1.25rem] border p-5 font-['Poppins:Regular',sans-serif] text-base leading-7 ${
                   isFlavorBridge
                     ? index % 2 === 0
-                      ? 'bg-[#f6f8ef]'
-                      : 'bg-[#fff6da]'
+                      ? 'border-[#c8ddbd] bg-[#f6f8ef] text-[#364153]'
+                      : 'border-[#ffd986] bg-[#fff6da] text-[#364153]'
+                    : isTCCH
+                      ? index % 2 === 0
+                        ? 'border-[#334155] bg-[#111827] text-[#E2E8F0]'
+                        : 'border-[#475569] bg-[#172033] text-[#E2E8F0]'
                     : index % 2 === 0
-                      ? 'bg-[#F9FAFB]'
-                      : 'bg-[#FFF8F3]'
+                      ? 'border-[#D5E7F2] bg-[#F9FAFB] text-[#364153]'
+                      : 'border-[#E6C4A8] bg-[#FFF8F3] text-[#364153]'
                 }`}
               >
-                {item}
+                {renderLeadWord(item, roleAccentClass)}
               </li>
             ))}
           </ul>
@@ -800,15 +838,42 @@ export default function ProjectDetailPage() {
           </div>
         </section>
 
-      <section className={`relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-y px-5 py-8 md:px-8 ${isFlavorBridge ? 'border-[#c8ddbd]/20 bg-[linear-gradient(180deg,rgba(201,221,189,0.05),rgba(171,206,226,0.08))]' : isIAFinancial ? 'border-[#1E3A8A]/10 bg-[linear-gradient(180deg,rgba(30,58,138,0.05),rgba(210,224,247,0.1))]' : 'border-[#D5E7F2]/20 bg-white/80'}`}>
+      <section className={`relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-y px-5 py-8 md:px-8 ${
+        isFlavorBridge
+          ? 'border-[#c8ddbd]/20 bg-[linear-gradient(180deg,rgba(201,221,189,0.05),rgba(171,206,226,0.08))]'
+          : isIAFinancial
+            ? 'border-[#1E3A8A]/10 bg-[linear-gradient(180deg,rgba(30,58,138,0.05),rgba(210,224,247,0.1))]'
+            : isTCCH
+              ? 'border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.88),rgba(10,15,28,0.98))]'
+              : 'border-[#D5E7F2]/20 bg-white/80'
+      }`}>
         <div className="mx-auto mb-6 flex max-w-7xl flex-col items-center gap-4 text-center">
           <div className="max-w-2xl">
             <p className={`font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] ${isFlavorBridge ? 'text-[#B90D37]' : isIAFinancial ? 'text-[#1E3A8A]' : 'text-[#BF8351]'}`}>
               Role Definition
             </p>
-            <h3 className={`mt-3 font-['Ojuju:Bold',sans-serif] text-3xl md:text-4xl ${isFlavorBridge ? 'text-[#7B7F26]' : isIAFinancial ? 'text-[#1E3A8A]' : 'text-[#5B8FA3]'}`}>
+            <h3 className={`mt-3 font-['Ojuju:Bold',sans-serif] text-3xl md:text-4xl ${
+              isFlavorBridge
+                ? 'text-[#7B7F26]'
+                : isIAFinancial
+                  ? 'text-[#1E3A8A]'
+                  : isTCCH
+                    ? 'text-[#F8FAFC]'
+                    : 'text-[#5B8FA3]'
+            }`}>
               Here's what I actually did
             </h3>
+            <p className={`mt-3 font-['Poppins:Regular',sans-serif] text-sm leading-7 ${
+              isFlavorBridge
+                ? 'text-[#4f4b17]'
+                : isIAFinancial
+                  ? 'text-[#364153]'
+                  : isTCCH
+                    ? 'text-[#CBD5E1]'
+                    : 'text-[#4A5565]'
+            }`}>
+              Structured so employers can scan responsibilities, collaboration, and outcomes quickly.
+            </p>
           </div>
         </div>
 
@@ -834,34 +899,119 @@ export default function ProjectDetailPage() {
                 isFlavorBridge
                   ? 'border-[#ffd986] bg-[#fffdf5]'
                   : isIAFinancial
-                  ? 'border-[#D0E1FF] bg-white'
-                  : 'border-[#D5E7F2] bg-white/95'
+                    ? 'border-[#D0E1FF] bg-white'
+                    : isTCCH
+                      ? 'border-[#334155] bg-[#111827]/92'
+                      : 'border-[#D5E7F2] bg-white/95'
               }`}
             >
-              <p className={`font-['Poppins:Regular',sans-serif] text-base leading-7 ${isFlavorBridge ? 'text-[#4f4b17]' : isIAFinancial ? 'text-[#364153]' : 'text-[#364153]'}`}>
-                {note}
+              <div className="flex items-center justify-between gap-4">
+                <span className={`rounded-full px-3 py-1 font-['Poppins:SemiBold',sans-serif] text-[0.7rem] uppercase tracking-[0.18em] ${
+                  isFlavorBridge
+                    ? 'bg-[#fff0b5] text-[#B90D37]'
+                    : isIAFinancial
+                      ? 'bg-[#E8F0FF] text-[#1E3A8A]'
+                      : isTCCH
+                        ? 'bg-[#172033] text-[#FDE047]'
+                        : 'bg-[#FFF8F3] text-[#BF8351]'
+                }`}>
+                  Focus {index + 1}
+                </span>
+                <div className={`h-px flex-1 ${
+                  isFlavorBridge
+                    ? 'bg-[#ffd986]'
+                    : isIAFinancial
+                      ? 'bg-[#D0E1FF]'
+                      : isTCCH
+                        ? 'bg-[#334155]'
+                        : 'bg-[#E6C4A8]'
+                }`} />
+              </div>
+              <p className={`mt-4 font-['Poppins:Regular',sans-serif] text-base leading-7 ${
+                isFlavorBridge
+                  ? 'text-[#4f4b17]'
+                  : isIAFinancial
+                    ? 'text-[#364153]'
+                    : isTCCH
+                      ? 'text-[#E2E8F0]'
+                      : 'text-[#364153]'
+              }`}>
+                {renderLeadWord(note, roleAccentClass)}
               </p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className={`relative left-1/2 mt-16 w-screen -translate-x-1/2 px-5 py-18 md:px-8 ${isFlavorBridge ? 'bg-[linear-gradient(180deg,rgba(201,221,189,0.1),rgba(171,206,226,0.16))]' : ''}`}>
+      <section className={`relative left-1/2 mt-16 w-screen -translate-x-1/2 px-5 py-18 md:px-8 ${
+        isFlavorBridge
+          ? 'bg-[linear-gradient(180deg,rgba(201,221,189,0.1),rgba(171,206,226,0.16))]'
+          : isTCCH
+            ? 'bg-[linear-gradient(180deg,rgba(15,23,42,0.22),rgba(9,14,24,0.48))]'
+            : ''
+      }`}>
         <div className="mx-auto max-w-7xl">
-          <PageContactCta
-            label={isFlavorBridge ? 'Cook Up Something Together' : 'Contact Me'}
-            title={
-              isFlavorBridge
-                ? 'If this project feels like the kind of product thinking your team needs, let\'s talk.'
-                : 'If you made it this far, we should probably talk.'
-            }
-            body={
-              isFlavorBridge
-                ? 'For UX research, interface design, and product stories that need clarity, warmth, and a little more personality, I am happy to connect.'
-                : undefined
-            }
-            accent={isFlavorBridge ? 'blue' : 'mixed'}
-          />
+          {isTCCH ? (
+            <section className="relative overflow-hidden rounded-[2.25rem] border border-[#334155] bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(17,24,39,0.98))] px-6 py-10 shadow-2xl sm:px-8 md:px-10 md:py-12">
+              <div className="pointer-events-none absolute inset-0 opacity-30">
+                <div className="absolute -left-10 top-10 h-32 w-32 rounded-full bg-[#1D4ED8]/25 blur-3xl" />
+                <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#FDE047]/12 blur-3xl" />
+                <div className="absolute bottom-0 left-1/3 h-32 w-32 rounded-full bg-[#93C5FD]/12 blur-3xl" />
+              </div>
+              <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+                <div className="max-w-3xl">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[#334155] bg-[#111827]/80 px-4 py-2 shadow-sm">
+                    <MessageCircleMore className="h-4 w-4 text-[#FDE047]" />
+                    <span className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#FDE047]">
+                      Accessibility-minded collaboration
+                    </span>
+                  </div>
+                  <h3 className="mt-5 font-['Ojuju:Bold',sans-serif] text-4xl leading-[0.95] text-[#F8FAFC] md:text-5xl">
+                    If your team needs thoughtful redesign work without flattening the soul out of it, let&apos;s talk.
+                  </h3>
+                  <p className="mt-4 max-w-2xl font-['Poppins:Regular',sans-serif] text-lg leading-8 text-[#CBD5E1]">
+                    I love projects that need structure, accessibility, and a strong visual atmosphere to coexist without fighting each other.
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col xl:flex-row">
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FDE047] px-7 py-4 font-['Poppins:SemiBold',sans-serif] text-[#0f172a] transition-all hover:-translate-y-0.5 hover:bg-[#fde96f] hover:shadow-lg"
+                  >
+                    <MessageCircleMore className="h-4 w-4" />
+                    Contact Page
+                  </Link>
+                  <a
+                    href={CONTACT_EMAIL_HREF}
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[#475569] bg-[#111827]/80 px-7 py-4 font-['Poppins:SemiBold',sans-serif] text-[#E2E8F0] transition-all hover:-translate-y-0.5 hover:border-[#93C5FD] hover:bg-[#172033] hover:shadow-lg"
+                  >
+                    <Mail className="h-4 w-4" />
+                    {CONTACT_EMAIL}
+                  </a>
+                  <div className="inline-flex items-center justify-center gap-2 rounded-full border border-[#334155] bg-[#111827]/65 px-7 py-4 font-['Poppins:Medium',sans-serif] text-[#93C5FD] shadow-sm">
+                    <Globe className="h-4 w-4 text-[#FDE047]" />
+                    Montreal + remote worldwide
+                  </div>
+                </div>
+              </div>
+            </section>
+          ) : (
+            <PageContactCta
+              label={isFlavorBridge ? 'Cook Up Something Together' : 'Contact Me'}
+              title={
+                isFlavorBridge
+                  ? 'If this project feels like the kind of product thinking your team needs, let\'s talk.'
+                  : 'If you made it this far, we should probably talk.'
+              }
+              body={
+                isFlavorBridge
+                  ? 'For UX research, interface design, and product stories that need clarity, warmth, and a little more personality, I am happy to connect.'
+                  : undefined
+              }
+              accent={isFlavorBridge ? 'blue' : 'mixed'}
+            />
+          )}
         </div>
       </section>
 
