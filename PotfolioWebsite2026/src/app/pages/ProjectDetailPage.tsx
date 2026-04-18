@@ -468,7 +468,7 @@ export default function ProjectDetailPage() {
                 : isFlavorBridge
                   ? 'border border-white/55 bg-[radial-gradient(circle_at_top,#ffd561_0%,#e2c018_24%,#a8a70c_100%)]'
                   : isWasteland
-                    ? 'border border-[#e2c1a8]/22 bg-[radial-gradient(circle_at_top,#68402d_0%,#3d2418_58%,#1a0f0a_100%)]'
+                    ? 'border border-[#e7c8aa]/50 bg-[radial-gradient(circle_at_top,#f4dcbf_0%,#d9be32_24%,#b5ab06_100%)]'
                   : id === '3'
                     ? 'border border-white/10 bg-[linear-gradient(180deg,#0f172a_0%,#111827_100%)]'
                     : 'border border-[#D5E7F2] bg-gradient-to-br from-[#D5E7F2] via-[#ABCEE2] to-[#D6A882]'
@@ -496,7 +496,7 @@ export default function ProjectDetailPage() {
                   : isIAFinancial
                     ? 'overflow-hidden border border-white/60 bg-[#dcecff]'
                     : isWasteland
-                      ? 'overflow-hidden border border-[#f2d2ba]/18 bg-[#2b1811]'
+                      ? 'overflow-hidden border border-[#f7ebbf]/65 bg-[#ecd95a]/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.14)]'
                     : id === '3'
                       ? 'overflow-hidden border border-white/10 bg-[#111827]'
                       : 'border border-white/60 bg-white/70 backdrop-blur-sm'
@@ -507,8 +507,8 @@ export default function ProjectDetailPage() {
                   <img src={iaFinancialLogoPng} alt="IA Financial Group logo" className="h-24 w-full object-contain px-10 md:h-28" />
                 ) : isWasteland ? (
                   <img
-                    src={wastelandVisuals[4].src}
-                    alt={wastelandVisuals[4].alt}
+                    src={encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-0.png`)}
+                    alt="Wasteland Survivors title artwork"
                     className="h-full w-full object-cover"
                   />
                 ) : id === '3' ? (
@@ -552,21 +552,21 @@ export default function ProjectDetailPage() {
               ) : isWasteland ? (
                 <div className="grid gap-4 sm:grid-cols-3">
                   {[
-                    { icon: LayoutGrid, label: 'Card system' },
-                    { icon: Shield, label: 'Worldbuilding' },
-                    { icon: HandHeart, label: 'Team direction' },
+                    { icon: LayoutGrid, label: 'System design' },
+                    { icon: Shield, label: 'Theme direction' },
+                    { icon: HandHeart, label: 'Final playtest' },
                   ].map((item, index) => (
                     <div
                       key={item.label}
                       className={`rounded-[1.5rem] border p-5 backdrop-blur-sm ${
-                        index === 1 ? 'border-[#e0b48d]/30 bg-[#4b2d20]/78' : 'border-[#f3d8c1]/16 bg-[#2a1710]/72'
+                        index === 1 ? 'border-[#f7eab0]/80 bg-[#fff3d0]/85' : 'border-[#f7efc7]/70 bg-[#fff8e0]/78'
                       }`}
                     >
-                      <item.icon className="h-5 w-5 text-[#E8BC96]" />
-                      <p className="mt-3 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#D8B193]">
+                      <item.icon className="h-5 w-5 text-[#C41E3A]" />
+                      <p className="mt-3 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#8c8a21]">
                         Focus
                       </p>
-                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-xl text-[#F8E6D8]">{item.label}</p>
+                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-xl text-[#8B2A3E]">{item.label}</p>
                     </div>
                   ))}
                 </div>
@@ -618,17 +618,7 @@ export default function ProjectDetailPage() {
         </div>
       </div>
 
-      <section className={`relative left-1/2 mt-10 w-screen -translate-x-1/2 border-y px-5 py-6 md:px-8 ${
-        isFlavorBridge
-          ? 'border-[#ffd986]/40 bg-[linear-gradient(180deg,rgba(255,248,220,0.82),rgba(255,243,198,0.72))]'
-          : isIAFinancial
-            ? 'border-[#D0E1FF] bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(239,246,255,0.9))]'
-            : isWasteland
-              ? 'border-[#d8b193] bg-[linear-gradient(180deg,rgba(255,247,240,0.92),rgba(245,226,209,0.88))]'
-              : isTCCH
-                ? 'border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(244,246,250,0.94))]'
-                : 'border-[#D5E7F2] bg-white/92'
-      }`}>
+      <section className="relative left-1/2 mt-10 w-screen -translate-x-1/2 px-5 py-6 md:px-8">
         <div className="mx-auto max-w-7xl">
           <div className={`grid gap-0 overflow-hidden rounded-[1.75rem] border shadow-lg sm:grid-cols-2 xl:grid-cols-4 ${
             isFlavorBridge
@@ -673,7 +663,7 @@ export default function ProjectDetailPage() {
                   {label}
                 </p>
                 <p className={`mt-3 max-w-[18rem] font-['Poppins:Medium',sans-serif] leading-8 ${
-                  label === 'Role' || label === 'Client' ? 'text-[1.2rem]' : 'text-[1.5rem]'
+                  'text-[1.2rem]'
                 } ${
                   isFlavorBridge
                     ? 'text-[#3f3b18]'
