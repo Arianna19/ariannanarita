@@ -494,17 +494,17 @@ export default function ProjectDetailPage() {
               </>
             ) : null}
             <OceanBubbles className="absolute left-8 top-8 h-24 w-24 opacity-60" />
-            <div className={`relative grid w-full gap-4 ${isWasteland ? 'p-5 sm:p-6' : 'p-6 sm:p-8'}`}>
-              <div className={`grid min-h-[10rem] place-items-center rounded-[1.75rem] p-6 shadow-lg ${
+            <div className={`relative grid w-full ${isWasteland ? 'gap-3 p-4 sm:p-5' : 'gap-4 p-6 sm:p-8'}`}>
+              <div className={`grid place-items-center rounded-[1.75rem] shadow-lg ${
                 isFlavorBridge
-                  ? 'border border-white/40 bg-white/20 backdrop-blur-sm'
+                  ? 'min-h-[10rem] border border-white/40 bg-white/20 p-6 backdrop-blur-sm'
                   : isIAFinancial
-                    ? 'overflow-hidden border border-white/60 bg-[#dcecff]'
+                    ? 'min-h-[10rem] overflow-hidden border border-white/60 bg-[#dcecff] p-6'
                     : isWasteland
-                      ? 'overflow-hidden border border-[#f2e5db]/80 bg-[#efe1d4]/82 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)]'
+                      ? 'min-h-[8.5rem] overflow-hidden border border-[#f2e5db]/80 bg-[#efe1d4]/82 p-4 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)]'
                     : id === '3'
-                      ? 'overflow-hidden border border-white/10 bg-[#111827]'
-                      : 'border border-white/60 bg-white/70 backdrop-blur-sm'
+                      ? 'min-h-[10rem] overflow-hidden border border-white/10 bg-[#111827] p-6'
+                    : 'min-h-[10rem] border border-white/60 bg-white/70 p-6 backdrop-blur-sm'
               }`}>
                 {isFlavorBridge ? (
                   <img src={flavorBridgeLogo} alt="Flavor Bridge logo" className="h-28 w-28 object-contain md:h-36 md:w-36" />
@@ -514,7 +514,7 @@ export default function ProjectDetailPage() {
                   <img
                     src={encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-0.png`)}
                     alt="Wasteland Survivors title artwork"
-                    className="h-full w-full scale-[0.8] object-contain"
+                    className="h-full w-full scale-[0.72] object-contain"
                   />
                 ) : id === '3' ? (
                   <div className="relative h-full w-full">
@@ -563,15 +563,15 @@ export default function ProjectDetailPage() {
                   ].map((item, index) => (
                     <div
                       key={item.label}
-                      className={`rounded-[1.5rem] border p-4 backdrop-blur-sm ${
+                      className={`rounded-[1.35rem] border p-3 backdrop-blur-sm ${
                         index === 1 ? 'border-[#f7eab0]/80 bg-[#fff3d0]/85' : 'border-[#f7efc7]/70 bg-[#fff8e0]/78'
                       }`}
                     >
-                      <item.icon className="h-5 w-5 text-[#C41E3A]" />
-                      <p className="mt-3 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#8c8a21]">
+                      <item.icon className="h-4 w-4 text-[#8B2A3E]" />
+                      <p className="mt-2 font-['Poppins:SemiBold',sans-serif] text-[0.68rem] uppercase tracking-[0.16em] text-[#8a7c1e]">
                         Focus
                       </p>
-                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-lg leading-tight text-[#8B2A3E]">{item.label}</p>
+                      <p className="mt-1.5 font-['Ojuju:Bold',sans-serif] text-base leading-tight text-[#5f3b27]">{item.label}</p>
                     </div>
                   ))}
                 </div>
