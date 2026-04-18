@@ -128,8 +128,8 @@ const projectContent: Record<string, ProjectRecord> = {
     summary:
       'A collaborative board game concept built around survival, scarcity, and tactical card play, where I helped shape the overall design direction, card language, and visual presentation of the experience.',
     role: 'Collaborative designer, visual direction, and game presentation',
-    duration: 'Academic team project',
-    year: '2026',
+    duration: '2 months',
+    year: '2024',
     client: 'Collaborative studio team',
     thesis:
       'Wasteland Survivors explored how a tabletop game could feel tactile, strategic, and visually coherent while communicating survival mechanics clearly. My contribution focused on helping direct the look of the game so the cards, play surface, and overall tone felt like one world instead of disconnected pieces.',
@@ -150,9 +150,9 @@ const projectContent: Record<string, ProjectRecord> = {
       'Made directional design calls that helped the team refine the concept through both aesthetic cohesion and clearer table presence.',
     ],
     creativeSections: [
-      'The resource and booster cards establish the survival tone through distressed materials, restrained color, and simple icon-first hierarchy.',
-      'The medkit and food cards show how categories were differentiated while still belonging to the same system and game world.',
-      'Playtest photography captures how the game looked in action and how the visual language held together on the table.',
+      'Process: collaborative design decisions focused on building a consistent card system, survival-themed visual language, and a clearer relationship between icons, rules, and category types.',
+      'Output: the final deck language included resource, booster, medkit, and food cards that felt unified through texture, framing, and a more intentional post-apocalyptic tone.',
+      'Outcome: playtest materials and table presence showed the concept working as a cohesive board game experience rather than a loose set of standalone graphics.',
     ],
   },
 };
@@ -456,21 +456,6 @@ export default function ProjectDetailPage() {
               <ChevronRight className="h-4 w-4" />
             </button>
 
-            <div className="grid gap-6 rounded-[1.75rem] border border-[#D5E7F2] bg-white/95 p-8 shadow-lg sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                ['Role', project.role],
-                ['Duration', project.duration],
-                ['Year', project.year],
-                ['Client', project.client],
-              ].map(([label, value]) => (
-                <div key={label}>
-                  <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#BF8351]">
-                    {label}
-                  </p>
-                  <p className="mt-2 font-['Poppins:Regular',sans-serif] text-base text-[#1E2939]">{value}</p>
-                </div>
-              ))}
-            </div>
           </motion.div>
 
           <motion.div
@@ -632,6 +617,81 @@ export default function ProjectDetailPage() {
           </motion.div>
         </div>
       </div>
+
+      <section className={`relative left-1/2 mt-10 w-screen -translate-x-1/2 border-y px-5 py-6 md:px-8 ${
+        isFlavorBridge
+          ? 'border-[#ffd986]/40 bg-[linear-gradient(180deg,rgba(255,248,220,0.82),rgba(255,243,198,0.72))]'
+          : isIAFinancial
+            ? 'border-[#D0E1FF] bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(239,246,255,0.9))]'
+            : isWasteland
+              ? 'border-[#d8b193] bg-[linear-gradient(180deg,rgba(255,247,240,0.92),rgba(245,226,209,0.88))]'
+              : isTCCH
+                ? 'border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(244,246,250,0.94))]'
+                : 'border-[#D5E7F2] bg-white/92'
+      }`}>
+        <div className="mx-auto max-w-7xl">
+          <div className={`grid gap-0 overflow-hidden rounded-[1.75rem] border shadow-lg sm:grid-cols-2 xl:grid-cols-4 ${
+            isFlavorBridge
+              ? 'border-[#ffd986] bg-white/85'
+              : isIAFinancial
+                ? 'border-[#D0E1FF] bg-white/90'
+                : isWasteland
+                  ? 'border-[#d8b193] bg-[#fffaf6]'
+                  : isTCCH
+                    ? 'border-[#d9dee8] bg-white'
+                    : 'border-[#D5E7F2] bg-white/95'
+          }`}>
+            {[
+              ['Role', project.role],
+              ['Duration', project.duration],
+              ['Year', project.year],
+              ['Client', project.client],
+            ].map(([label, value], index) => (
+              <div
+                key={label}
+                className={`px-6 py-6 md:px-8 ${
+                  index > 0
+                    ? isTCCH
+                      ? 'border-t border-[#e6ebf2] sm:border-l sm:border-t-0'
+                      : isWasteland
+                        ? 'border-t border-[#ecd7c7] sm:border-l sm:border-t-0'
+                        : 'border-t border-[#E7EDF4] sm:border-l sm:border-t-0'
+                    : ''
+                }`}
+              >
+                <p className={`font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.18em] ${
+                  isFlavorBridge
+                    ? 'text-[#B90D37]'
+                    : isIAFinancial
+                      ? 'text-[#1E3A8A]'
+                      : isWasteland
+                        ? 'text-[#8B4E2B]'
+                        : isTCCH
+                          ? 'text-[#6b7280]'
+                          : 'text-[#BF8351]'
+                }`}>
+                  {label}
+                </p>
+                <p className={`mt-3 max-w-[18rem] font-['Poppins:Medium',sans-serif] leading-8 ${
+                  label === 'Role' || label === 'Client' ? 'text-[1.2rem]' : 'text-[1.5rem]'
+                } ${
+                  isFlavorBridge
+                    ? 'text-[#3f3b18]'
+                    : isIAFinancial
+                      ? 'text-[#1E2939]'
+                      : isWasteland
+                        ? 'text-[#4f3427]'
+                        : isTCCH
+                          ? 'text-[#111827]'
+                          : 'text-[#1E2939]'
+                }`}>
+                  {value}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <div className="mt-20">
         <WaveTransition variant="blue" />
