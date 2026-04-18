@@ -54,6 +54,11 @@ const projectContent: Record<string, ProjectRecord> = {
       'Kept the visual language restrained so the logo feels trustworthy instead of overdesigned.',
       'Refined spacing, contrast, and typography to support readability across digital and print uses.',
     ],
+    creativeSections: [
+      'Process: direct client collaboration and iterative form studies helped define a mark that stayed clear, professional, and distinct across touchpoints.',
+      'Output: the final identity system included a refined monogram, stronger typography decisions, and polished lockups for advisor branding use cases.',
+      'Outcome: the logo held up cleanly across profile images, social graphics, and brand materials while communicating clarity and credibility.',
+    ],
   },
   '2': {
     title: 'Flavor Bridge',
@@ -84,9 +89,9 @@ const projectContent: Record<string, ProjectRecord> = {
       'The final concept blends recipe discovery with a light dating-app logic so matching feels intuitive and social.',
     ],
     creativeSections: [
-      'Onboarding introduces the app, sign-up flow, and country selection to emphasize cultural discovery from the start.',
-      'The main app centers on recipe swiping, matches, ingredients, a recipe bank, and a role-based step flow for cooking together.',
-      'The profile area keeps flavor preferences editable so the experience stays flexible as tastes change over time.',
+      'Process: interviews, synthesis, and concept pivots helped define how mixed-culture couples navigate food habits, compromise, and shared cooking decisions.',
+      'Output: the final mobile concept included onboarding, recipe swiping, matches, ingredient views, and role-based cooking flows designed around recognition and ease of use.',
+      'Outcome: the prototype translated research into a warmer, more social app direction that made cultural discovery and cooking together feel approachable.',
     ],
   },
   '3': {
@@ -462,15 +467,13 @@ export default function ProjectDetailPage() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className={`relative grid min-h-[42rem] place-items-center overflow-hidden rounded-[2rem] shadow-2xl ${
-              isWasteland ? 'md:min-h-[36rem]' : 'md:min-h-0 md:aspect-[4/3]'
-            } ${
+            className={`relative grid min-h-[42rem] place-items-center overflow-hidden rounded-[2rem] shadow-2xl md:min-h-0 md:aspect-[4/3] ${
               isIAFinancial
                 ? 'border border-[#1E3A8A]/20 bg-[radial-gradient(circle_at_top,#f7fbff_0%,#d8e8ff_60%,#b4d2ff_100%)]'
                 : isFlavorBridge
                   ? 'border border-white/55 bg-[radial-gradient(circle_at_top,#ffd561_0%,#e2c018_24%,#a8a70c_100%)]'
                   : isWasteland
-                    ? 'border border-[#e7c8aa]/50 bg-[radial-gradient(circle_at_top,#f4dcbf_0%,#d9be32_24%,#b5ab06_100%)]'
+                    ? 'border border-[#d9c4ae]/55 bg-[radial-gradient(circle_at_top,#e7d6c7_0%,#ceb29b_38%,#b79379_100%)]'
                   : id === '3'
                     ? 'border border-white/10 bg-[linear-gradient(180deg,#0f172a_0%,#111827_100%)]'
                     : 'border border-[#D5E7F2] bg-gradient-to-br from-[#D5E7F2] via-[#ABCEE2] to-[#D6A882]'
@@ -498,7 +501,7 @@ export default function ProjectDetailPage() {
                   : isIAFinancial
                     ? 'overflow-hidden border border-white/60 bg-[#dcecff]'
                     : isWasteland
-                      ? 'overflow-hidden border border-[#f7ebbf]/65 bg-[#ecd95a]/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.14)]'
+                      ? 'overflow-hidden border border-[#f2e5db]/80 bg-[#efe1d4]/82 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)]'
                     : id === '3'
                       ? 'overflow-hidden border border-white/10 bg-[#111827]'
                       : 'border border-white/60 bg-white/70 backdrop-blur-sm'
@@ -511,7 +514,7 @@ export default function ProjectDetailPage() {
                   <img
                     src={encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-0.png`)}
                     alt="Wasteland Survivors title artwork"
-                    className="h-full w-full object-contain"
+                    className="h-full w-full scale-[0.88] object-contain"
                   />
                 ) : id === '3' ? (
                   <div className="relative h-full w-full">
@@ -921,39 +924,79 @@ export default function ProjectDetailPage() {
 
           <div className="mt-8 space-y-6">
             {isFlavorBridge ? (
-              <div className="grid gap-6 md:grid-cols-3">
-                {[...flavorBridgeVisuals, ...flavorBridgeSupportingVisuals].map((src, index) => (
-                  <button
-                    key={src}
-                    type="button"
-                    onClick={() => setSelectedImage({ src, alt: `Flavor Bridge supporting screen ${index + 1}` })}
-                    className="overflow-hidden rounded-[1.5rem] border border-[#c8ddbd] bg-white/90 p-3 text-left shadow-lg transition-transform hover:-translate-y-1"
-                  >
-                    <img
-                      src={src}
-                      alt={`Flavor Bridge supporting screen ${index + 1}`}
-                      className="h-[22rem] w-full object-contain"
-                    />
-                  </button>
-                ))}
-              </div>
+              <>
+                <div className="grid gap-6 lg:grid-cols-3">
+                  {project.creativeSections?.map((section, index) => (
+                    <div
+                      key={section}
+                      className={`rounded-[1.75rem] border p-6 shadow-xl ${
+                        index === 1 ? 'border-[#ffd986] bg-[#fff5db]' : 'border-[#c8ddbd] bg-[#fffdf5]'
+                      }`}
+                    >
+                      <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#B90D37]">
+                        Creative focus {index + 1}
+                      </p>
+                      <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4f4b17]">
+                        {section}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <div className="grid gap-6 md:grid-cols-3">
+                  {[...flavorBridgeVisuals, ...flavorBridgeSupportingVisuals].map((src, index) => (
+                    <button
+                      key={src}
+                      type="button"
+                      onClick={() => setSelectedImage({ src, alt: `Flavor Bridge supporting screen ${index + 1}` })}
+                      className="overflow-hidden rounded-[1.5rem] border border-[#c8ddbd] bg-white/90 p-3 text-left shadow-lg transition-transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={src}
+                        alt={`Flavor Bridge supporting screen ${index + 1}`}
+                        className="h-[22rem] w-full object-contain"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </>
             ) : isIAFinancial ? (
-              <div className="grid gap-6 md:grid-cols-2">
-                {iaFinancialPdfImages.map((src, index) => (
-                  <button
-                    key={src}
-                    type="button"
-                    onClick={() => setSelectedImage({ src, alt: `IA Financial Group creative asset ${index + 1}` })}
-                    className="overflow-hidden rounded-[1.5rem] border border-[#1E3A8A]/15 bg-white/90 p-3 text-left shadow-lg transition-transform hover:-translate-y-1"
-                  >
-                    <img
-                      src={src}
-                      alt={`IA Financial Group creative asset ${index + 1}`}
-                      className="h-[22rem] w-full object-contain"
-                    />
-                  </button>
-                ))}
-              </div>
+              <>
+                <div className="grid gap-6 lg:grid-cols-3">
+                  {project.creativeSections?.map((section, index) => (
+                    <div
+                      key={section}
+                      className={`rounded-[1.75rem] border p-6 shadow-xl ${
+                        index === 1 ? 'border-[#E6C4A8] bg-[#FFF8F3]' : 'border-[#D0E1FF] bg-[#F7FBFF]'
+                      }`}
+                    >
+                      <p className={`font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] ${
+                        index === 1 ? 'text-[#BF8351]' : 'text-[#1E3A8A]'
+                      }`}>
+                        Creative focus {index + 1}
+                      </p>
+                      <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#364153]">
+                        {section}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <div className="grid gap-6 md:grid-cols-2">
+                  {iaFinancialPdfImages.map((src, index) => (
+                    <button
+                      key={src}
+                      type="button"
+                      onClick={() => setSelectedImage({ src, alt: `IA Financial Group creative asset ${index + 1}` })}
+                      className="overflow-hidden rounded-[1.5rem] border border-[#1E3A8A]/15 bg-white/90 p-3 text-left shadow-lg transition-transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={src}
+                        alt={`IA Financial Group creative asset ${index + 1}`}
+                        className="h-[22rem] w-full object-contain"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </>
             ) : isWasteland ? (
               <>
                 <div className="grid gap-6 lg:grid-cols-3">
