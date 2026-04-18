@@ -462,7 +462,9 @@ export default function ProjectDetailPage() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className={`relative grid min-h-[42rem] place-items-center overflow-hidden rounded-[2rem] shadow-2xl md:min-h-0 md:aspect-[4/3] ${
+            className={`relative grid min-h-[42rem] place-items-center overflow-hidden rounded-[2rem] shadow-2xl ${
+              isWasteland ? 'md:min-h-[36rem]' : 'md:min-h-0 md:aspect-[4/3]'
+            } ${
               isIAFinancial
                 ? 'border border-[#1E3A8A]/20 bg-[radial-gradient(circle_at_top,#f7fbff_0%,#d8e8ff_60%,#b4d2ff_100%)]'
                 : isFlavorBridge
@@ -509,7 +511,7 @@ export default function ProjectDetailPage() {
                   <img
                     src={encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-0.png`)}
                     alt="Wasteland Survivors title artwork"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                   />
                 ) : id === '3' ? (
                   <div className="relative h-full w-full">
@@ -531,14 +533,14 @@ export default function ProjectDetailPage() {
               {isFlavorBridge ? (
                 <div className="grid gap-4 sm:grid-cols-3">
                     {[
-                      { icon: Search, label: 'Taste profiles' },
-                      { icon: HandHeart, label: 'Recipe matching' },
-                      { icon: LayoutGrid, label: 'Shared cooking' },
+                      { icon: Search, label: 'Research process' },
+                      { icon: HandHeart, label: 'Interaction flow' },
+                      { icon: LayoutGrid, label: 'Final prototype' },
                     ].map((item, index) => (
                       <div
                         key={item.label}
                         className={`rounded-[1.5rem] border p-5 backdrop-blur-sm ${
-                          index === 1 ? 'border-[#ffd986]/80 bg-[#fff4cf]/85' : 'border-white/55 bg-white/72'
+                          index === 1 ? 'border-[#ffd986]/80 bg-[#fff4cf]/85' : 'border-[#fff1b6]/70 bg-[#fff8e0]/78'
                         }`}
                       >
                         <item.icon className="h-5 w-5 text-[#B90D37]" />
@@ -594,14 +596,14 @@ export default function ProjectDetailPage() {
               ) : (
                 <div className="grid gap-4 sm:grid-cols-3">
                   {[
-                    { icon: Landmark, label: project.creativeNotes[0] },
-                    { icon: Type, label: project.creativeNotes[1] },
-                    { icon: Eye, label: project.creativeNotes[2] },
+                    { icon: Landmark, label: 'Client process' },
+                    { icon: Type, label: 'Identity system' },
+                    { icon: Eye, label: 'Final output' },
                   ].map((item, index) => (
                     <div
                       key={item.label}
                       className={`rounded-[1.5rem] border p-5 backdrop-blur-sm ${
-                        index === 1 ? 'border-[#BF8351]/30 bg-[#FFF8F3]/88' : 'border-white/55 bg-white/72'
+                        index === 1 ? 'border-[#BF8351]/30 bg-[#FFF8F3]/88' : 'border-[#d8e8ff]/80 bg-[#f7fbff]/88'
                       }`}
                     >
                       <item.icon className={`h-5 w-5 ${index === 1 ? 'text-[#BF8351]' : 'text-[#1E3A8A]'}`} />
