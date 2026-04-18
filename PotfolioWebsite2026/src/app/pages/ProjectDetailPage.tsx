@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useParams, Link } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import { Accessibility, BookOpenText, ChefHat, ChevronLeft, ChevronRight, DollarSign, Eye, Globe, HandHeart, Landmark, LayoutGrid, Mail, MessageCircleMore, Search, Soup, TrendingUp, Type, UtensilsCrossed } from 'lucide-react';
+import { Accessibility, BookOpenText, ChefHat, ChevronLeft, ChevronRight, DollarSign, Eye, Globe, HandHeart, Landmark, LayoutGrid, Mail, MessageCircleMore, Search, Shield, Soup, TrendingUp, Type, UtensilsCrossed } from 'lucide-react';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, LightbulbIcon, CodeIcon, UserIcon } from '../components/Icons';
@@ -122,6 +122,39 @@ const projectContent: Record<string, ProjectRecord> = {
       'The visual language stayed atmospheric, but the information was edited and grouped with more intention.',
     ],
   },
+  '4': {
+    title: 'Wasteland Survivors',
+    categories: ['Collaborative Board Game', 'Visual Design', 'Art Direction'],
+    summary:
+      'A collaborative board game concept built around survival, scarcity, and tactical card play, where I helped shape the overall design direction, card language, and visual presentation of the experience.',
+    role: 'Collaborative designer, visual direction, and game presentation',
+    duration: 'Academic team project',
+    year: '2026',
+    client: 'Collaborative studio team',
+    thesis:
+      'Wasteland Survivors explored how a tabletop game could feel tactile, strategic, and visually coherent while communicating survival mechanics clearly. My contribution focused on helping direct the look of the game so the cards, play surface, and overall tone felt like one world instead of disconnected pieces.',
+    ideation:
+      'The project developed through collaborative concepting, system discussions, and repeated design decisions around how players would read scarcity, resources, and risk at a glance. I helped push the visual direction toward a distressed survival aesthetic with stronger consistency across icons, typography, card framing, and the broader presentation of the game.',
+    approach:
+      'I treated the game like a visual system as much as a board game concept. That meant making the card hierarchy readable, reinforcing the world through texture and illustration choices, and using playtest presentation as a design tool to see what felt intuitive, memorable, and worth refining. A lot of my role was directional: helping the team make clearer aesthetic and system-level design decisions so the concept felt more intentional overall.',
+    roleNotes: [
+      'Helped direct the overall visual language so the board game concept felt cohesive across cards, components, and presentation materials.',
+      'Contributed to the card design system, including how resource types, boosters, and medkit or food categories were framed and read during play.',
+      'Supported collaborative iteration and playtesting by shaping design decisions that balanced atmosphere, clarity, and usability.',
+    ],
+    creativeNotes: ['Card system', 'Survival theme', 'Collaborative direction'],
+    approachBullets: [
+      'Built a more unified visual system so the cards felt like they belonged to the same survival world rather than separate assets.',
+      'Used iconography, framing, and contrast to make resource categories and scoring rules easier to parse during play.',
+      'Leaned into worn textures, muted earth tones, and bold outlines to support the post-apocalyptic board game tone.',
+      'Made directional design calls that helped the team refine the concept through both aesthetic cohesion and clearer table presence.',
+    ],
+    creativeSections: [
+      'The resource and booster cards establish the survival tone through distressed materials, restrained color, and simple icon-first hierarchy.',
+      'The medkit and food cards show how categories were differentiated while still belonging to the same system and game world.',
+      'Playtest photography captures how the game looked in action and how the visual language held together on the table.',
+    ],
+  },
 };
 
 const flavorBridgeVisuals = [
@@ -164,6 +197,28 @@ const tcchBeforeAfterImages = {
   profilesWireframe: encodeURI(`${import.meta.env.BASE_URL}tcch/profiles-wireframe.png`),
   resourcesWireframeTwo: encodeURI(`${import.meta.env.BASE_URL}tcch/resources-wireframe-2.png`),
 };
+const wastelandVisuals = [
+  {
+    src: encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-1.png`),
+    alt: 'Wasteland Survivors resource and booster card lineup',
+  },
+  {
+    src: encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-2.png`),
+    alt: 'Wasteland Survivors medkit cards',
+  },
+  {
+    src: encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-3.png`),
+    alt: 'Wasteland Survivors food resource cards',
+  },
+  {
+    src: encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-4.png`),
+    alt: 'Wasteland Survivors playtest hand and game table',
+  },
+  {
+    src: encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-5.png`),
+    alt: 'Wasteland Survivors collaborative playtest overview',
+  },
+];
 
 function renderLeadWord(text: string, accentClass: string) {
   const [firstWord, ...rest] = text.split(' ');
@@ -182,6 +237,7 @@ export default function ProjectDetailPage() {
   const isFlavorBridge = id === '2';
   const isIAFinancial = id === '1';
   const isTCCH = id === '3';
+  const isWasteland = id === '4';
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
   const [zoom, setZoom] = useState(1);
   const approachItems = project.approachBullets ?? [];
@@ -191,7 +247,9 @@ export default function ProjectDetailPage() {
       ? 'text-[#1E3A8A]'
       : isTCCH
         ? 'text-[#FDE047]'
-        : 'text-[#BF8351]';
+        : isWasteland
+          ? 'text-[#8B4E2B]'
+          : 'text-[#BF8351]';
   const heroRef = useRef<HTMLDivElement>(null);
   const zoomContainerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -257,6 +315,8 @@ export default function ProjectDetailPage() {
           ? 'bg-[radial-gradient(circle_at_top,#f3f8ff_0%,#d2e0f7_40%,#abc0ec_100%)] dark:bg-[radial-gradient(circle_at_top,#162338_0%,#111c2d_42%,#0b1220_100%)]'
           : isFlavorBridge
             ? 'bg-[radial-gradient(circle_at_top,#fff0a8_0%,#ffd560_14%,#b9b40f_40%,#a3a207_100%)] dark:bg-[radial-gradient(circle_at_top,#6a5a12_0%,#4f4710_26%,#272a08_100%)]'
+            : isWasteland
+              ? 'bg-[radial-gradient(circle_at_top,#f3dfcc_0%,#cf9b72_28%,#845033_62%,#2a1710_100%)] dark:bg-[radial-gradient(circle_at_top,#5a3424_0%,#352015_35%,#140c08_100%)]'
             : id === '3'
               ? 'bg-[linear-gradient(180deg,#0f172a_0%,#111827_100%)] dark:bg-[linear-gradient(180deg,#09111f_0%,#050b16_100%)]'
               : ''
@@ -292,6 +352,18 @@ export default function ProjectDetailPage() {
             <Search className="h-20 w-20" />
           </motion.div>
         </div>
+      ) : isWasteland ? (
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <motion.div style={{ y: floatingLogoY }} className="absolute left-[6%] top-[11rem] text-[#f4d6bd]/22">
+            <Shield className="h-20 w-20 md:h-24 md:w-24" />
+          </motion.div>
+          <motion.div style={{ y: financeIconYAlt }} className="absolute right-[8%] top-[16rem] hidden text-[#f6e7d8]/16 lg:block">
+            <LayoutGrid className="h-24 w-24 md:h-28 md:w-28" />
+          </motion.div>
+          <motion.div style={{ y: orbY }} className="absolute left-[10%] top-[42rem] hidden text-[#f6c79d]/20 xl:block">
+            <HandHeart className="h-24 w-24" />
+          </motion.div>
+        </div>
       ) : id === '3' ? (
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <motion.div style={{ y: floatingLogoY }} className="absolute left-[6%] top-[12rem] hidden opacity-20 lg:block">
@@ -315,6 +387,8 @@ export default function ProjectDetailPage() {
           className={`inline-flex items-center gap-2 border-b-2 border-transparent font-['Poppins:SemiBold',sans-serif] transition-colors ${
             isFlavorBridge
               ? 'text-[#7D1F33] hover:border-[#7D1F33] hover:text-[#5f1527]'
+              : isWasteland
+                ? 'text-[#4c2a1a] hover:border-[#8B4E2B] hover:text-[#2e160d]'
               : 'text-[#7DB1D4] hover:border-[#ABCEE2] hover:text-[#5B8FA3]'
           }`}
         >
@@ -341,6 +415,10 @@ export default function ProjectDetailPage() {
                       ? index % 2 === 0
                         ? 'bg-[#E8F0FF] text-[#1E3A8A]'
                         : 'bg-[#D0E1FF] text-[#1E3A8A]'
+                      : isWasteland
+                        ? index % 2 === 0
+                          ? 'bg-[#f6e5d6] text-[#6e3d25]'
+                          : 'bg-[#d8b193] text-[#4c2a1a]'
                       : index % 2 === 0
                         ? 'bg-[#D5E7F2] text-[#5B8FA3]'
                         : 'bg-[#E6C4A8] text-[#A66D42]'
@@ -351,11 +429,11 @@ export default function ProjectDetailPage() {
               ))}
             </div>
 
-            <h1 className={`font-['Ojuju:Bold',sans-serif] text-5xl leading-[0.95] md:text-7xl ${isIAFinancial ? 'text-[#1E3A8A]' : id === '3' ? 'text-[#F8FAFC]' : 'text-[#ABCEE2]'}`}>
+            <h1 className={`font-['Ojuju:Bold',sans-serif] text-5xl leading-[0.95] md:text-7xl ${isIAFinancial ? 'text-[#1E3A8A]' : isWasteland ? 'text-[#F8E6D8]' : id === '3' ? 'text-[#F8FAFC]' : 'text-[#ABCEE2]'}`}>
               {project.title}
             </h1>
 
-            <p className={`max-w-3xl font-['Poppins:Regular',sans-serif] text-xl leading-8 ${id === '3' ? 'text-[#D5E7F2]' : 'text-[#4A5565]'}`}>
+            <p className={`max-w-3xl font-['Poppins:Regular',sans-serif] text-xl leading-8 ${id === '3' ? 'text-[#D5E7F2]' : isWasteland ? 'text-[#F4DCCB]' : 'text-[#4A5565]'}`}>
               {project.summary}
             </p>
 
@@ -367,6 +445,8 @@ export default function ProjectDetailPage() {
                   ? 'border-[#ffd986] bg-white/88 text-[#7D1F33] hover:bg-[#fff2c8]'
                   : isIAFinancial
                     ? 'border-[#d0e1ff] bg-white/88 text-[#1E3A8A] hover:bg-[#eef5ff]'
+                    : isWasteland
+                      ? 'border-[#d2a47f] bg-[#2a1710]/72 text-[#F8E6D8] hover:bg-[#3a2117]'
                     : id === '3'
                       ? 'border-white/12 bg-[#111827]/78 text-[#F8FAFC] hover:bg-[#182235]'
                       : 'border-[#D5E7F2] bg-white/88 text-[#5B8FA3] hover:bg-[#F7FBFD]'
@@ -402,6 +482,8 @@ export default function ProjectDetailPage() {
                 ? 'border border-[#1E3A8A]/20 bg-[radial-gradient(circle_at_top,#f7fbff_0%,#d8e8ff_60%,#b4d2ff_100%)]'
                 : isFlavorBridge
                   ? 'border border-white/55 bg-[radial-gradient(circle_at_top,#ffd561_0%,#e2c018_24%,#a8a70c_100%)]'
+                  : isWasteland
+                    ? 'border border-[#e2c1a8]/22 bg-[radial-gradient(circle_at_top,#68402d_0%,#3d2418_58%,#1a0f0a_100%)]'
                   : id === '3'
                     ? 'border border-white/10 bg-[linear-gradient(180deg,#0f172a_0%,#111827_100%)]'
                     : 'border border-[#D5E7F2] bg-gradient-to-br from-[#D5E7F2] via-[#ABCEE2] to-[#D6A882]'
@@ -428,6 +510,8 @@ export default function ProjectDetailPage() {
                   ? 'border border-white/40 bg-white/20 backdrop-blur-sm'
                   : isIAFinancial
                     ? 'overflow-hidden border border-white/60 bg-[#dcecff]'
+                    : isWasteland
+                      ? 'overflow-hidden border border-[#f2d2ba]/18 bg-[#2b1811]'
                     : id === '3'
                       ? 'overflow-hidden border border-white/10 bg-[#111827]'
                       : 'border border-white/60 bg-white/70 backdrop-blur-sm'
@@ -436,6 +520,12 @@ export default function ProjectDetailPage() {
                   <img src={flavorBridgeLogo} alt="Flavor Bridge logo" className="h-28 w-28 object-contain md:h-36 md:w-36" />
                 ) : isIAFinancial ? (
                   <img src={iaFinancialLogoPng} alt="IA Financial Group logo" className="h-24 w-full object-contain px-10 md:h-28" />
+                ) : isWasteland ? (
+                  <img
+                    src={wastelandVisuals[4].src}
+                    alt={wastelandVisuals[4].alt}
+                    className="h-full w-full object-cover"
+                  />
                 ) : id === '3' ? (
                   <div className="relative h-full w-full">
                     <img
@@ -473,6 +563,27 @@ export default function ProjectDetailPage() {
                         <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-xl text-[#7D1F33] dark:text-[#5b1020]">{item.label}</p>
                       </div>
                     ))}
+                </div>
+              ) : isWasteland ? (
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {[
+                    { icon: LayoutGrid, label: 'Card system' },
+                    { icon: Shield, label: 'Worldbuilding' },
+                    { icon: HandHeart, label: 'Team direction' },
+                  ].map((item, index) => (
+                    <div
+                      key={item.label}
+                      className={`rounded-[1.5rem] border p-5 backdrop-blur-sm ${
+                        index === 1 ? 'border-[#e0b48d]/30 bg-[#4b2d20]/78' : 'border-[#f3d8c1]/16 bg-[#2a1710]/72'
+                      }`}
+                    >
+                      <item.icon className="h-5 w-5 text-[#E8BC96]" />
+                      <p className="mt-3 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#D8B193]">
+                        Focus
+                      </p>
+                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-xl text-[#F8E6D8]">{item.label}</p>
+                    </div>
+                  ))}
                 </div>
               ) : id === '3' ? (
                 <div className="grid gap-4 sm:grid-cols-3">
@@ -527,20 +638,32 @@ export default function ProjectDetailPage() {
       </div>
 
       <div className="mx-auto max-w-5xl space-y-16 px-5 py-20 md:px-8">
-        <section className={`rounded-[2rem] p-10 shadow-xl ${isFlavorBridge ? 'border border-[#ffd986] bg-white/88 backdrop-blur-sm' : 'border border-[#E6C4A8] bg-white/95'}`}>
+        <section className={`rounded-[2rem] p-10 shadow-xl ${
+          isFlavorBridge
+            ? 'border border-[#ffd986] bg-white/88 backdrop-blur-sm'
+            : isWasteland
+              ? 'border border-[#d8b193] bg-[#f9efe7]/96'
+              : 'border border-[#E6C4A8] bg-white/95'
+        }`}>
           <div className="mb-5 flex items-center gap-4">
             <LightbulbIcon className="h-14 w-14" />
-            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#B90D37]' : 'text-[#BF8351]'}`}>Thesis</h2>
+            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#B90D37]' : isWasteland ? 'text-[#6e3d25]' : 'text-[#BF8351]'}`}>Thesis</h2>
           </div>
-          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#1f2937]' : 'text-[#364153]'}`}>{project.thesis}</p>
+          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#1f2937]' : isWasteland ? 'text-[#4f3427]' : 'text-[#364153]'}`}>{project.thesis}</p>
         </section>
 
-        <section className={`rounded-[2rem] p-10 shadow-xl ${isFlavorBridge ? 'border border-[#c8ddbd] bg-[#f8f9ef]/92 backdrop-blur-sm dark:border-[#3e4715] dark:bg-[#15190d]/92' : 'border border-[#D5E7F2] bg-white/95'}`}>
+        <section className={`rounded-[2rem] p-10 shadow-xl ${
+          isFlavorBridge
+            ? 'border border-[#c8ddbd] bg-[#f8f9ef]/92 backdrop-blur-sm dark:border-[#3e4715] dark:bg-[#15190d]/92'
+            : isWasteland
+              ? 'border border-[#e3c8b4] bg-[#fcf5ef]/95'
+              : 'border border-[#D5E7F2] bg-white/95'
+        }`}>
           <div className="mb-5 flex items-center gap-4">
             <UserIcon className="h-14 w-14" />
-            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#7B7F26]' : isIAFinancial ? 'text-[#1E3A8A]' : 'text-[#ABCEE2]'}`}>Ideation</h2>
+            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#7B7F26]' : isIAFinancial ? 'text-[#1E3A8A]' : isWasteland ? 'text-[#8B4E2B]' : 'text-[#ABCEE2]'}`}>Ideation</h2>
           </div>
-          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#475569]' : isIAFinancial ? 'text-[#364153]' : 'text-[#364153]'}`}>{project.ideation}</p>
+          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#475569]' : isWasteland ? 'text-[#4f3427]' : isIAFinancial ? 'text-[#364153]' : 'text-[#364153]'}`}>{project.ideation}</p>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {isIAFinancial ? (
               <>
@@ -591,6 +714,36 @@ export default function ProjectDetailPage() {
                   />
                 </div>
               </>
+            ) : isWasteland ? (
+              <>
+                <div className="rounded-[1.5rem] border border-[#e0b48d] bg-[#f7e7d9] p-6">
+                  <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#8B4E2B]">
+                    System direction
+                  </p>
+                  <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4f3427]">
+                    Early decisions focused on how players would quickly distinguish resources, boosters, and special card behaviors. I helped guide those choices so the game could feel thematic without becoming visually muddy or harder to learn at the table.
+                  </p>
+                </div>
+                <div className="rounded-[1.5rem] border border-[#d6a985] bg-[#fff7f0] p-6">
+                  <p className="font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] text-[#6e3d25]">
+                    Playtest readability
+                  </p>
+                  <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4f3427]">
+                    The collaborative process made it easier to judge what was landing visually in context. Seeing the cards in-hand and on the table helped reinforce which details felt clear, which textures supported the theme, and where stronger direction improved the overall presentation.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedImage(wastelandVisuals[3])}
+                  className="overflow-hidden rounded-[1.5rem] border border-[#d8b193] bg-[#2a1710] shadow-lg transition-transform hover:-translate-y-1 md:col-span-2"
+                >
+                  <img
+                    src={wastelandVisuals[3].src}
+                    alt={wastelandVisuals[3].alt}
+                    className="h-[20rem] w-full object-cover"
+                  />
+                </button>
+              </>
             ) : (
               <>
                 <div className={`grid min-h-[14rem] place-items-center rounded-[1.5rem] p-6 text-center ${isFlavorBridge ? 'border border-[#c8ddbd] bg-white' : 'border border-[#D5E7F2] bg-[#F9FAFB]'}`}>
@@ -611,6 +764,8 @@ export default function ProjectDetailPage() {
         <section className={`rounded-[2rem] p-10 shadow-xl ${
           isFlavorBridge
             ? 'border border-[#ffd986] bg-white/88 backdrop-blur-sm'
+            : isWasteland
+              ? 'border border-[#d6a985] bg-[#fff7f0]/96'
             : isTCCH
               ? 'border border-[#334155] bg-[#0f172a]/90'
               : 'border border-[#E6C4A8] bg-white/95'
@@ -618,12 +773,14 @@ export default function ProjectDetailPage() {
           <div className="mb-5 flex items-center gap-4">
             <CodeIcon className="h-14 w-14" />
             <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${
-              isFlavorBridge ? 'text-[#B90D37]' : isTCCH ? 'text-[#F8FAFC]' : 'text-[#BF8351]'
+              isFlavorBridge ? 'text-[#B90D37]' : isWasteland ? 'text-[#8B4E2B]' : isTCCH ? 'text-[#F8FAFC]' : 'text-[#BF8351]'
             }`}>Approach</h2>
           </div>
           <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${
             isFlavorBridge
               ? 'text-[#364153] dark:text-[#1f2937]'
+              : isWasteland
+                ? 'text-[#4f3427]'
               : isTCCH
                 ? 'text-[#D5E7F2]'
                 : 'text-[#364153]'
@@ -637,6 +794,10 @@ export default function ProjectDetailPage() {
                     ? index % 2 === 0
                       ? 'border-[#c8ddbd] bg-[#f6f8ef] text-[#364153]'
                       : 'border-[#ffd986] bg-[#fff6da] text-[#364153]'
+                    : isWasteland
+                      ? index % 2 === 0
+                        ? 'border-[#e0b48d] bg-[#f7e7d9] text-[#4f3427]'
+                        : 'border-[#d6a985] bg-[#fff1e5] text-[#4f3427]'
                     : isTCCH
                       ? index % 2 === 0
                         ? 'border-[#334155] bg-[#111827] text-[#E2E8F0]'
@@ -659,6 +820,8 @@ export default function ProjectDetailPage() {
             ? 'border-[#c8ddbd]/10 bg-transparent'
             : isIAFinancial
               ? 'border-[#1E3A8A]/10 bg-[linear-gradient(180deg,rgba(30,58,138,0.04),rgba(210,224,247,0.16))]'
+              : isWasteland
+                ? 'border-[#8B4E2B]/12 bg-[linear-gradient(180deg,rgba(248,236,224,0.55),rgba(229,197,170,0.32))]'
               : id === '3'
                 ? 'border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.82),rgba(15,23,42,0.94))]'
                 : 'border-[#D5E7F2]/20 bg-white/80'
@@ -678,6 +841,8 @@ export default function ProjectDetailPage() {
               ? 'text-[#7B7F26] dark:text-[#5d6612]'
               : isIAFinancial
                 ? 'text-[#1E3A8A]'
+                : isWasteland
+                  ? 'text-[#6e3d25]'
                 : id === '3'
                   ? 'text-[#F8FAFC]'
                   : 'text-[#ABCEE2]'
@@ -685,6 +850,8 @@ export default function ProjectDetailPage() {
           <p className={`mt-4 font-['Poppins:Regular',sans-serif] text-lg leading-8 ${
             isFlavorBridge || isIAFinancial
               ? 'text-[#364153] dark:text-[#1f2937]'
+              : isWasteland
+                ? 'text-[#4f3427]'
               : id === '3'
                 ? 'text-[#D5E7F2]'
                 : 'text-[#364153]'
@@ -693,6 +860,8 @@ export default function ProjectDetailPage() {
               ? 'Flavor Bridge moved through paper and Figma prototyping before settling into a mobile-first direction. The final app uses familiar interaction patterns to make recipe exploration feel light, social, and easier to navigate for couples with different tastes.'
               : isIAFinancial
                 ? 'A clear identity system for Guillaume-Rene Lalumiere designed to feel professional, direct, and easy to use across digital touchpoints and printed advisor materials.'
+                : isWasteland
+                  ? 'These visuals show the system language and collaborative playtest context for Wasteland Survivors, from resource and medkit cards to the game in use on the table.'
                 : id === '3'
                   ? 'The redesign centered on clearer structure, stronger orientation, and more accessible information flow while preserving the site\'s immersive artistic atmosphere.'
                   : 'This area is ready for final images, mockups, spreads, flows, and system details once your real project assets are added, preferably before the caffeine wears off.'}
@@ -733,6 +902,44 @@ export default function ProjectDetailPage() {
                   </button>
                 ))}
               </div>
+            ) : isWasteland ? (
+              <>
+                <div className="grid gap-6 lg:grid-cols-3">
+                  {project.creativeSections?.map((section, index) => (
+                    <div
+                      key={section}
+                      className={`rounded-[1.75rem] border p-6 shadow-xl ${
+                        index === 1 ? 'border-[#d8b193] bg-[#fff5ec]' : 'border-[#e8cdb8] bg-[#fcf5ef]'
+                      }`}
+                    >
+                      <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#8B4E2B]">
+                        Creative focus {index + 1}
+                      </p>
+                      <p className="mt-3 font-['Poppins:Regular',sans-serif] text-base leading-7 text-[#4f3427]">
+                        {section}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                  {wastelandVisuals.map((image, index) => (
+                    <button
+                      key={image.src}
+                      type="button"
+                      onClick={() => setSelectedImage(image)}
+                      className={`overflow-hidden rounded-[1.5rem] border p-3 text-left shadow-lg transition-transform hover:-translate-y-1 ${
+                        index >= 3 ? 'md:col-span-2 xl:col-span-1' : ''
+                      } border-[#d8b193] bg-[#fffaf5]`}
+                    >
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className={`w-full rounded-[1rem] object-cover ${index >= 3 ? 'h-[20rem]' : 'h-[18rem]'}`}
+                      />
+                    </button>
+                  ))}
+                </div>
+              </>
             ) : id === '3' ? (
               <>
                 <div className="grid gap-6 lg:grid-cols-2">
@@ -843,13 +1050,15 @@ export default function ProjectDetailPage() {
           ? 'border-[#c8ddbd]/20 bg-[linear-gradient(180deg,rgba(201,221,189,0.05),rgba(171,206,226,0.08))]'
           : isIAFinancial
             ? 'border-[#1E3A8A]/10 bg-[linear-gradient(180deg,rgba(30,58,138,0.05),rgba(210,224,247,0.1))]'
+            : isWasteland
+              ? 'border-[#8B4E2B]/10 bg-[linear-gradient(180deg,rgba(255,245,236,0.72),rgba(229,197,170,0.26))]'
             : isTCCH
               ? 'border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.88),rgba(10,15,28,0.98))]'
               : 'border-[#D5E7F2]/20 bg-white/80'
       }`}>
         <div className="mx-auto mb-6 flex max-w-7xl flex-col items-center gap-4 text-center">
           <div className="max-w-2xl">
-            <p className={`font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] ${isFlavorBridge ? 'text-[#B90D37]' : isIAFinancial ? 'text-[#1E3A8A]' : 'text-[#BF8351]'}`}>
+            <p className={`font-['Poppins:SemiBold',sans-serif] uppercase tracking-[0.16em] ${isFlavorBridge ? 'text-[#B90D37]' : isIAFinancial ? 'text-[#1E3A8A]' : isWasteland ? 'text-[#8B4E2B]' : 'text-[#BF8351]'}`}>
               Role Definition
             </p>
             <h3 className={`mt-3 font-['Ojuju:Bold',sans-serif] text-3xl md:text-4xl ${
@@ -857,6 +1066,8 @@ export default function ProjectDetailPage() {
                 ? 'text-[#7B7F26]'
                 : isIAFinancial
                   ? 'text-[#1E3A8A]'
+                  : isWasteland
+                    ? 'text-[#6e3d25]'
                   : isTCCH
                     ? 'text-[#F8FAFC]'
                     : 'text-[#5B8FA3]'
@@ -868,6 +1079,8 @@ export default function ProjectDetailPage() {
                 ? 'text-[#4f4b17]'
                 : isIAFinancial
                   ? 'text-[#364153]'
+                  : isWasteland
+                    ? 'text-[#4f3427]'
                   : isTCCH
                     ? 'text-[#CBD5E1]'
                     : 'text-[#4A5565]'
@@ -882,6 +1095,8 @@ export default function ProjectDetailPage() {
             ? 'text-[#7B7F26]'
             : isIAFinancial
               ? 'text-[#1E3A8A]'
+              : isWasteland
+                ? 'text-[#8B4E2B]'
               : 'text-[#93C5FD]'
         }`}>
           <ChevronLeft className="h-4 w-4" />
@@ -900,6 +1115,8 @@ export default function ProjectDetailPage() {
                   ? 'border-[#ffd986] bg-[#fffdf5]'
                   : isIAFinancial
                     ? 'border-[#D0E1FF] bg-white'
+                    : isWasteland
+                      ? 'border-[#d8b193] bg-[#fff7f0]'
                     : isTCCH
                       ? 'border-[#334155] bg-[#111827]/92'
                       : 'border-[#D5E7F2] bg-white/95'
@@ -911,6 +1128,8 @@ export default function ProjectDetailPage() {
                     ? 'bg-[#fff0b5] text-[#B90D37]'
                     : isIAFinancial
                       ? 'bg-[#E8F0FF] text-[#1E3A8A]'
+                      : isWasteland
+                        ? 'bg-[#f7e7d9] text-[#8B4E2B]'
                       : isTCCH
                         ? 'bg-[#172033] text-[#FDE047]'
                         : 'bg-[#FFF8F3] text-[#BF8351]'
@@ -922,6 +1141,8 @@ export default function ProjectDetailPage() {
                     ? 'bg-[#ffd986]'
                     : isIAFinancial
                       ? 'bg-[#D0E1FF]'
+                      : isWasteland
+                        ? 'bg-[#d8b193]'
                       : isTCCH
                         ? 'bg-[#334155]'
                         : 'bg-[#E6C4A8]'
@@ -932,6 +1153,8 @@ export default function ProjectDetailPage() {
                   ? 'text-[#4f4b17]'
                   : isIAFinancial
                     ? 'text-[#364153]'
+                    : isWasteland
+                      ? 'text-[#4f3427]'
                     : isTCCH
                       ? 'text-[#E2E8F0]'
                       : 'text-[#364153]'
@@ -948,6 +1171,8 @@ export default function ProjectDetailPage() {
           ? 'bg-[linear-gradient(180deg,rgba(201,221,189,0.1),rgba(171,206,226,0.16))]'
           : isIAFinancial
             ? 'bg-[linear-gradient(180deg,rgba(30,58,138,0.08),rgba(210,224,247,0.18))]'
+          : isWasteland
+            ? 'bg-[linear-gradient(180deg,rgba(251,242,234,0.88),rgba(205,155,114,0.18))]'
           : isTCCH
             ? 'bg-[linear-gradient(180deg,rgba(15,23,42,0.22),rgba(9,14,24,0.48))]'
             : ''
@@ -1083,6 +1308,51 @@ export default function ProjectDetailPage() {
                   </a>
                   <div className="inline-flex items-center justify-center gap-2 rounded-full border border-[#334155] bg-[#111827]/65 px-7 py-4 font-['Poppins:Medium',sans-serif] text-[#93C5FD] shadow-sm">
                     <Globe className="h-4 w-4 text-[#FDE047]" />
+                    Montreal + remote worldwide
+                  </div>
+                </div>
+              </div>
+            </section>
+          ) : isWasteland ? (
+            <section className="relative overflow-hidden rounded-[2.25rem] border border-[#d8b193] bg-[radial-gradient(circle_at_top,#fff7f0_0%,#f3dfcf_36%,#e0b48d_100%)] px-6 py-10 shadow-2xl sm:px-8 md:px-10 md:py-12">
+              <div className="pointer-events-none absolute inset-0 opacity-35">
+                <div className="absolute -left-8 top-6 h-28 w-28 rounded-full bg-[#f5d1b2]/40 blur-3xl" />
+                <div className="absolute right-0 top-0 h-36 w-36 rounded-full bg-[#8B4E2B]/12 blur-3xl" />
+                <div className="absolute bottom-0 left-1/3 h-28 w-28 rounded-full bg-[#4c2a1a]/12 blur-3xl" />
+              </div>
+              <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+                <div className="max-w-3xl">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/85 px-4 py-2 shadow-sm">
+                    <MessageCircleMore className="h-4 w-4 text-[#8B4E2B]" />
+                    <span className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#8B4E2B]">
+                      Collaborative systems + visual direction
+                    </span>
+                  </div>
+                  <h3 className="mt-5 font-['Ojuju:Bold',sans-serif] text-4xl leading-[0.95] text-[#6e3d25] md:text-5xl">
+                    If your team needs a strong design direction for a collaborative concept, let&apos;s talk.
+                  </h3>
+                  <p className="mt-4 max-w-2xl font-['Poppins:Regular',sans-serif] text-lg leading-8 text-[#4f3427]">
+                    I love projects where worldbuilding, structure, and teamwork all have to click at the same time.
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col xl:flex-row">
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8B4E2B] px-7 py-4 font-['Poppins:SemiBold',sans-serif] text-white transition-all hover:-translate-y-0.5 hover:bg-[#6e3d25] hover:shadow-lg"
+                  >
+                    <MessageCircleMore className="h-4 w-4" />
+                    Contact Page
+                  </Link>
+                  <a
+                    href={CONTACT_EMAIL_HREF}
+                    className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#d8b193] bg-white/85 px-7 py-4 font-['Poppins:SemiBold',sans-serif] text-[#6e3d25] transition-all hover:-translate-y-0.5 hover:bg-[#fff2e7] hover:shadow-lg"
+                  >
+                    <Mail className="h-4 w-4" />
+                    {CONTACT_EMAIL}
+                  </a>
+                  <div className="inline-flex items-center justify-center gap-2 rounded-full border border-[#e8cdb8] bg-white/75 px-7 py-4 font-['Poppins:Medium',sans-serif] text-[#4f3427] shadow-sm">
+                    <Globe className="h-4 w-4 text-[#8B4E2B]" />
                     Montreal + remote worldwide
                   </div>
                 </div>

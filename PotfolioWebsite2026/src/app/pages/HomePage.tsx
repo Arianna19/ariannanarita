@@ -12,6 +12,7 @@ const flavorBridgeLogo = encodeURI(`${import.meta.env.BASE_URL}flavor-bridge-exp
 const iaFinancialImage = encodeURI(`${import.meta.env.BASE_URL}ia-financial/GuilaumeNoText.png`);
 const tcchIcon = encodeURI(`${import.meta.env.BASE_URL}tcch-icon-white.png`);
 const tcchBackground = encodeURI(`${import.meta.env.BASE_URL}tcch-hero-bg.jpg`);
+const wastelandPreview = encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-5.png`);
 
 const projects = [
   {
@@ -31,6 +32,12 @@ const projects = [
     title: 'Flavor Bridge',
     category: 'UX Research + App Design',
     blurb: 'A research-driven mobile concept for mixed-culture couples, built to make recipe discovery, shared cooking, and navigating different food habits feel easier and more playful.',
+  },
+  {
+    id: '4',
+    title: 'Wasteland Survivors',
+    category: 'Collaborative Board Game Design',
+    blurb: 'A collaborative board game concept where I helped direct the overall visual design, card system, and presentation language for a survival-themed tabletop experience.',
   },
 ];
 
@@ -71,7 +78,7 @@ function SelectedWorkSection() {
         <OceanBubbles className="absolute right-[10%] top-80 h-28 w-28 opacity-30" />
       </div>
 
-      <div className="relative grid gap-8 lg:grid-cols-3">
+      <div className="relative grid gap-8 md:grid-cols-2 xl:grid-cols-4">
         {projects.map((project, index) => (
           <motion.div
             key={project.id}
@@ -81,10 +88,12 @@ function SelectedWorkSection() {
             viewport={{ once: true }}
             className={
               index === 1
-                ? 'lg:translate-y-14'
+                ? 'xl:translate-y-14'
                 : index === 2
-                  ? 'lg:-translate-y-6'
-                  : ''
+                  ? 'xl:-translate-y-6'
+                  : index === 3
+                    ? 'xl:translate-y-8'
+                    : ''
             }
           >
             <Link
@@ -123,6 +132,23 @@ function SelectedWorkSection() {
                       alt="The Center Cannot Hold logo"
                       className="h-24 w-24 object-contain drop-shadow-[0_14px_30px_rgba(0,0,0,0.35)] md:h-28 md:w-28"
                     />
+                  </div>
+                </div>
+              ) : project.id === '4' ? (
+                <div className="relative aspect-[4/3] overflow-hidden bg-[linear-gradient(135deg,#24140f_0%,#5a3424_42%,#b37b55_100%)]">
+                  <img
+                    src={wastelandPreview}
+                    alt="Wasteland Survivors board game playtest preview"
+                    className="h-full w-full object-cover opacity-75"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(24,13,9,0.18),rgba(24,13,9,0.74))]" />
+                  <div className="absolute bottom-5 left-5 right-5 rounded-[1.5rem] border border-white/15 bg-[#1a0f0a]/60 p-4 backdrop-blur-sm">
+                    <p className="font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#EBC9A8]">
+                      Collaborative concept
+                    </p>
+                    <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-2xl leading-none text-[#F8E6D8]">
+                      Survival card system + visual direction
+                    </p>
                   </div>
                 </div>
               ) : (
@@ -164,6 +190,8 @@ function SelectedWorkSection() {
                       ? ['Taste profiles', 'Recipe matching', 'Shared cooking']
                     : project.id === '1'
                         ? ['Client-led', 'Logo', 'Identity']
+                      : project.id === '4'
+                        ? ['Card design', 'Art direction', 'Playtesting']
                         : ['Accessibility', 'Hierarchy', 'Navigation']
                   ).map((tag, tagIndex) => (
                     <span
