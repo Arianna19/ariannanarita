@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useParams, Link } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import { Accessibility, BookOpenText, ChefHat, ChevronLeft, ChevronRight, DollarSign, Eye, Globe, HandHeart, Landmark, LayoutGrid, Mail, MessageCircleMore, Search, Shield, Soup, TrendingUp, Type, UtensilsCrossed } from 'lucide-react';
+import { Accessibility, BookOpenText, Boxes, ChefHat, ChevronLeft, ChevronRight, DollarSign, Eye, Flame, Globe, HandHeart, Landmark, LayoutGrid, Mail, MessageCircleMore, Search, Shield, Soup, TrendingUp, Type, UtensilsCrossed } from 'lucide-react';
 import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, LightbulbIcon, CodeIcon, UserIcon } from '../components/Icons';
@@ -494,7 +494,7 @@ export default function ProjectDetailPage() {
               </>
             ) : null}
             <OceanBubbles className="absolute left-8 top-8 h-24 w-24 opacity-60" />
-            <div className="relative grid w-full gap-4 p-6 sm:p-8">
+            <div className={`relative grid w-full gap-4 ${isWasteland ? 'p-5 sm:p-6' : 'p-6 sm:p-8'}`}>
               <div className={`grid min-h-[10rem] place-items-center rounded-[1.75rem] p-6 shadow-lg ${
                 isFlavorBridge
                   ? 'border border-white/40 bg-white/20 backdrop-blur-sm'
@@ -514,7 +514,7 @@ export default function ProjectDetailPage() {
                   <img
                     src={encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-0.png`)}
                     alt="Wasteland Survivors title artwork"
-                    className="h-full w-full scale-[0.88] object-contain"
+                    className="h-full w-full scale-[0.8] object-contain"
                   />
                 ) : id === '3' ? (
                   <div className="relative h-full w-full">
@@ -557,13 +557,13 @@ export default function ProjectDetailPage() {
               ) : isWasteland ? (
                 <div className="grid gap-4 sm:grid-cols-3">
                   {[
-                    { icon: LayoutGrid, label: 'System design' },
-                    { icon: Shield, label: 'Theme direction' },
-                    { icon: HandHeart, label: 'Final playtest' },
+                    { icon: Boxes, label: 'Supply system' },
+                    { icon: Flame, label: 'Survival theme' },
+                    { icon: Shield, label: 'Playtest balance' },
                   ].map((item, index) => (
                     <div
                       key={item.label}
-                      className={`rounded-[1.5rem] border p-5 backdrop-blur-sm ${
+                      className={`rounded-[1.5rem] border p-4 backdrop-blur-sm ${
                         index === 1 ? 'border-[#f7eab0]/80 bg-[#fff3d0]/85' : 'border-[#f7efc7]/70 bg-[#fff8e0]/78'
                       }`}
                     >
@@ -571,7 +571,7 @@ export default function ProjectDetailPage() {
                       <p className="mt-3 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#8c8a21]">
                         Focus
                       </p>
-                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-xl text-[#8B2A3E]">{item.label}</p>
+                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-lg leading-tight text-[#8B2A3E]">{item.label}</p>
                     </div>
                   ))}
                 </div>
