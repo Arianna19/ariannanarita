@@ -467,7 +467,9 @@ export default function ProjectDetailPage() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className={`relative grid min-h-[42rem] place-items-center overflow-hidden rounded-[2rem] shadow-2xl md:min-h-0 md:aspect-[4/3] ${
+            className={`relative grid min-h-[42rem] place-items-center overflow-hidden rounded-[2rem] shadow-2xl ${
+              isWasteland ? 'md:min-h-[34rem] md:aspect-[11/10]' : 'md:min-h-0 md:aspect-[4/3]'
+            } ${
               isIAFinancial
                 ? 'border border-[#1E3A8A]/20 bg-[radial-gradient(circle_at_top,#f7fbff_0%,#d8e8ff_60%,#b4d2ff_100%)]'
                 : isFlavorBridge
