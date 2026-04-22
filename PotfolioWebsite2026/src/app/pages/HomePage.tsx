@@ -434,7 +434,7 @@ export default function HomePage() {
                     <img
                       src={portraitImage}
                       alt="Portrait of Arianna Sanchez Narita"
-                      className="absolute inset-0 h-full w-full object-contain p-3 transition-opacity duration-300 group-hover:opacity-0"
+                      className="absolute inset-0 h-full w-full object-cover object-[center_38%] transition-opacity duration-300 group-hover:opacity-0"
                     />
                     <img
                       src={biographyPortraitImage}

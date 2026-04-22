@@ -208,7 +208,7 @@ export default function BiographyPage() {
                 <img
                   src={homePortraitImage}
                   alt="Portrait of Arianna Sanchez Narita"
-                  className="absolute inset-0 h-full w-full object-contain p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  className="absolute inset-0 h-full w-full object-cover object-[center_38%] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </div>
               <h2 className="font-['Ojuju:Bold',sans-serif] text-2xl text-[#1E2939]">Arianna Sanchez Narita</h2>
