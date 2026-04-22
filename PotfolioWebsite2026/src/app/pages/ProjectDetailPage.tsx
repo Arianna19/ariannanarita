@@ -501,7 +501,7 @@ export default function ProjectDetailPage() {
                   : isIAFinancial
                     ? 'min-h-[10rem] overflow-hidden border border-white/60 bg-[#dcecff] p-6'
                     : isWasteland
-                      ? 'h-[7.5rem] border border-[#f2e5db]/80 bg-[#efe1d4]/82 p-2 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)] sm:h-[8.25rem]'
+                      ? 'h-[9rem] border border-[#f2e5db]/80 bg-[#efe1d4]/82 p-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)] sm:h-[9.5rem]'
                     : id === '3'
                       ? 'min-h-[10rem] overflow-hidden border border-white/10 bg-[#111827] p-6'
                     : 'min-h-[10rem] border border-white/60 bg-white/70 p-6 backdrop-blur-sm'
@@ -511,10 +511,13 @@ export default function ProjectDetailPage() {
                 ) : isIAFinancial ? (
                   <img src={iaFinancialLogoPng} alt="IA Financial Group logo" className="h-24 w-full object-contain px-10 md:h-28" />
                 ) : isWasteland ? (
-                  <img
-                    src={encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-0.png`)}
-                    alt="Wasteland Survivors title artwork"
-                    className="max-h-full max-w-full object-contain object-center"
+                  <div
+                    role="img"
+                    aria-label="Wasteland Survivors title artwork"
+                    className="h-full w-full bg-contain bg-center bg-no-repeat"
+                    style={{
+                      backgroundImage: `url("${encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-0.png`)}")`,
+                    }}
                   />
                 ) : id === '3' ? (
                   <div className="relative h-full w-full">
@@ -563,7 +566,7 @@ export default function ProjectDetailPage() {
                   ].map((item, index) => (
                     <div
                       key={item.label}
-                      className={`h-[5.7rem] rounded-[1.35rem] border p-3 backdrop-blur-sm ${
+                      className={`h-[5.35rem] rounded-[1.35rem] border p-3 backdrop-blur-sm ${
                         index === 1 ? 'border-[#f7eab0]/80 bg-[#fff3d0]/85' : 'border-[#f7efc7]/70 bg-[#fff8e0]/78'
                       }`}
                     >
