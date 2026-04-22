@@ -501,7 +501,7 @@ export default function ProjectDetailPage() {
                   : isIAFinancial
                     ? 'min-h-[10rem] overflow-hidden border border-white/60 bg-[#dcecff] p-6'
                     : isWasteland
-                      ? 'min-h-[8.5rem] overflow-hidden border border-[#f2e5db]/80 bg-[#efe1d4]/82 p-4 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)]'
+                      ? 'h-[7.25rem] overflow-hidden border border-[#f2e5db]/80 bg-[#efe1d4]/82 p-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)] sm:h-[8rem]'
                     : id === '3'
                       ? 'min-h-[10rem] overflow-hidden border border-white/10 bg-[#111827] p-6'
                     : 'min-h-[10rem] border border-white/60 bg-white/70 p-6 backdrop-blur-sm'
@@ -514,7 +514,7 @@ export default function ProjectDetailPage() {
                   <img
                     src={encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-0.png`)}
                     alt="Wasteland Survivors title artwork"
-                    className="h-full w-full scale-[0.72] object-contain"
+                    className="h-full w-full scale-[0.56] object-contain"
                   />
                 ) : id === '3' ? (
                   <div className="relative h-full w-full">
@@ -555,7 +555,7 @@ export default function ProjectDetailPage() {
                     ))}
                 </div>
               ) : isWasteland ? (
-                <div className="grid gap-4 sm:grid-cols-3">
+                <div className="grid gap-3 sm:grid-cols-3">
                   {[
                     { icon: Boxes, label: 'Supply system' },
                     { icon: Flame, label: 'Survival theme' },
@@ -563,7 +563,7 @@ export default function ProjectDetailPage() {
                   ].map((item, index) => (
                     <div
                       key={item.label}
-                      className={`rounded-[1.35rem] border p-3 backdrop-blur-sm ${
+                      className={`h-[5.85rem] rounded-[1.35rem] border p-3 backdrop-blur-sm ${
                         index === 1 ? 'border-[#f7eab0]/80 bg-[#fff3d0]/85' : 'border-[#f7efc7]/70 bg-[#fff8e0]/78'
                       }`}
                     >
@@ -571,7 +571,7 @@ export default function ProjectDetailPage() {
                       <p className="mt-2 font-['Poppins:SemiBold',sans-serif] text-[0.68rem] uppercase tracking-[0.16em] text-[#8a7c1e]">
                         Focus
                       </p>
-                      <p className="mt-1.5 font-['Ojuju:Bold',sans-serif] text-base leading-tight text-[#5f3b27]">{item.label}</p>
+                      <p className="mt-1 font-['Ojuju:Bold',sans-serif] text-base leading-tight text-[#5f3b27]">{item.label}</p>
                     </div>
                   ))}
                 </div>
@@ -633,7 +633,7 @@ export default function ProjectDetailPage() {
                 : isWasteland
                   ? 'border-[#d8b193] bg-[#fffaf6]'
                   : isTCCH
-                    ? 'border-[#d9dee8] bg-white'
+                    ? 'border-[#334155] bg-[#071120]/92'
                     : 'border-[#D5E7F2] bg-white/95'
           }`}>
             {[
@@ -647,7 +647,7 @@ export default function ProjectDetailPage() {
                 className={`px-6 py-6 md:px-8 ${
                   index > 0
                     ? isTCCH
-                      ? 'border-t border-[#e6ebf2] sm:border-l sm:border-t-0'
+                      ? 'border-t border-[#334155] sm:border-l sm:border-t-0'
                       : isWasteland
                         ? 'border-t border-[#ecd7c7] sm:border-l sm:border-t-0'
                         : 'border-t border-[#E7EDF4] sm:border-l sm:border-t-0'
@@ -662,7 +662,7 @@ export default function ProjectDetailPage() {
                       : isWasteland
                         ? 'text-[#8B4E2B]'
                         : isTCCH
-                          ? 'text-[#6b7280]'
+                          ? 'text-[#93C5FD]'
                           : 'text-[#BF8351]'
                 }`}>
                   {label}
@@ -677,7 +677,7 @@ export default function ProjectDetailPage() {
                       : isWasteland
                         ? 'text-[#4f3427]'
                         : isTCCH
-                          ? 'text-[#111827]'
+                          ? 'text-[#E2E8F0]'
                           : 'text-[#1E2939]'
                 }`}>
                   {value}
@@ -698,13 +698,15 @@ export default function ProjectDetailPage() {
             ? 'border border-[#ffd986] bg-white/88 backdrop-blur-sm'
             : isWasteland
               ? 'border border-[#d8b193] bg-[#f9efe7]/96'
+              : isTCCH
+                ? 'border border-[#334155] bg-[#0f172a]/92'
               : 'border border-[#E6C4A8] bg-white/95'
         }`}>
           <div className="mb-5 flex items-center gap-4">
             <LightbulbIcon className="h-14 w-14" />
-            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#B90D37]' : isWasteland ? 'text-[#6e3d25]' : 'text-[#BF8351]'}`}>Thesis</h2>
+            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#B90D37]' : isWasteland ? 'text-[#6e3d25]' : isTCCH ? 'text-[#F8FAFC]' : 'text-[#BF8351]'}`}>Thesis</h2>
           </div>
-          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#1f2937]' : isWasteland ? 'text-[#4f3427]' : 'text-[#364153]'}`}>{project.thesis}</p>
+          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#1f2937]' : isWasteland ? 'text-[#4f3427]' : isTCCH ? 'text-[#D5E7F2]' : 'text-[#364153]'}`}>{project.thesis}</p>
         </section>
 
         <section className={`rounded-[2rem] p-10 shadow-xl ${
@@ -712,13 +714,15 @@ export default function ProjectDetailPage() {
             ? 'border border-[#c8ddbd] bg-[#f8f9ef]/92 backdrop-blur-sm dark:border-[#3e4715] dark:bg-[#15190d]/92'
             : isWasteland
               ? 'border border-[#e3c8b4] bg-[#fcf5ef]/95'
+              : isTCCH
+                ? 'border border-[#334155] bg-[#0f172a]/92'
               : 'border border-[#D5E7F2] bg-white/95'
         }`}>
           <div className="mb-5 flex items-center gap-4">
             <UserIcon className="h-14 w-14" />
-            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#7B7F26]' : isIAFinancial ? 'text-[#1E3A8A]' : isWasteland ? 'text-[#8B4E2B]' : 'text-[#ABCEE2]'}`}>Ideation</h2>
+            <h2 className={`font-['Ojuju:Bold',sans-serif] text-4xl ${isFlavorBridge ? 'text-[#7B7F26]' : isIAFinancial ? 'text-[#1E3A8A]' : isWasteland ? 'text-[#8B4E2B]' : isTCCH ? 'text-[#F8FAFC]' : 'text-[#ABCEE2]'}`}>Ideation</h2>
           </div>
-          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#475569]' : isWasteland ? 'text-[#4f3427]' : isIAFinancial ? 'text-[#364153]' : 'text-[#364153]'}`}>{project.ideation}</p>
+          <p className={`font-['Poppins:Regular',sans-serif] text-lg leading-8 ${isFlavorBridge ? 'text-[#364153] dark:text-[#475569]' : isWasteland ? 'text-[#4f3427]' : isTCCH ? 'text-[#D5E7F2]' : isIAFinancial ? 'text-[#364153]' : 'text-[#364153]'}`}>{project.ideation}</p>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {isIAFinancial ? (
               <>
@@ -787,17 +791,6 @@ export default function ProjectDetailPage() {
                     The collaborative process made it easier to judge what was landing visually in context. Seeing the cards in-hand and on the table helped reinforce which details felt clear, which textures supported the theme, and where stronger direction improved the overall presentation.
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setSelectedImage(wastelandVisuals[3])}
-                  className="overflow-hidden rounded-[1.5rem] border border-[#d8b193] bg-[#2a1710] shadow-lg transition-transform hover:-translate-y-1 md:col-span-2"
-                >
-                  <img
-                    src={wastelandVisuals[3].src}
-                    alt={wastelandVisuals[3].alt}
-                    className="h-[20rem] w-full object-cover"
-                  />
-                </button>
               </>
             ) : (
               <>
