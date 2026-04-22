@@ -501,7 +501,7 @@ export default function ProjectDetailPage() {
                   : isIAFinancial
                     ? 'min-h-[10rem] overflow-hidden border border-white/60 bg-[#dcecff] p-6'
                     : isWasteland
-                      ? 'min-h-[10rem] border border-[#f2e5db]/80 bg-[#efe1d4]/82 p-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)]'
+                      ? 'min-h-[10rem] border border-[#f2e5db]/80 bg-[#efe1d4]/82 p-6 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)]'
                     : id === '3'
                       ? 'min-h-[10rem] overflow-hidden border border-white/10 bg-[#111827] p-6'
                     : 'min-h-[10rem] border border-white/60 bg-white/70 p-6 backdrop-blur-sm'
@@ -571,7 +571,7 @@ export default function ProjectDetailPage() {
                       <p className="mt-3 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#8a7c1e]">
                         Focus
                       </p>
-                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-xl leading-tight text-[#5f3b27]">{item.label}</p>
+                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-xl text-[#5f3b27]">{item.label}</p>
                     </div>
                   ))}
                 </div>
