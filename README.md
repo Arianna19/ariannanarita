@@ -96,6 +96,12 @@ Last edited: April 22, 2026
 
 ## Running The Site
 
+- Move into the app folder:
+
+```bash
+cd PotfolioWebsite2026
+```
+
 - Install dependencies:
 
 ```bash
@@ -117,7 +123,7 @@ npm run build
 ## Maintenance Notes
 
 - Keep project pages consistent with the existing case-study structure when adding new work.
-- Add new project images to `public/` when they need stable public paths.
-- Add imported personal or interface assets to `src/imports/` when they are used directly in React components.
+- Add new project images to `PotfolioWebsite2026/public/` when they need stable public paths.
+- Add imported personal or interface assets to `PotfolioWebsite2026/src/imports/` when they are used directly in React components.
 - Check both light mode and dark mode after visual changes.
-- Run `npm run build` before committing site changes.
+- Run `npm run build` from the `PotfolioWebsite2026/` app folder before committing site changes.
