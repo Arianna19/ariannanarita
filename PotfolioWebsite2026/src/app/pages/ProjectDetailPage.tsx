@@ -494,14 +494,14 @@ export default function ProjectDetailPage() {
               </>
             ) : null}
             <OceanBubbles className="absolute left-8 top-8 h-24 w-24 opacity-60" />
-            <div className={`relative grid w-full ${isWasteland ? 'gap-3 p-4 sm:p-5' : 'gap-4 p-6 sm:p-8'}`}>
+            <div className={`relative grid w-full ${isWasteland ? 'gap-2 p-4 sm:p-5' : 'gap-4 p-6 sm:p-8'}`}>
               <div className={`grid place-items-center rounded-[1.75rem] shadow-lg ${
                 isFlavorBridge
                   ? 'min-h-[10rem] border border-white/40 bg-white/20 p-6 backdrop-blur-sm'
                   : isIAFinancial
                     ? 'min-h-[10rem] overflow-hidden border border-white/60 bg-[#dcecff] p-6'
                     : isWasteland
-                      ? 'h-[7.25rem] overflow-hidden border border-[#f2e5db]/80 bg-[#efe1d4]/82 p-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)] sm:h-[8rem]'
+                      ? 'h-[7.5rem] border border-[#f2e5db]/80 bg-[#efe1d4]/82 p-2 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)] sm:h-[8.25rem]'
                     : id === '3'
                       ? 'min-h-[10rem] overflow-hidden border border-white/10 bg-[#111827] p-6'
                     : 'min-h-[10rem] border border-white/60 bg-white/70 p-6 backdrop-blur-sm'
@@ -514,7 +514,7 @@ export default function ProjectDetailPage() {
                   <img
                     src={encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-0.png`)}
                     alt="Wasteland Survivors title artwork"
-                    className="h-full w-full scale-[0.56] object-contain"
+                    className="max-h-full max-w-full object-contain object-center"
                   />
                 ) : id === '3' ? (
                   <div className="relative h-full w-full">
@@ -555,7 +555,7 @@ export default function ProjectDetailPage() {
                     ))}
                 </div>
               ) : isWasteland ? (
-                <div className="grid gap-3 sm:grid-cols-3">
+                <div className="-mx-4 grid gap-3 sm:-mx-5 sm:grid-cols-3">
                   {[
                     { icon: Boxes, label: 'Supply system' },
                     { icon: Flame, label: 'Survival theme' },
@@ -563,7 +563,7 @@ export default function ProjectDetailPage() {
                   ].map((item, index) => (
                     <div
                       key={item.label}
-                      className={`h-[5.85rem] rounded-[1.35rem] border p-3 backdrop-blur-sm ${
+                      className={`h-[5.7rem] rounded-[1.35rem] border p-3 backdrop-blur-sm ${
                         index === 1 ? 'border-[#f7eab0]/80 bg-[#fff3d0]/85' : 'border-[#f7efc7]/70 bg-[#fff8e0]/78'
                       }`}
                     >
