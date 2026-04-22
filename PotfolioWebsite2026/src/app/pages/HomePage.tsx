@@ -6,7 +6,7 @@ import WaveTransition from '../components/WaveTransition';
 import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, BrandingIcon, CodeIcon, PrototypeIcon } from '../components/Icons';
 import { FlowingWater, JapaneseWave, OceanBubbles } from '../components/OceanWave';
-import portraitImage from '../../imports/me.png';
+import portraitImage from '../../imports/PXL_20240726_182517122.PORTRAIT.jpg';
 
 const flavorBridgeLogo = encodeURI(`${import.meta.env.BASE_URL}flavor-bridge-exports/Vector.png`);
 const iaFinancialImage = encodeURI(`${import.meta.env.BASE_URL}ia-financial/GuilaumeNoText.png`);
@@ -432,7 +432,7 @@ export default function HomePage() {
                   <div className="overflow-hidden rounded-[1.75rem] border border-white/60 bg-white/20 shadow-xl backdrop-blur-sm">
                     <img
                       src={portraitImage}
-                      alt="Portrait illustration for Arianna Sanchez Narita"
+                      alt="Portrait of Arianna Sanchez Narita"
                       className="h-[22rem] w-[22rem] object-cover sm:h-[24rem] sm:w-[24rem]"
                     />
                   </div>
