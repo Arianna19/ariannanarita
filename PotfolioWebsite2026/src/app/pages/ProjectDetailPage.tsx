@@ -494,14 +494,14 @@ export default function ProjectDetailPage() {
               </>
             ) : null}
             <OceanBubbles className="absolute left-8 top-8 h-24 w-24 opacity-60" />
-            <div className={`relative grid w-full ${isWasteland ? 'gap-2 p-4 sm:p-5' : 'gap-4 p-6 sm:p-8'}`}>
+            <div className="relative grid w-full gap-4 p-6 sm:p-8">
               <div className={`grid place-items-center rounded-[1.75rem] shadow-lg ${
                 isFlavorBridge
                   ? 'min-h-[10rem] border border-white/40 bg-white/20 p-6 backdrop-blur-sm'
                   : isIAFinancial
                     ? 'min-h-[10rem] overflow-hidden border border-white/60 bg-[#dcecff] p-6'
                     : isWasteland
-                      ? 'h-[9rem] border border-[#f2e5db]/80 bg-[#efe1d4]/82 p-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)] sm:h-[9.5rem]'
+                      ? 'min-h-[10rem] border border-[#f2e5db]/80 bg-[#efe1d4]/82 p-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.16)]'
                     : id === '3'
                       ? 'min-h-[10rem] overflow-hidden border border-white/10 bg-[#111827] p-6'
                     : 'min-h-[10rem] border border-white/60 bg-white/70 p-6 backdrop-blur-sm'
@@ -511,13 +511,10 @@ export default function ProjectDetailPage() {
                 ) : isIAFinancial ? (
                   <img src={iaFinancialLogoPng} alt="IA Financial Group logo" className="h-24 w-full object-contain px-10 md:h-28" />
                 ) : isWasteland ? (
-                  <div
-                    role="img"
-                    aria-label="Wasteland Survivors title artwork"
-                    className="h-full w-full bg-contain bg-center bg-no-repeat"
-                    style={{
-                      backgroundImage: `url("${encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-0.png`)}")`,
-                    }}
+                  <img
+                    src={encodeURI(`${import.meta.env.BASE_URL}wasteland-survivors/wasteland-0.png`)}
+                    alt="Wasteland Survivors title artwork"
+                    className="h-28 w-full object-contain object-center md:h-36"
                   />
                 ) : id === '3' ? (
                   <div className="relative h-full w-full">
@@ -558,7 +555,7 @@ export default function ProjectDetailPage() {
                     ))}
                 </div>
               ) : isWasteland ? (
-                <div className="-mx-4 grid gap-3 sm:-mx-5 sm:grid-cols-3">
+                <div className="grid gap-4 sm:grid-cols-3">
                   {[
                     { icon: Boxes, label: 'Supply system' },
                     { icon: Flame, label: 'Survival theme' },
@@ -566,15 +563,15 @@ export default function ProjectDetailPage() {
                   ].map((item, index) => (
                     <div
                       key={item.label}
-                      className={`h-[5.35rem] rounded-[1.35rem] border p-3 backdrop-blur-sm ${
+                      className={`rounded-[1.5rem] border p-5 backdrop-blur-sm ${
                         index === 1 ? 'border-[#f7eab0]/80 bg-[#fff3d0]/85' : 'border-[#f7efc7]/70 bg-[#fff8e0]/78'
                       }`}
                     >
-                      <item.icon className="h-4 w-4 text-[#8B2A3E]" />
-                      <p className="mt-2 font-['Poppins:SemiBold',sans-serif] text-[0.68rem] uppercase tracking-[0.16em] text-[#8a7c1e]">
+                      <item.icon className="h-5 w-5 text-[#8B2A3E]" />
+                      <p className="mt-3 font-['Poppins:SemiBold',sans-serif] text-xs uppercase tracking-[0.16em] text-[#8a7c1e]">
                         Focus
                       </p>
-                      <p className="mt-1 font-['Ojuju:Bold',sans-serif] text-base leading-tight text-[#5f3b27]">{item.label}</p>
+                      <p className="mt-2 font-['Ojuju:Bold',sans-serif] text-xl leading-tight text-[#5f3b27]">{item.label}</p>
                     </div>
                   ))}
                 </div>
