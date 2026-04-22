@@ -20,6 +20,7 @@ import {
   GithubLogoIcon,
 } from '../components/Icons';
 import portraitImage from '../../imports/me.png';
+import homePortraitImage from '../../imports/PXL_20240726_182517122.PORTRAIT.jpg';
 import { AudioLines, Bot, ChevronLeft, ChevronRight, Figma, Github, Layers3, MonitorSmartphone, PenTool, Sparkles } from 'lucide-react';
 
 const biographyParagraphs = [
@@ -198,11 +199,16 @@ export default function BiographyPage() {
             className="lg:col-span-1"
           >
             <div className="rounded-[2rem] bg-white/95 p-6 shadow-xl backdrop-blur-sm sm:p-8 lg:sticky lg:top-32">
-              <div className="mb-6 overflow-hidden rounded-[1.75rem] border border-[#D5E7F2] bg-gradient-to-br from-[#D5E7F2] via-[#ABCEE2] to-[#E6C4A8]">
+              <div className="group relative mb-6 aspect-square overflow-hidden rounded-[1.75rem] border border-[#D5E7F2] bg-gradient-to-br from-[#D5E7F2] via-[#ABCEE2] to-[#E6C4A8]">
                 <img
                   src={portraitImage}
                   alt="Portrait illustration for Arianna Sanchez Narita"
-                  className="aspect-square w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+                />
+                <img
+                  src={homePortraitImage}
+                  alt="Portrait of Arianna Sanchez Narita"
+                  className="absolute inset-0 h-full w-full object-contain p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </div>
               <h2 className="font-['Ojuju:Bold',sans-serif] text-2xl text-[#1E2939]">Arianna Sanchez Narita</h2>

@@ -7,6 +7,7 @@ import PageContactCta from '../components/PageContactCta';
 import { DesignIcon, BrandingIcon, CodeIcon, PrototypeIcon } from '../components/Icons';
 import { FlowingWater, JapaneseWave, OceanBubbles } from '../components/OceanWave';
 import portraitImage from '../../imports/PXL_20240726_182517122.PORTRAIT.jpg';
+import biographyPortraitImage from '../../imports/me.png';
 
 const flavorBridgeLogo = encodeURI(`${import.meta.env.BASE_URL}flavor-bridge-exports/Vector.png`);
 const iaFinancialImage = encodeURI(`${import.meta.env.BASE_URL}ia-financial/GuilaumeNoText.png`);
@@ -429,11 +430,16 @@ export default function HomePage() {
                   <JapaneseWave className="h-full w-full" />
                 </div>
                 <div className="relative grid min-h-[30rem] place-items-center">
-                  <div className="overflow-hidden rounded-[1.75rem] border border-white/60 bg-white/20 shadow-xl backdrop-blur-sm">
+                  <div className="group relative h-[22rem] w-[22rem] overflow-hidden rounded-[1.75rem] border border-white/60 bg-white/20 shadow-xl backdrop-blur-sm sm:h-[24rem] sm:w-[24rem]">
                     <img
                       src={portraitImage}
                       alt="Portrait of Arianna Sanchez Narita"
-                      className="h-[22rem] w-[22rem] object-cover sm:h-[24rem] sm:w-[24rem]"
+                      className="absolute inset-0 h-full w-full object-contain p-3 transition-opacity duration-300 group-hover:opacity-0"
+                    />
+                    <img
+                      src={biographyPortraitImage}
+                      alt="Portrait illustration for Arianna Sanchez Narita"
+                      className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                     />
                   </div>
                 </div>
